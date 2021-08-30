@@ -23,7 +23,7 @@ val Typography = Typography(
   defaultFontFamily = RobotoCondensed,
   h1 = TextStyle(
     fontWeight = FontWeight.W100,
-    fontSize = 96.sp,
+    fontSize = 48.sp,
   ),
   h2 = TextStyle(
     fontWeight = FontWeight.SemiBold,

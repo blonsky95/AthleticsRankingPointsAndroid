@@ -1,27 +1,36 @@
 package com.example.athleticsrankingpoints.ui.lookupscreen
 
-import android.graphics.Paint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import kotlin.math.floor
 import kotlin.math.pow
 
 @Composable
-fun PointLookUpBody() {
+fun PointLookUpBody(
+  listOfEvents:List<AthleticsEvent>
+) {
 
-  val event100m = AthleticsEvent(name="100m", type = AthleticsEvent.type_run,
-    coefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480))
+  var selectedEvent by remember{mutableStateOf( listOfEvents[0])}
+
+  var selectedSex by remember{mutableStateOf( AthleticsEvent.sexMale)}
+  var selectedDoor by remember{mutableStateOf( AthleticsEvent.doorIndoor)}
+
+//  var selectedColor by remember {
+//    mutableStateOf(Color.Red)
+//  }
 
   Column(Modifier.padding(16.dp)) {
     var performanceString by remember {
@@ -30,45 +39,115 @@ fun PointLookUpBody() {
     var performancePoints by remember {
       mutableStateOf("0")
     }
-
-    Surface(modifier = Modifier.width(320.dp).padding(16.dp)) {
+    Text(
+      text = selectedEvent.sName,
+      style = MaterialTheme.typography.h2,
+      modifier = Modifier
+        .align(Start)
+        .padding(bottom = 8.dp)
+    )
+    Text(
+      text = "Write the time or distance in the following box:",
+      style = MaterialTheme.typography.body1,
+      modifier = Modifier
+        .align(Alignment.CenterHorizontally)
+        .padding(bottom = 16.dp)
+    )
+    Surface(modifier = Modifier
+      .fillMaxWidth()
+      .padding(bottom = 16.dp)
+    ) {
       TextField(value = performanceString, onValueChange = {
         performanceString = it
-        performancePoints = getPoints(athleticsEvent = event100m, performance = performanceString).toString()
+        performancePoints = getPoints(athleticsEvent = selectedEvent, performance = performanceString).toString()
       },
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
       )
     }
 
-    Text(modifier = Modifier.align(CenterHorizontally).padding(16.dp),
-      text = performancePoints)
+    Row{
+      Box(modifier = Modifier
+        .fillMaxWidth()
+        .padding(bottom = 8.dp)){
+        Text(modifier = Modifier
+          .align(Alignment.CenterStart),
+          style = MaterialTheme.typography.body1,
+          text = "POINTS:")
 
+        Text(modifier = Modifier
+          .align(Alignment.CenterEnd),
+          style = MaterialTheme.typography.body1,
+          text = performancePoints)
+      }
+    }
 
+    Row(Modifier.fillMaxWidth()){
+      Row (Modifier.weight(1F)) {
+        AthleticsEvent.listSexOptions.forEach{
+          var backgroundColor = Color.Transparent
+          Box(Modifier
+            .weight(1F)
+            .selectable(
+              selected = selectedSex == it,
+              onClick = { selectedSex = it }
+            )) {
+            if (selectedSex == it) {
+              backgroundColor = Color.Red
+            }
+            Text(modifier = Modifier
+              .background(backgroundColor)
+              .fillMaxWidth(),
+              text = it)
+          }
+
+        }
+      }
+      Row (Modifier.weight(1F)) {
+        AthleticsEvent.listDoorOptions.forEach{
+          Text(modifier = Modifier
+            .weight(1F)
+            .selectable(
+              selected = selectedDoor == it,
+              onClick = { selectedDoor = it }
+            ),
+            text = it)
+        }
+      }
+    }
+
+    Divider(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+    color = Color(0xFFACACAC), thickness = 2.dp)
+
+    LazyColumn (modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)){
+      items(listOfEvents) {
+        Row(modifier = Modifier.selectable(
+          selected = selectedEvent == it,
+          onClick = { selectedEvent = it}
+        )) {
+          var backgroundColor = Color.Transparent
+
+          if (selectedEvent == it) {
+            backgroundColor = Color(0xFFACACAC)
+          }
+          Text(modifier = Modifier
+            .fillMaxWidth()
+            .background(backgroundColor)
+            .padding(bottom = 8.dp, top = 8.dp),
+            text = it.sName)
+        }
+      }
+    }
   }
-
 }
 
-class AthleticsEvent (
-  val name:String,
-  val type:String, //run, jump or throw
-  val coefficients:HashMap<String, Double>
-    ){
 
-  companion object{
-    const val type_run="type_run" //only needs seconds and hundredths
-    const val type_long_run="type_long_run" //needs minutes, seconds and hundredths
-    const val type_very_long_run="type_very_long_run" //needs hours, minutes, seconds and hundredths
-    const val type_jump="type_jump" //only needs metres
-    const val type_throw="type_throw" //only needs metres
-  }
 
-}
 
 fun getPoints(athleticsEvent: AthleticsEvent, performance:String) :Int  {
   return if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
     0
   } else {
-    pointsForRun(athleticsEvent.coefficients, performance.toDouble())
+    pointsForRun(athleticsEvent.sCoefficients, performance.toDouble())
   }
 }
 // when (athleticsEvent.type) {

@@ -11,6 +11,9 @@ val Teal200 = Color(0xFF03DAC5)
 val Green500 = Color(0xFF1EB980)
 val DarkBlue900 = Color(0xFF26282F)
 
+val MyGray = Color(0xFFB8B8B8)
+
+
 val ColorPalette = darkColors(
   primary = Green500,
   surface = DarkBlue900,

@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import com.example.athleticsrankingpoints.WorldRankingScreen
 import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
+import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.ui.InformationBody
 import com.example.athleticsrankingpoints.ui.lookupscreen.PointLookUpBody
 
@@ -21,7 +22,8 @@ fun WorldRankingNavHost(
   ) {
 
     composable(route = WorldRankingScreen.PointLookUp.name) {
-      PointLookUpBody()
+      //The parameter here should be a list of events that are displayed in pointlookupbody
+      PointLookUpBody(listOfEvents = AthleticsEvent.getLongerEventsList())
     }
     composable(route = WorldRankingScreen.Simulator.name) {
       Text("I'm simulator")
