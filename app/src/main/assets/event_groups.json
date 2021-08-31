@@ -1,0 +1,1704 @@
+[
+    {
+        "sName": "Men´s 100m",
+        "sMainEvent": {
+            "sName": "100m",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_male",
+            "sKey": "100m_m_o",
+            "sCoefficients": {
+                "a":24.6422116633,
+                "b":-16.9975315583,
+                "c":-0.2186620480
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "50m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "50m_m_i",
+                "sCoefficients": {
+                    "a":95.8223538630,
+                    "b":-9.1994010874,
+                    "c":-0.3765978316
+                }
+            },
+            {
+                "sName": "55m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "55m_m_i",
+                "sCoefficients": {
+                    "a":78.9227608846,
+                    "b":-9.9991682963,
+                    "c":-0.3262593216
+                }
+            },
+            {
+                "sName": "60m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "60m_m_i",
+                "sCoefficients": {
+                    "a":68.6203220047,
+                    "b":-10.6992800164,
+                    "c":-0.3594275681
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 200m",
+        "sMainEvent": {
+            "sName": "200m",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_male",
+            "sKey": "200m_m_o",
+            "sCoefficients": {
+                "a":5.0833296257,
+                "b":-35.4911115974,
+                "c":-0.0957410215
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "200m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "200m_m_i",
+                "sCoefficients": {
+                    "a":5.0432159856,
+                    "b":-35.9910107213,
+                    "c":0.1193936923
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 400m",
+        "sMainEvent": {
+            "sName": "400m",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_male",
+            "sKey": "400m_m_o",
+            "sCoefficients": {
+                "a":1.0210130426,
+                "b":-78.9946930564,
+                "c":0.0029880052
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "300m",
+                "sType": "type_run",
+                "sCategory": "category_outdoor_male",
+                "sKey": "300m_m_o",
+                "sCoefficients": {
+                    "a":1.8296570247,
+                    "b":-57.1976881434,
+                    "c":-0.0553585925
+                }
+            },
+            {
+                "sName": "300m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "300m_m_i",
+                "sCoefficients": {
+                    "a":1.8029166507,
+                    "b":-57.9959412461,
+                    "c":-0.0339878087
+                }
+            },
+            {
+                "sName": "400m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "400m_m_i",
+                "sCoefficients": {
+                    "a":0.9810343085,
+                    "b":-80.5943092492,
+                    "c":0.0100805172
+                }
+            },
+            {
+                "sName": "500m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "500m_m_i",
+                "sCoefficients": {
+                    "a":0.5649640314,
+                    "b":-105.9967162205,
+                    "c":-0.0223133096
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 800m",
+        "sMainEvent": {
+            "sName": "800m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "800m_m_o",
+            "sCoefficients": {
+                "a":0.1980049254,
+                "b":-181.9938575678,
+                "c":0.0091543669
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "600m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "600m_m_o",
+                "sCoefficients": {
+                    "a":0.3669867740,
+                    "b":-130.9961594799,
+                    "c":-0.0103075994
+                }
+            },
+            {
+                "sName": "600m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "600m_m_i",
+                "sCoefficients": {
+                    "a":0.3899861153,
+                    "b":-130.9961383961,
+                    "c":-0.0107176039
+                }
+            },
+            {
+                "sName": "800m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "800m_m_i",
+                "sCoefficients": {
+                    "a":0.1973925611,
+                    "b":-183.9969956062,
+                    "c":-0.0163487860
+                }
+            },
+            {
+                "sName": "1000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "1000m_m_i",
+                "sCoefficients": {
+                    "a":0.1138977865,
+                    "b":-239.9960148998,
+                    "c":-0.0046409292
+                }
+            },
+            {
+                "sName": "1000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "1000m_m_o",
+                "sCoefficients": {
+                    "a":0.1074010815,
+                    "b":-239.9941856026,
+                    "c":0.0042507048
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 1500m",
+        "sMainEvent": {
+            "sName": "1500m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "1500m_m_o",
+            "sCoefficients": {
+                "a":0.0406599253,
+                "b":-384.9950051367,
+                "c":0.0012055910
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "1500m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "1500m_m_i",
+                "sCoefficients": {
+                    "a":0.0419999885,
+                    "b":-385.9950544882,
+                    "c":-0.0003541283
+                }
+            },
+            {
+                "sName": "1 Mile",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "1mile_m_o",
+                "sCoefficients": {
+                    "a":0.0350996776,
+                    "b":-414.9960661793,
+                    "c":-0.0028258109
+                }
+            },
+            {
+                "sName": "1 Mile",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "1mile_m_i",
+                "sCoefficients": {
+                    "a":0.0369000074,
+                    "b":-414.9952787475,
+                    "c":-0.0011489453
+                }
+            },
+            {
+                "sName": "2000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "2000m_m_o",
+                "sCoefficients": {
+                    "a":0.3669867740,
+                    "b":-130.9961594799,
+                    "c":-0.0103075994
+                }
+            },
+            {
+                "sName": "2000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "2000m_m_i",
+                "sCoefficients": {
+                    "a":0.0226000035,
+                    "b":-527.9948971024,
+                    "c":0.0000435776
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 5000m",
+        "sMainEvent": {
+            "sName": "5000m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "5000m_m_o",
+            "sCoefficients": {
+                "a":0.0027779979,
+                "b":-1439.9953256617,
+                "c":-0.0004296371
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "3000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "3000m_m_o",
+                "sCoefficients": {
+                    "a":0.0081500499,
+                    "b":-839.9938439226,
+                    "c":0.0015204438
+                }
+            },
+            {
+                "sName": "3000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "3000m_m_i",
+                "sCoefficients": {
+                    "a":0.0083219192,
+                    "b":-839.9970746667,
+                    "c":-0.0027639444
+                }
+            },
+            {
+                "sName": "2 Miles",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "2miles_m_o",
+                "sCoefficients": {
+                    "a":0.0070299885,
+                    "b":-904.7954323334,
+                    "c":-0.0009453377
+                }
+            },
+            {
+                "sName": "2 Miles",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "2miles_m_i",
+                "sCoefficients": {
+                    "a":0.0072099692,
+                    "b":-906.9958053163,
+                    "c":-0.0012099440
+                }
+            },
+            {
+                "sName": "5000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_male",
+                "sKey": "5000m_m_i",
+                "sCoefficients": {
+                    "a":0.0029000031,
+                    "b":-1439.9944442896,
+                    "c":0.0004079214
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 3,
+        "sMinNumberPerformancesMainEvent": 2
+    },
+    {
+        "sName": "Men´s 10000m",
+        "sMainEvent": {
+            "sName": "10000m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "10000m_m_o",
+            "sCoefficients": {
+                "a":0.0005239994,
+                "b":-3149.9962170853,
+                "c":-0.0004979093
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "5000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "5000m_m_o",
+                "sCoefficients": {
+                    "a":0.0027779979,
+                    "b":-1439.9953256617,
+                    "c":-0.0004296371
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 2,
+        "sMinNumberPerformancesMainEvent": 1
+    },
+    {
+        "sName": "Men´s 110mH",
+        "sMainEvent": {
+            "sName": "110mh",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_male",
+            "sKey": "110mh_m_o",
+            "sCoefficients": {
+                "a":7.6652061276,
+                "b":-25.7930225928,
+                "c":0.0141087786
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "60mh",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "60mh_m_i",
+                "sCoefficients": {
+                    "a":23.9163242706,
+                    "b":-14.5966339421,
+                    "c":-0.1644943777
+                }
+            },
+            {
+                "sName": "55mh",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "55mh_m_i",
+                "sCoefficients": {
+                    "a":30.0853077082,
+                    "b":-13.3476676416,
+                    "c":-0.2329919571
+                }
+            },
+            {
+                "sName": "50mh",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "50mh_m_i",
+                "sCoefficients": {
+                    "a":34.2123772242,
+                    "b":-12.3484992509,
+                    "c":-0.2978589247
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 400mH",
+        "sMainEvent": {
+            "sName": "400mh",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_male",
+            "sKey": "400mh_m_o",
+            "sCoefficients": {
+                "a":0.5459888468,
+                "b":-95.4953371509,
+                "c":0.0002166679
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s 3000mSC",
+        "sMainEvent": {
+            "sName": "3000m Steeplechase",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "3000mSC_m_o",
+            "sCoefficients": {
+                "a":0.0043159973,
+                "b":-1019.9952251094,
+                "c":-0.0005178463
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "2000m Steeplechase",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "2000mSC_m_o",
+                "sCoefficients": {
+                    "a":0.0102299858,
+                    "b":-659.9952837440,
+                    "c":-0.0004264088
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 3,
+        "sMinNumberPerformancesMainEvent": 2
+    },
+    {
+        "sName": "Men´s High Jump",
+        "sMainEvent": {
+            "sName": "High jump",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_male",
+            "sKey": "high_jump_m_o",
+            "sCoefficients": {
+                "a":32.1457081634,
+                "b":11.5936889433,
+                "c":-5026.0808417004
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "High jump",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_male",
+                "sKey": "high_jump_m_i",
+                "sCoefficients": {
+                    "a":32.1457081634,
+                    "b":11.5936889433,
+                    "c":-5026.0808417004
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Pole Vault",
+        "sMainEvent": {
+            "sName": "Pole vault",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_male",
+            "sKey": "pole_vault_m_o",
+            "sCoefficients": {
+                "a":3.0457199209,
+                "b":39.3358603090,
+                "c":-4993.2138282251
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Pole vault",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_male",
+                "sKey": "pole_vault_m_i",
+                "sCoefficients": {
+                    "a":3.0457199209,
+                    "b":39.3358603090,
+                    "c":-4993.2138282251
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Long Jump",
+        "sMainEvent": {
+            "sName": "Long jump",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_male",
+            "sKey": "long_jump_m_o",
+            "sCoefficients": {
+                "a":1.9310928730,
+                "b":48.3486190515,
+                "c":-4993.8077931235
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Long jump",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_male",
+                "sKey": "long_jump_m_i",
+                "sCoefficients": {
+                    "a":1.9310928730,
+                    "b":48.3486190515,
+                    "c":-4993.8077931235
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Triple Jump",
+        "sMainEvent": {
+            "sName": "Triple jump",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_male",
+            "sKey": "triple_jump_m_o",
+            "sCoefficients": {
+                "a":0.4603666024,
+                "b":98.8014630138,
+                "c":-5008.9686647032
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Triple jump",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_male",
+                "sKey": "triple_jump_m_i",
+                "sCoefficients": {
+                    "a":0.4603666024,
+                    "b":98.8014630138,
+                    "c":-5008.9686647032
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Shot Put",
+        "sMainEvent": {
+            "sName": "Shot put",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_male",
+            "sKey": "shot_put_m_o",
+            "sCoefficients": {
+                "a":0.0423461436,
+                "b":684.8281542324,
+                "c":-19915.7245727669
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Shot put",
+                "sType": "type_throw",
+                "sCategory": "category_indoor_male",
+                "sKey": "shot_put_m_i",
+                "sCoefficients": {
+                    "a":0.0423461436,
+                    "b":684.8281542324,
+                    "c":-19915.7245727669
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Discus Throw",
+        "sMainEvent": {
+            "sName": "Discus throw",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_male",
+            "sKey": "discus_m_o",
+            "sCoefficients": {
+                "a":0.0040063129,
+                "b":2232.9834114813,
+                "c":-20003.5249226571
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Hammer Throw",
+        "sMainEvent": {
+            "sName": "Hammer throw",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_male",
+            "sKey": "hammer_m_o",
+            "sCoefficients": {
+                "a":0.0028034429,
+                "b":2669.7566381795,
+                "c":-20002.8716570753
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Javelin Throw",
+        "sMainEvent": {
+            "sName": "Javelin throw",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_male",
+            "sKey": "javelin_m_o",
+            "sCoefficients": {
+                "a":0.0024031525,
+                "b":2879.7978639657,
+                "c":-19950.9683606244
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Men´s Decathlon",
+        "sMainEvent": {
+            "sName": "Decathlon",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_male",
+            "sKey": "decathlon_m_o",
+            "sCoefficients": {
+                "a":0.0000009772,
+                "b":71186.6785041732,
+                "c":-5001.0472144005
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Heptathlon",
+                "sType": "type_run",
+                "sCategory": "category_indoor_male",
+                "sKey": "heptathlon_m_i",
+                "sCoefficients": {
+                    "a":0.0000017511,
+                    "b":53203.5391079802,
+                    "c":-5002.8876894102
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 2,
+        "sMinNumberPerformancesMainEvent": 1
+    },
+    {
+        "sName": "Men’s Marathon",
+        "sMainEvent": {
+            "sName": "Road - Marathon",
+            "sType": "type_run_very_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "road_marathon_m_o",
+            "sCoefficients": {
+                "a":0.0000191003,
+                "b":-15599.4039272134,
+                "c":0.0084789663
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Road - Half Marathon",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_half_marathon_m_o",
+                "sCoefficients": {
+                    "a":0.0001020050,
+                    "b":-7019.4133397892,
+                    "c":0.0119952047
+                }
+            },
+            {
+                "sName": "Road - 25km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_25km_m_o",
+                "sCoefficients": {
+                    "a":0.0000676515,
+                    "b":-8535.4393562416,
+                    "c":0.0146077104
+                }
+            },
+            {
+                "sName": "Road - 30km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_30km_m_o",
+                "sCoefficients": {
+                    "a":0.0000435300,
+                    "b":-10530.5042235755,
+                    "c":-0.0010360804
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 2,
+        "sMinNumberPerformancesMainEvent": 1
+    },
+    {
+        "sName": "Men’s Road Running",
+        "sMainEvent": {
+            "sName": "Road - 10km",
+            "sType": "type_run_very_long",
+            "sCategory": "category_outdoor_male",
+            "sKey": "road_10km_m_o",
+            "sCoefficients": {
+                "a":0.0005287550,
+                "b":-3149.1524016199,
+                "c":0.0690327319
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Road - 15km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_15km_m_o",
+                "sCoefficients": {
+                    "a":0.0002161981,
+                    "b":-4867.5076944338,
+                    "c":-0.0026187446
+                }
+            },
+            {
+                "sName": "Road - 10 Miles",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_10miles_m_o",
+                "sCoefficients": {
+                    "a":0.0001852499,
+                    "b":-5249.1013647510,
+                    "c":0.1014745309
+                }
+            },
+            {
+                "sName": "Road - 20km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_20km_m_o",
+                "sCoefficients": {
+                    "a":0.0001147009,
+                    "b":-6628.4786813353,
+                    "c":0.0058310275
+                }
+            },
+            {
+                "sName": "Road - Half Marathon",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_male",
+                "sKey": "road_half_marathon_m_o",
+                "sCoefficients": {
+                    "a":0.0001020050,
+                    "b":-7019.4133397892,
+                    "c":0.0119952047
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 3,
+        "sMinNumberPerformancesMainEvent": 2
+    },
+    {
+        "sName": "Women´s 100m",
+        "sMainEvent": {
+            "sName": "100m",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_female",
+            "sKey": "100m_f_o",
+            "sCoefficients": {
+                "a":9.9274264508,
+                "b":-21.9933700028,
+                "c":0.0421329658
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "50m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "50m_f_i",
+                "sCoefficients": {
+                    "a":33.0462434523,
+                    "b":-12.0979307449,
+                    "c":-0.2321096149
+                }
+            },
+            {
+                "sName": "55m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "55m_f_i",
+                "sCoefficients": {
+                    "a":27.6922288869,
+                    "b":-13.1481380284,
+                    "c":-0.3043705117
+                }
+            },
+            {
+                "sName": "60m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "60m_f_i",
+                "sCoefficients": {
+                    "a":24.9117754427,
+                    "b":-13.9976515376,
+                    "c":-0.2293776923
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 200m",
+        "sMainEvent": {
+            "sName": "200m",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_female",
+            "sKey": "200m_f_o",
+            "sCoefficients": {
+                "a":2.2422237149,
+                "b":-45.4938200765,
+                "c":0.0245765276
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "200m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "200m_f_i",
+                "sCoefficients": {
+                    "a":1.9616411646,
+                    "b":-47.4976950867,
+                    "c":-0.0697455752
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 400m",
+        "sMainEvent": {
+            "sName": "400m",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_female",
+            "sKey": "400m_f_o",
+            "sCoefficients": {
+                "a":0.3350059758,
+                "b":-109.9942273774,
+                "c":0.0076554298
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "300m",
+                "sType": "type_run",
+                "sCategory": "category_outdoor_female",
+                "sKey": "300m_f_o",
+                "sCoefficients": {
+                    "a":0.6999743364,
+                    "b":-76.9959087143,
+                    "c":-0.0139944400
+                }
+            },
+            {
+                "sName": "300m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "300m_f_i",
+                "sCoefficients": {
+                    "a":0.6595165231,
+                    "b":-78.9940494903,
+                    "c":0.0176083216
+                }
+            },
+            {
+                "sName": "400m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "400m_f_i",
+                "sCoefficients": {
+                    "a":0.3223966170,
+                    "b":-111.9954899416,
+                    "c":-0.0058333313
+                }
+            },
+            {
+                "sName": "500m",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "500m_f_i",
+                "sCoefficients": {
+                    "a":0.1713990152,
+                    "b":-150.4950203151,
+                    "c":0.0051908612
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 800m",
+        "sMainEvent": {
+            "sName": "800m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "800m_f_o",
+            "sCoefficients": {
+                "a":0.0687998934,
+                "b":-249.9950232947,
+                "c":-0.0000169472
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "600m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "600m_f_o",
+                "sCoefficients": {
+                    "a":0.1191983841,
+                    "b":-183.9955892216,
+                    "c":-0.0026515132
+                }
+            },
+            {
+                "sName": "600m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "600m_f_i",
+                "sCoefficients": {
+                    "a":0.1063013220,
+                    "b":-190.3440098081,
+                    "c":0.0091340263
+                }
+            },
+            {
+                "sName": "800m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "800m_f_i",
+                "sCoefficients": {
+                    "a":0.0572001165,
+                    "b":-263.9946646628,
+                    "c":0.0030507986
+                }
+            },
+            {
+                "sName": "1000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "1000m_f_i",
+                "sCoefficients": {
+                    "a":0.0347303143,
+                    "b":-340.3940084944,
+                    "c":0.0038176306
+                }
+            },
+            {
+                "sName": "1000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "1000m_f_o",
+                "sCoefficients": {
+                    "a":0.0381997085,
+                    "b":-329.9958136040,
+                    "c":-0.0021547584
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 1500m",
+        "sMainEvent": {
+            "sName": "1500m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "1500m_f_o",
+            "sCoefficients": {
+                "a":0.0133999963,
+                "b":-539.9949703133,
+                "c":-0.0005396117
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "1500m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "1500m_f_i",
+                "sCoefficients": {
+                    "a":0.0136499412,
+                    "b":-539.9956644344,
+                    "c":-0.0008961974
+                }
+            },
+            {
+                "sName": "1 Mile",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "1mile_f_o",
+                "sCoefficients": {
+                    "a":0.0116499986,
+                    "b":-579.9949693123,
+                    "c":0.0004597245
+                }
+            },
+            {
+                "sName": "1 Mile",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "1mile_f_i",
+                "sCoefficients": {
+                    "a":0.0115400273,
+                    "b":-585.4943375501,
+                    "c":0.0016038837
+                }
+            },
+            {
+                "sName": "2000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "2000m_f_o",
+                "sCoefficients": {
+                    "a":0.0067660105,
+                    "b":-749.9948524357,
+                    "c":0.0001847193
+                }
+            },
+            {
+                "sName": "2000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "2000m_f_i",
+                "sCoefficients": {
+                    "a":0.0068499998,
+                    "b":-752.1949210708,
+                    "c":0.0002786803
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 5000m",
+        "sMainEvent": {
+            "sName": "5000m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "5000m_f_o",
+            "sCoefficients": {
+                "a":0.0008079992,
+                "b":-2099.9956378883,
+                "c":-0.0001983631
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "3000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "3000m_f_o",
+                "sCoefficients": {
+                    "a":0.0025389975,
+                    "b":-1199.9953765729,
+                    "c":-0.0002368852
+                }
+            },
+            {
+                "sName": "3000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "3000m_f_i",
+                "sCoefficients": {
+                    "a":0.0025900009,
+                    "b":-1199.9946258953,
+                    "c":0.0005730322
+                }
+            },
+            {
+                "sName": "2 Miles",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "2miles_f_o",
+                "sCoefficients": {
+                    "a":0.0021569983,
+                    "b":-1296.2954038511,
+                    "c":-0.0002368758
+                }
+            },
+            {
+                "sName": "2 Miles",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "2miles_f_i",
+                "sCoefficients": {
+                    "a":0.0022019898,
+                    "b":-1296.2971509252,
+                    "c":-0.0015550154
+                }
+            },
+            {
+                "sName": "5000m",
+                "sType": "type_run_long",
+                "sCategory": "category_indoor_female",
+                "sKey": "5000m_f_i",
+                "sCoefficients": {
+                    "a":0.0008250002,
+                    "b":-2099.9945836524,
+                    "c":0.0004364654
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 3,
+        "sMinNumberPerformancesMainEvent": 2
+    },
+    {
+        "sName": "Women´s 10000m",
+        "sMainEvent": {
+            "sName": "10000m",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "10000m_f_o",
+            "sCoefficients": {
+                "a":0.0001711705,
+                "b":-4500.3728183251,
+                "c":-0.1365493768
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "5000m",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "5000m_f_o",
+                "sCoefficients": {
+                    "a":0.0008079992,
+                    "b":-2099.9956378883,
+                    "c":-0.0001983631
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 2,
+        "sMinNumberPerformancesMainEvent": 1
+    },
+    {
+        "sName": "Women´s 100mH",
+        "sMainEvent": {
+            "sName": "100mh",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_female",
+            "sKey": "100mh_f_o",
+            "sCoefficients": {
+                "a":3.9822963262,
+                "b":-29.9904801411,
+                "c":0.1130387851
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "60mh",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "60mh_f_i",
+                "sCoefficients": {
+                    "a":11.1682818890,
+                    "b":-18.1940019446,
+                    "c":0.0085061498
+                }
+            },
+            {
+                "sName": "55mh",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "55mh_f_i",
+                "sCoefficients": {
+                    "a":13.1982215478,
+                    "b":-16.7954274775,
+                    "c":-0.0911772754
+                }
+            },
+            {
+                "sName": "50mh",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "50mh_f_i",
+                "sCoefficients": {
+                    "a":16.2126653261,
+                    "b":-15.2953835346,
+                    "c":-0.1053761359
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 400mH",
+        "sMainEvent": {
+            "sName": "400mh",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_female",
+            "sKey": "400mh_f_o",
+            "sCoefficients": {
+                "a":0.2085649572,
+                "b":-129.9952469068,
+                "c":-0.0011574468
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s 3000mSC",
+        "sMainEvent": {
+            "sName": "3000m Steeplechase",
+            "sType": "type_run_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "3000mSC_f_o",
+            "sCoefficients": {
+                "a":0.0013229981,
+                "b":-1509.9954525199,
+                "c":-0.0000262420
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "2000m Steeplechase",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "2000mSC_f_o",
+                "sCoefficients": {
+                    "a":0.0045000012,
+                    "b":-879.9946744771,
+                    "c":0.0008898666
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 3,
+        "sMinNumberPerformancesMainEvent": 2
+    },
+    {
+        "sName": "Women´s High Jump",
+        "sMainEvent": {
+            "sName": "High jump",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_female",
+            "sKey": "high_jump_f_o",
+            "sCoefficients": {
+                "a":39.5579087445,
+                "b":10.5082093421,
+                "c":-4969.5880642855
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "High jump",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_female",
+                "sKey": "high_jump_f_i",
+                "sCoefficients": {
+                    "a":39.5579087445,
+                    "b":10.5082093421,
+                    "c":-4969.5880642855
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Pole Vault",
+        "sMainEvent": {
+            "sName": "Pole vault",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_female",
+            "sKey": "pole_vault_f_o",
+            "sCoefficients": {
+                "a":3.9325797501,
+                "b":35.0265857026,
+                "c":-5029.8531935972
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Pole vault",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_female",
+                "sKey": "pole_vault_f_i",
+                "sCoefficients": {
+                    "a":3.9325797501,
+                    "b":35.0265857026,
+                    "c":-5029.8531935972
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Long Jump",
+        "sMainEvent": {
+            "sName": "Long jump",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_female",
+            "sKey": "long_jump_f_o",
+            "sCoefficients": {
+                "a":1.9581140326,
+                "b":49.4597044183,
+                "c":-5024.0505434215
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Long jump",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_female",
+                "sKey": "long_jump_f_i",
+                "sCoefficients": {
+                    "a":1.9581140326,
+                    "b":49.4597044183,
+                    "c":-5024.0505434215
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Triple Jump",
+        "sMainEvent": {
+            "sName": "Triple jump",
+            "sType": "type_jump",
+            "sCategory": "category_outdoor_female",
+            "sKey": "triple_jump_f_o",
+            "sCoefficients": {
+                "a":0.4296645887,
+                "b":105.1320544518,
+                "c":-4980.6423815636
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Triple jump",
+                "sType": "type_jump",
+                "sCategory": "category_indoor_female",
+                "sKey": "triple_jump_f_i",
+                "sCoefficients": {
+                    "a":0.4296645887,
+                    "b":105.1320544518,
+                    "c":-4980.6423815636
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Shot Put",
+        "sMainEvent": {
+            "sName": "Shot put",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_female",
+            "sKey": "shot_put_f_o",
+            "sCoefficients": {
+                "a":0.0462143876,
+                "b":657.3172794694,
+                "c":-19993.5978247992
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Shot put",
+                "sType": "type_throw",
+                "sCategory": "category_indoor_female",
+                "sKey": "shot_put_f_i",
+                "sCoefficients": {
+                    "a":0.0462143876,
+                    "b":657.3172794694,
+                    "c":-19993.5978247992
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Discus Throw",
+        "sMainEvent": {
+            "sName": "Discus throw",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_female",
+            "sKey": "discus_f_o",
+            "sCoefficients": {
+                "a":0.0040284238,
+                "b":2226.8877644471,
+                "c":-19996.2817097077
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Hammer Throw",
+        "sMainEvent": {
+            "sName": "Hammer throw",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_female",
+            "sKey": "hammer_f_o",
+            "sCoefficients": {
+                "a":0.0030967240,
+                "b":2539.8077202523,
+                "c":-19998.4991354651
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women´s Javelin Throw",
+        "sMainEvent": {
+            "sName": "Javelin throw",
+            "sType": "type_throw",
+            "sCategory": "category_outdoor_female",
+            "sKey": "javelin_f_o",
+            "sCoefficients": {
+                "a":0.0040722745,
+                "b":2215.2996127575,
+                "c":-20003.7430818798
+            }
+        },
+        "sSimilarEvents": [
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 5,
+        "sMinNumberPerformancesMainEvent": 3
+    },
+    {
+        "sName": "Women’s Heptathlon",
+        "sMainEvent": {
+            "sName": "Heptathlon",
+            "sType": "type_run",
+            "sCategory": "category_outdoor_female",
+            "sKey": "heptathlon_f_o",
+            "sCoefficients": {
+                "a":0.0000015806,
+                "b":56004.0768596358,
+                "c":-5001.3485654597
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Pentathlon",
+                "sType": "type_run",
+                "sCategory": "category_indoor_female",
+                "sKey": "pentathlon_f_i",
+                "sCoefficients": {
+                    "a":0.0000029452,
+                    "b":41021.7737084897,
+                    "c":-4998.5983727330
+                }
+            }
+        ],
+        "sSex": "male",
+        "sMinNumberPerformancesGroup": 2,
+        "sMinNumberPerformancesMainEvent": 1
+    },
+    {
+        "sName": "Women’s Marathon",
+        "sMainEvent": {
+            "sName": "Road - Marathon",
+            "sType": "type_run_very_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "road_marathon_f_o",
+            "sCoefficients": {
+                "a":0.0000059501,
+                "b":-22799.3431644815,
+                "c":0.0052008190
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Road - Half Marathon",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_half_marathon_f_o",
+                "sCoefficients": {
+                    "a":0.0000352993,
+                    "b":-9899.5699844392,
+                    "c":-0.0079093982
+                }
+            },
+            {
+                "sName": "Road - 25km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_25km_f_o",
+                "sCoefficients": {
+                    "a":0.0000228009,
+                    "b":-12143.3511225215,
+                    "c":0.0103960906
+                }
+            },
+            {
+                "sName": "Road - 30km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_30km_f_o",
+                "sCoefficients": {
+                    "a":0.0000142603,
+                    "b":-15122.3881022298,
+                    "c":0.0055215143
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 2,
+        "sMinNumberPerformancesMainEvent": 1
+    },
+    {
+        "sName": "Women’s Road Running",
+        "sMainEvent": {
+            "sName": "Road - 10km",
+            "sType": "type_run_very_long",
+            "sCategory": "category_outdoor_female",
+            "sKey": "road_10km_f_o",
+            "sCoefficients": {
+                "a":0.0001742155,
+                "b":-4499.3728557918,
+                "c":0.0189492422
+            }
+        },
+        "sSimilarEvents": [
+            {
+                "sName": "Road - 15km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_15km_f_o",
+                "sCoefficients": {
+                    "a":0.0000732017,
+                    "b":-6904.4306434582,
+                    "c":0.0130446762
+                }
+            },
+            {
+                "sName": "Road - 10 Miles",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_10miles_f_o",
+                "sCoefficients": {
+                    "a":0.0000630001,
+                    "b":-7437.4758774148,
+                    "c":0.0080292585
+                }
+            },
+            {
+                "sName": "Road - 20km",
+                "sType": "type_run_very_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_20km_f_o",
+                "sCoefficients": {
+                    "a":0.0000396007,
+                    "b":-9356.4394963166,
+                    "c":0.0048254690
+                }
+            },
+            {
+                "sName": "Road - Half Marathon",
+                "sType": "type_run_long",
+                "sCategory": "category_outdoor_female",
+                "sKey": "road_half_marathon_f_o",
+                "sCoefficients": {
+                    "a":0.0000352993,
+                    "b":-9899.5699844392,
+                    "c":-0.0079093982
+                }
+            }
+        ],
+        "sSex": "female",
+        "sMinNumberPerformancesGroup": 3,
+        "sMinNumberPerformancesMainEvent": 2
+    }
+]
+
+

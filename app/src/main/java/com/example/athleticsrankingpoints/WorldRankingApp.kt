@@ -2,21 +2,20 @@ package com.example.athleticsrankingpoints
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.athleticsrankingpoints.navigation.WorldRankingNavHost
 import com.example.athleticsrankingpoints.ui.components.TopTabRow
+import com.example.athleticsrankingpoints.ui.lookupscreen.LookUpViewModel
 import com.example.athleticsrankingpoints.ui.theme.AthleticsRankingPointsTheme
-import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 
 @Composable
-fun WorldRankingApp() {
-//  ProvideWindowInsets {
+fun WorldRankingApp(
+  lookUpViewModel: LookUpViewModel
+) {
     AthleticsRankingPointsTheme {
 
       val allScreens = WorldRankingScreen.values().toList()
@@ -25,7 +24,6 @@ fun WorldRankingApp() {
       val currentScreen = WorldRankingScreen.fromRoute(
         backstackEntry.value?.destination?.route
       )
-
 
       Scaffold(
         bottomBar = {
@@ -39,9 +37,9 @@ fun WorldRankingApp() {
       ) { innerPadding ->
         WorldRankingNavHost(
           navHostController = navController,
-          modifier = Modifier.padding(innerPadding)
+          modifier = Modifier.padding(innerPadding),
+          lookUpViewModel = lookUpViewModel
         )
       }
       }
-//    }
   }

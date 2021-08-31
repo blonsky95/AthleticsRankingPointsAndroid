@@ -1,13 +1,11 @@
 package com.example.athleticsrankingpoints.ui.lookupscreen
 
-import androidx.compose.foundation.background
+import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
@@ -15,30 +13,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
+import com.example.athleticsrankingpoints.ui.components.*
 import kotlin.math.floor
 import kotlin.math.pow
 
 @Composable
 fun PointLookUpBody(
-  listOfEvents:List<AthleticsEvent>
+  lookUpViewModel: LookUpViewModel,
+  sListOfEvents:List<AthleticsEvent>
 ) {
 
-  var selectedEvent by remember{mutableStateOf( listOfEvents[0])}
+//  var listOfEvents by remember { mutableStateOf(sListOfEvents) }
+  val listOfEvents by lookUpViewModel.getListOfEvents().observeAsState(lookUpViewModel.sampleEventList)
+
+//  var selectedEvent by remember{mutableStateOf( listOfEvents[0])}
+  val selectedEvent by lookUpViewModel.getSelectedEvent().observeAsState(lookUpViewModel.sampleFirstEvent)
 
   var selectedSex by remember{mutableStateOf( AthleticsEvent.sexMale)}
   var selectedDoor by remember{mutableStateOf( AthleticsEvent.doorIndoor)}
 
-//  var selectedColor by remember {
-//    mutableStateOf(Color.Red)
-//  }
+  var performanceString by remember { mutableStateOf("0.0") }
+  var performancePoints by remember { mutableStateOf("0") }
 
   Column(Modifier.padding(16.dp)) {
-    var performanceString by remember {
-      mutableStateOf("0.0")
-    }
-    var performancePoints by remember {
-      mutableStateOf("0")
-    }
+
     Text(
       text = selectedEvent.sName,
       style = MaterialTheme.typography.h2,
@@ -53,93 +51,50 @@ fun PointLookUpBody(
         .align(Alignment.CenterHorizontally)
         .padding(bottom = 16.dp)
     )
-    Surface(modifier = Modifier
-      .fillMaxWidth()
-      .padding(bottom = 16.dp)
-    ) {
-      TextField(value = performanceString, onValueChange = {
-        performanceString = it
-        performancePoints = getPoints(athleticsEvent = selectedEvent, performance = performanceString).toString()
+
+    //Ideally all should like this more or less - specially if they have a custom behaviour or if they need state hoisting
+    PerformanceInput(performanceString) {
+      performanceString = it
+      performancePoints = getPoints(athleticsEvent = selectedEvent, performance = performanceString).toString()
+    }
+
+    PointsDisplay(performancePoints)
+
+    CategorySelector(
+      selectedSex,
+      selectedDoor,
+      onSexSelectionChange = {
+        //here should actually call a view model reset function
+        selectedSex = it
+//        listOfEvents=AthleticsEvent.getLongerEventsList()
+        lookUpViewModel.updateEventList()
+//        selectedEvent = listOfEvents[0]
+        lookUpViewModel.resetSelection()
+        performancePoints = "0"
+        performanceString = "0.0"
+        //Log.d("CAT","Current category is $selectedSex $selectedDoor and selected event is ${selectedEvent.sName}")
       },
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-      )
-    }
-
-    Row{
-      Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(bottom = 8.dp)){
-        Text(modifier = Modifier
-          .align(Alignment.CenterStart),
-          style = MaterialTheme.typography.body1,
-          text = "POINTS:")
-
-        Text(modifier = Modifier
-          .align(Alignment.CenterEnd),
-          style = MaterialTheme.typography.body1,
-          text = performancePoints)
+      onDoorSelectionChange = {
+        //here should actually call a view model reset function
+        selectedDoor = it
+//        listOfEvents=AthleticsEvent.getLongerEventsList()
+        lookUpViewModel.updateEventList()
+//        selectedEvent = listOfEvents[0]
+        lookUpViewModel.resetSelection()
+        performancePoints = "0"
+        performanceString = "0.0"
       }
-    }
-
-    Row(Modifier.fillMaxWidth()){
-      Row (Modifier.weight(1F)) {
-        AthleticsEvent.listSexOptions.forEach{
-          var backgroundColor = Color.Transparent
-          Box(Modifier
-            .weight(1F)
-            .selectable(
-              selected = selectedSex == it,
-              onClick = { selectedSex = it }
-            )) {
-            if (selectedSex == it) {
-              backgroundColor = Color.Red
-            }
-            Text(modifier = Modifier
-              .background(backgroundColor)
-              .fillMaxWidth(),
-              text = it)
-          }
-
-        }
-      }
-      Row (Modifier.weight(1F)) {
-        AthleticsEvent.listDoorOptions.forEach{
-          Text(modifier = Modifier
-            .weight(1F)
-            .selectable(
-              selected = selectedDoor == it,
-              onClick = { selectedDoor = it }
-            ),
-            text = it)
-        }
-      }
-    }
+    )
 
     Divider(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
     color = Color(0xFFACACAC), thickness = 2.dp)
 
-    LazyColumn (modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)){
-      items(listOfEvents) {
-        Row(modifier = Modifier.selectable(
-          selected = selectedEvent == it,
-          onClick = { selectedEvent = it}
-        )) {
-          var backgroundColor = Color.Transparent
-
-          if (selectedEvent == it) {
-            backgroundColor = Color(0xFFACACAC)
-          }
-          Text(modifier = Modifier
-            .fillMaxWidth()
-            .background(backgroundColor)
-            .padding(bottom = 8.dp, top = 8.dp),
-            text = it.sName)
-        }
-      }
+    EventListDisplayer(listOfEvents, selectedEvent) {
+//      selectedEvent = it
+      lookUpViewModel.newEventSelected(it)
     }
   }
 }
-
 
 
 
@@ -150,19 +105,8 @@ fun getPoints(athleticsEvent: AthleticsEvent, performance:String) :Int  {
     pointsForRun(athleticsEvent.sCoefficients, performance.toDouble())
   }
 }
-// when (athleticsEvent.type) {
-//   AthleticsEvent.type_run -> pointsForRun(athleticsEvent.coefficients, performance)
-//   AthleticsEvent.type_jump -> pointsForJump(athleticsEvent.coefficients, performance)
-//   AthleticsEvent.type_throw -> pointsForThrow(athleticsEvent.coefficients, performance)
-//   else -> 0
-// }
-
 
 fun pointsForRun(coefficients: java.util.HashMap<String, Double>, performance: Double) :Int {
-
-//  if (false) {
-//    return 0
-//  }
   var points = 0
 
   points = floor(coefficients["a"]!! * (performance + coefficients["b"]!!).pow(2) + coefficients["c"]!!).toInt()
