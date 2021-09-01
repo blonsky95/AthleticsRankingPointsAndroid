@@ -1,5 +1,8 @@
 package com.example.athleticsrankingpoints.domain
 
+import kotlin.math.floor
+import kotlin.math.pow
+
 
 data class AthleticsEvent (
   val sName:String,
@@ -71,6 +74,26 @@ data class AthleticsEvent (
       }
       return list
     }
+  }
+
+  fun getPointsString(performance:String) : String {
+    if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
+      return "0"
+    } else {
+      val performanceDouble = floor(performance.toDouble())
+      val pointsInt = getPoints(performanceDouble)
+      if (pointsInt>2000) {
+        return "Limit set to 2000p"
+      }
+      if (pointsInt<0) {
+        return "0"
+      }
+      return getPoints(performanceDouble).toString()
+    }
+  }
+
+  private fun getPoints(performance: Double): Int {
+    return floor(sCoefficients["a"]!! * (performance + sCoefficients["b"]!!).pow(2) + sCoefficients["c"]!!).toInt()
   }
 
 }

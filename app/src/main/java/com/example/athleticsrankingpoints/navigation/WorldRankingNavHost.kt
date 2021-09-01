@@ -26,8 +26,7 @@ fun WorldRankingNavHost(
     composable(route = WorldRankingScreen.PointLookUp.name) {
       //The parameter here should be a list of events that are displayed in pointlookupbody
       PointLookUpBody(
-        lookUpViewModel = lookUpViewModel,
-        sListOfEvents = AthleticsEvent.getLongerEventsList()
+        lookUpViewModel = lookUpViewModel
       )
     }
     composable(route = WorldRankingScreen.Simulator.name) {

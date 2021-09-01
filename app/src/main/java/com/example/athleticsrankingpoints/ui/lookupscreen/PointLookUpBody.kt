@@ -1,8 +1,6 @@
 package com.example.athleticsrankingpoints.ui.lookupscreen
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -10,30 +8,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.ui.components.*
-import kotlin.math.floor
-import kotlin.math.pow
 
 @Composable
 fun PointLookUpBody(
-  lookUpViewModel: LookUpViewModel,
-  sListOfEvents:List<AthleticsEvent>
+  lookUpViewModel: LookUpViewModel
 ) {
 
-//  var listOfEvents by remember { mutableStateOf(sListOfEvents) }
   val listOfEvents by lookUpViewModel.getListOfEvents().observeAsState(lookUpViewModel.sampleEventList)
 
-//  var selectedEvent by remember{mutableStateOf( listOfEvents[0])}
   val selectedEvent by lookUpViewModel.getSelectedEvent().observeAsState(lookUpViewModel.sampleFirstEvent)
 
-  var selectedSex by remember{mutableStateOf( AthleticsEvent.sexMale)}
-  var selectedDoor by remember{mutableStateOf( AthleticsEvent.doorIndoor)}
+  val selectedSex by lookUpViewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
+  val selectedDoor by lookUpViewModel.getSelectedDoor().observeAsState(AthleticsEvent.doorIndoor)
 
-  var performanceString by remember { mutableStateOf("0.0") }
-  var performancePoints by remember { mutableStateOf("0") }
+  val performanceString by lookUpViewModel.getPerformanceString().observeAsState("0.0")
+  val performancePoints by lookUpViewModel.getPerformancePoints().observeAsState("0")
 
   Column(Modifier.padding(16.dp)) {
 
@@ -54,8 +46,7 @@ fun PointLookUpBody(
 
     //Ideally all should like this more or less - specially if they have a custom behaviour or if they need state hoisting
     PerformanceInput(performanceString) {
-      performanceString = it
-      performancePoints = getPoints(athleticsEvent = selectedEvent, performance = performanceString).toString()
+      lookUpViewModel.updatePerformanceString(it)
     }
 
     PointsDisplay(performancePoints)
@@ -64,25 +55,10 @@ fun PointLookUpBody(
       selectedSex,
       selectedDoor,
       onSexSelectionChange = {
-        //here should actually call a view model reset function
-        selectedSex = it
-//        listOfEvents=AthleticsEvent.getLongerEventsList()
-        lookUpViewModel.updateEventList()
-//        selectedEvent = listOfEvents[0]
-        lookUpViewModel.resetSelection()
-        performancePoints = "0"
-        performanceString = "0.0"
-        //Log.d("CAT","Current category is $selectedSex $selectedDoor and selected event is ${selectedEvent.sName}")
+        lookUpViewModel.updateUIWithNewSexCategory(it)
       },
       onDoorSelectionChange = {
-        //here should actually call a view model reset function
-        selectedDoor = it
-//        listOfEvents=AthleticsEvent.getLongerEventsList()
-        lookUpViewModel.updateEventList()
-//        selectedEvent = listOfEvents[0]
-        lookUpViewModel.resetSelection()
-        performancePoints = "0"
-        performanceString = "0.0"
+        lookUpViewModel.updateUIWithNewDoorCategory(it)
       }
     )
 
@@ -90,7 +66,6 @@ fun PointLookUpBody(
     color = Color(0xFFACACAC), thickness = 2.dp)
 
     EventListDisplayer(listOfEvents, selectedEvent) {
-//      selectedEvent = it
       lookUpViewModel.newEventSelected(it)
     }
   }
@@ -98,19 +73,5 @@ fun PointLookUpBody(
 
 
 
-fun getPoints(athleticsEvent: AthleticsEvent, performance:String) :Int  {
-  return if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
-    0
-  } else {
-    pointsForRun(athleticsEvent.sCoefficients, performance.toDouble())
-  }
-}
 
-fun pointsForRun(coefficients: java.util.HashMap<String, Double>, performance: Double) :Int {
-  var points = 0
-
-  points = floor(coefficients["a"]!! * (performance + coefficients["b"]!!).pow(2) + coefficients["c"]!!).toInt()
-
-  return points
-}
 
