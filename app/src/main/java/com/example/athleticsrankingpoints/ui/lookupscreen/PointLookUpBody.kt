@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
@@ -11,13 +12,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.ui.components.*
+import org.koin.androidx.compose.getViewModel
+
+
 
 @Composable
 fun PointLookUpBody(
-  lookUpViewModel: LookUpViewModel
+  lookUpViewModel:LookUpViewModel
 ) {
 
-  val listOfEvents by lookUpViewModel.getListOfEvents().observeAsState(lookUpViewModel.sampleEventList)
+  val listOfEvents by lookUpViewModel.getListOfEvents().observeAsState(listOf())
 
   val selectedEvent by lookUpViewModel.getSelectedEvent().observeAsState(lookUpViewModel.sampleFirstEvent)
 

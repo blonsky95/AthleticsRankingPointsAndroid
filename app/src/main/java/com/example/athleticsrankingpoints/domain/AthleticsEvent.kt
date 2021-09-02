@@ -30,16 +30,23 @@ data class AthleticsEvent (
     const val doorIndoor = "Indoor"
     const val doorOutdoor = "Outdoor"
 
-    val listSexOptions = listOf<String>(sexMale, sexFemale)
-    val listDoorOptions = listOf<String>(doorIndoor, doorOutdoor)
+    val listSexOptions = listOf(sexMale, sexFemale)
+    val listDoorOptions = listOf(doorIndoor, doorOutdoor)
 
     fun getSampleEvent():AthleticsEvent{
+//      return AthleticsEvent(
+//        sName="100m",
+//        sType = type_run,
+//        sCategory = categoryOutdoorMale,
+//        sKey = "100_m_o",
+//        sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
+//      )
       return AthleticsEvent(
-        sName="100m",
+        sName="50m",
         sType = type_run,
-        sCategory = categoryOutdoorMale,
-        sKey = "100_m_o",
-        sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
+        sCategory = categoryIndoorMale,
+        sKey = "50_m_i",
+        sCoefficients = hashMapOf("a" to 95.8223538630, "b" to -9.1994010874, "c" to -0.3765978316)
       )
     }
 
@@ -80,7 +87,12 @@ data class AthleticsEvent (
     if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
       return "0"
     } else {
-      val performanceDouble = floor(performance.toDouble())
+      val performanceDouble =
+        if (this.sType== type_combined_events) {
+          floor(performance.toDouble())
+        } else {
+          performance.toDouble()
+        }
       val pointsInt = getPoints(performanceDouble)
       if (pointsInt>2000) {
         return "Limit set to 2000p"

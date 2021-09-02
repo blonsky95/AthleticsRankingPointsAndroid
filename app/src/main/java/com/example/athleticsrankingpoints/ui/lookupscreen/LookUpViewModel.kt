@@ -4,17 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
+import com.example.athleticsrankingpoints.repository.AthleticsEventsRepository
+import kotlinx.coroutines.launch
 
-class LookUpViewModel:ViewModel() {
+class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepository):ViewModel() {
 
   val sampleFirstEvent = AthleticsEvent.getSampleEvent()
-  val sampleEventList = AthleticsEvent.getLongerEventsList()
 
   private var selectedEvent = MutableLiveData(sampleFirstEvent)
   fun getSelectedEvent() : LiveData<AthleticsEvent> = selectedEvent
 
-  private var listOfEvents = MutableLiveData(AthleticsEvent.getLongerEventsList())
+  private var listOfEvents = MutableLiveData(listOf<AthleticsEvent>())
   fun getListOfEvents() : LiveData<List<AthleticsEvent>> = listOfEvents
 
   private var selectedSex = MutableLiveData(AthleticsEvent.sexMale)
@@ -29,46 +31,57 @@ class LookUpViewModel:ViewModel() {
   private var performancePoints = MutableLiveData("0")
   fun getPerformancePoints() : LiveData<String> = performancePoints
 
+
+  var fullListOfEvents = listOf<AthleticsEvent>()
+
+  init {
+    Log.d("LOOK UP VIEW MODEL ", "WAS INIT")
+    viewModelScope.launch {
+      fullListOfEvents = athleticsEventsRepository.getAllAthleticsEvents()
+      updateEventList()
+    }
+  }
+
   fun newEventSelected(athleticsEvent: AthleticsEvent) {
     selectedEvent.postValue(athleticsEvent)
     updatePerformanceString("0.0")
   }
 
-  fun resetEventSelected() {
-    newEventSelected(listOfEvents.value!![0])
+  private fun updateEventList(selectedSex:String = AthleticsEvent.sexMale, selectedDoor:String =AthleticsEvent.doorIndoor) {
+    Log.d("Update event list check", "This would call the list for $selectedSex $selectedDoor")
+    val category:String = buildCategoryWord(selectedSex,selectedDoor)
+    listOfEvents.postValue(athleticsEventsRepository.getAthleticEventsByCategory(category = category))
+    newEventSelected(athleticsEventsRepository.getAthleticEventsByCategory(category = category)[0])
   }
 
-  fun updateEventList(selectedSex:String = AthleticsEvent.sexMale, selectedDoor:String =AthleticsEvent.doorIndoor) {
-    //Here you would actually fill the list with the respective category list
-
-    Log.d("Update event list check", "This would call the list for $selectedSex $selectedDoor")
-    listOfEvents.postValue(AthleticsEvent.getLongerEventsList())
+  private fun buildCategoryWord(selectedSex: String, selectedDoor: String): String {
+    return if (selectedSex == AthleticsEvent.sexMale) {
+      if (selectedDoor == AthleticsEvent.doorIndoor) {
+        AthleticsEvent.categoryIndoorMale
+      } else {
+        AthleticsEvent.categoryOutdoorMale
+      }
+    } else {
+      if (selectedDoor == AthleticsEvent.doorIndoor) {
+        AthleticsEvent.categoryIndoorFemale
+      } else {
+        AthleticsEvent.categoryOutdoorFemale
+      }
+    }
   }
 
   fun updateUIWithNewSexCategory(selection:String) {
     selectedSex.postValue(selection)
     updateEventList(selectedSex = selection, selectedDoor = selectedDoor.value!!)
-    resetEventSelected()
   }
 
-fun updateUIWithNewDoorCategory(selection:String) {
+  fun updateUIWithNewDoorCategory(selection:String) {
     selectedDoor.postValue(selection)
     updateEventList(selectedSex = selectedSex.value!!, selectedDoor = selection)
-    resetEventSelected()
   }
 
   fun updatePerformanceString(newPerformance: String){
     performanceString.postValue(newPerformance)
-
     performancePoints.postValue(selectedEvent.value!!.getPointsString(newPerformance))
-
-    //do logic to update performancePoints
   }
-
-
-  //Athletics Event should have the logic to calculate points, so the below code will be added
-
-
-
-
 }

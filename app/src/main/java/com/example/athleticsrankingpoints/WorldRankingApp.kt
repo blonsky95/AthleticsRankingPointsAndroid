@@ -14,7 +14,6 @@ import com.example.athleticsrankingpoints.ui.theme.AthleticsRankingPointsTheme
 
 @Composable
 fun WorldRankingApp(
-  lookUpViewModel: LookUpViewModel
 ) {
     AthleticsRankingPointsTheme {
 
@@ -37,8 +36,7 @@ fun WorldRankingApp(
       ) { innerPadding ->
         WorldRankingNavHost(
           navHostController = navController,
-          modifier = Modifier.padding(innerPadding),
-          lookUpViewModel = lookUpViewModel
+          modifier = Modifier.padding(innerPadding)
         )
       }
       }
