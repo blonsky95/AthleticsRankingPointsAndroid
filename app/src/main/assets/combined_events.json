@@ -1,0 +1,292 @@
+[
+	{
+        "sName": "100m",
+		"sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "100m_m_ce",
+		"sCoefficients": {
+            "a":25.4347,
+            "b":18.00,
+            "c":1.81
+        }
+	},
+    {
+        "sName": "60m",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "60m_m_ce",
+        "sCoefficients": {
+            "a":58.0150,
+            "b":11.50,
+            "c":1.81
+        }
+    },
+    {
+        "sName": "Long jump",
+        "sType": "type_jump",
+        "sCategory": "category_combined_events",
+        "sKey": "long_jump_m_ce",
+        "sCoefficients": {
+            "a":0.14354,
+            "b":220.00,
+            "c":1.4
+        }
+    },
+    {
+        "sName": "Shot put",
+        "sType": "type_throw",
+        "sCategory": "category_combined_events",
+        "sKey": "shot_put_m_ce",
+        "sCoefficients": {
+            "a":51.39,
+            "b":1.5,
+            "c":1.05
+        }
+    },
+	{
+        "sName": "High jump",
+        "sType": "type_jump",
+        "sCategory": "category_combined_events",
+        "sKey": "high_jump_m_ce",
+        "sCoefficients": {
+            "a":0.8465,
+            "b":75.00,
+            "c":1.42
+        }
+	},
+
+    {
+        "sName": "400m",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "400m_m_ce",
+        "sCoefficients": {
+            "a":1.53775,
+            "b":82.00,
+            "c":1.81
+        }
+    },
+    {
+        "sName": "110mh",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "110mh_m_ce",
+        "sCoefficients": {
+            "a":5.74352,
+            "b":28.50,
+            "c":1.92
+        }
+    },
+    {
+        "sName": "60mh",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "60mh_m_ce",
+        "sCoefficients": {
+            "a":20.5173,
+            "b":15.50,
+            "c":1.92
+        }
+    },
+    {
+        "sName": "Discus",
+        "sType": "type_throw",
+        "sCategory": "category_combined_events",
+        "sKey": "discus_m_ce",
+        "sCoefficients": {
+            "a":12.91,
+            "b":4.00,
+            "c":1.10
+        }
+    },
+    {
+        "sName": "Pole vault",
+        "sType": "type_jump",
+        "sCategory": "category_combined_events",
+        "sKey": "pole_vault_m_ce",
+        "sCoefficients": {
+            "a":0.2797,
+            "b":100.00,
+            "c":1.35
+        }
+    },
+    {
+        "sName": "Javelin",
+        "sType": "type_throw",
+        "sCategory": "category_combined_events",
+        "sKey": "javelin_m_ce",
+        "sCoefficients": {
+            "a":10.14,
+            "b":7.00,
+            "c":1.08
+        }
+    },
+    {
+        "sName": "1500m",
+        "sType": "type_run_long",
+        "sCategory": "category_combined_events",
+        "sKey": "1500m_m_ce",
+        "sCoefficients": {
+            "a":0.03768,
+            "b":480.00,
+            "c":1.85
+        }
+    },
+    {
+        "sName": "1000m",
+        "sType": "type_run_long",
+        "sCategory": "category_combined_events",
+        "sKey": "1000m_m_ce",
+        "sCoefficients": {
+            "a":0.08713,
+            "b":305.50,
+            "c":1.85
+        }
+    },
+    
+    
+    
+    {
+        "sName": "100mh",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "100mh_f_ce",
+        "sCoefficients": {
+            "a":9.23076,
+            "b":26.70,
+            "c":1.835
+        }
+    },
+    {
+        "sName": "60mh",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "60mh_f_ce",
+        "sCoefficients": {
+            "a":20.0479,
+            "b":17.00,
+            "c":1.835
+        }
+    },
+    {
+        "sName": "200m",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "200m_f_ce",
+        "sCoefficients": {
+            "a":4.99087,
+            "b":42.50,
+            "c":1.81
+        }
+    },
+    {
+        "sName": "100m",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "100m_f_ce",
+        "sCoefficients": {
+            "a":17.8570,
+            "b":21.0,
+            "c":1.81
+        }
+    },
+    {
+        "sName": "400m",
+        "sType": "type_run",
+        "sCategory": "category_combined_events",
+        "sKey": "400m_f_ce",
+        "sCoefficients": {
+            "a":1.34285,
+            "b":91.7,
+            "c":1.81
+        }
+    },
+    {
+        "sName": "800m",
+        "sType": "type_run_long",
+        "sCategory": "category_combined_events",
+        "sKey": "800m_f_ce",
+        "sCoefficients": {
+            "a":0.11193,
+            "b":254.00,
+            "c":1.88
+        }
+    },
+    {
+        "sName": "1500m",
+        "sType": "type_run_long",
+        "sCategory": "category_combined_events",
+        "sKey": "1500m_f_ce",
+        "sCoefficients": {
+            "a":0.02883,
+            "b":535,
+            "c":1.88
+        }
+    },
+    {
+        "sName": "High jump",
+        "sType": "type_jump",
+        "sCategory": "category_combined_events",
+        "sKey": "high_jump_f_ce",
+        "sCoefficients": {
+            "a":1.84523,
+            "b":75.00,
+            "c":1.348
+        }
+    },
+    {
+        "sName": "Long jump",
+        "sType": "type_jump",
+        "sCategory": "category_combined_events",
+        "sKey": "long_jump_f_ce",
+        "sCoefficients": {
+            "a":0.188807,
+            "b":210.00,
+            "c":1.41
+        }
+    },
+    {
+        "sName": "Pole vault",
+        "sType": "type_jump",
+        "sCategory": "category_combined_events",
+        "sKey": "pole_vault_f_ce",
+        "sCoefficients": {
+            "a":0.44125,
+            "b":100,
+            "c":1.35
+        }
+    },
+    {
+        "sName": "Shot put",
+        "sType": "type_throw",
+        "sCategory": "category_combined_events",
+        "sKey": "shot_put_f_ce",
+        "sCoefficients": {
+            "a":56.0211,
+            "b":1.50,
+            "c":1.05
+        }
+    },
+    {
+        "sName": "Discus",
+        "sType": "type_throw",
+        "sCategory": "category_combined_events",
+        "sKey": "discus_f_ce",
+        "sCoefficients": {
+            "a":12.3311,
+            "b":3.00,
+            "c":1.10
+        }
+    },
+    {
+        "sName": "Javelin",
+        "sType": "type_throw",
+        "sCategory": "category_combined_events",
+        "sKey": "javelin_f_ce",
+        "sCoefficients": {
+            "a":15.9803,
+            "b":3.80,
+            "c":1.04
+        }
+    }
+]
