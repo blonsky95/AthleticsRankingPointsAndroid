@@ -25,3 +25,4 @@ fun CategorySelector(selectedSex: String, selectedDoor: String, onSexSelectionCh
     }
   }
 }
+

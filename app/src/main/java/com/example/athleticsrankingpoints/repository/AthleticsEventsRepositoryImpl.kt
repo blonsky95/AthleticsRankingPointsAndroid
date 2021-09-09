@@ -54,6 +54,12 @@ class AthleticsEventsRepositoryImpl(applicationContext: Context, override val js
   }
 
   override suspend fun getAthleticEventByKey(key: String): AthleticsEvent {
-    TODO("Not yet implemented")
+    for (event in listOfAllEvents) {
+      if (event.sKey==key) {
+        return event
+      }
+    }
+    //TODO make this better
+    return AthleticsEvent.getSampleEvent()
   }
 }

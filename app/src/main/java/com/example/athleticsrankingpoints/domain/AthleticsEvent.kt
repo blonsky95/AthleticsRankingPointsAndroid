@@ -34,13 +34,6 @@ data class AthleticsEvent (
     val listDoorOptions = listOf(doorIndoor, doorOutdoor)
 
     fun getSampleEvent():AthleticsEvent{
-//      return AthleticsEvent(
-//        sName="100m",
-//        sType = type_run,
-//        sCategory = categoryOutdoorMale,
-//        sKey = "100_m_o",
-//        sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
-//      )
       return AthleticsEvent(
         sName="50m",
         sType = type_run,
@@ -106,6 +99,15 @@ data class AthleticsEvent (
 
   private fun getPoints(performance: Double): Int {
     return floor(sCoefficients["a"]!! * (performance + sCoefficients["b"]!!).pow(2) + sCoefficients["c"]!!).toInt()
+  }
+
+  //Use this function if you want the event name to display "(i)" for indoor.
+  fun getDoorInclusiveName():String {
+    var string = sName
+    if (sCategory== categoryIndoorMale || sCategory== categoryIndoorFemale) {
+      string+=" (i)"
+    }
+    return string
   }
 
 }

@@ -11,8 +11,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PerformanceInput(performanceString: String, onPerformanceChange: (String) -> Unit) {
-  Surface(modifier = Modifier
+fun PerformanceInput(modifier: Modifier, performanceString: String, onPerformanceChange: (String) -> Unit) {
+  Surface(modifier = modifier
     .fillMaxWidth()
     .padding(bottom = 16.dp)
   ) {

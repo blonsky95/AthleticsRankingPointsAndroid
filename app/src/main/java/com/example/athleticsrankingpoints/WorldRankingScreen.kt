@@ -26,6 +26,7 @@ enum class WorldRankingScreen (
         PointLookUp.name -> PointLookUp
         Simulator.name -> Simulator
         Information.name -> Information
+        "EventGroupSimulator" -> Simulator
         null -> PointLookUp
         else -> throw IllegalArgumentException("Route $route is not recognized")
       }

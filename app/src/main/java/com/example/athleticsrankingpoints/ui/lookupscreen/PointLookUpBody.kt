@@ -1,25 +1,29 @@
 package com.example.athleticsrankingpoints.ui.lookupscreen
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
-import com.example.athleticsrankingpoints.ui.components.*
+import com.example.athleticsrankingpoints.ui.components.CategorySelector
+import com.example.athleticsrankingpoints.ui.components.EventListDisplayer
+import com.example.athleticsrankingpoints.ui.components.PerformanceInput
+import com.example.athleticsrankingpoints.ui.components.PointsDisplay
 import org.koin.androidx.compose.getViewModel
 
-
-
 @Composable
-fun PointLookUpBody(
-  lookUpViewModel:LookUpViewModel
-) {
+fun PointLookUpBody() {
+
+  val lookUpViewModel: LookUpViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
 
   val listOfEvents by lookUpViewModel.getListOfEvents().observeAsState(listOf())
 
@@ -48,8 +52,8 @@ fun PointLookUpBody(
         .padding(bottom = 16.dp)
     )
 
-    //Ideally all should like this more or less - specially if they have a custom behaviour or if they need state hoisting
-    PerformanceInput(performanceString) {
+    //TODO performance input should handle different inputs - also hours minutes seconds, tenths
+    PerformanceInput(modifier = Modifier, performanceString) {
       lookUpViewModel.updatePerformanceString(it)
     }
 
