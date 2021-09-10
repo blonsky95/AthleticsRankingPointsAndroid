@@ -37,7 +37,8 @@ val firstModule = module {
 
   viewModel { EventGroupSelectorViewModel(get()) }
 
-  viewModel { EventGroupSimulatorViewModel(get()) }
+  viewModel { params -> EventGroupSimulatorViewModel(get(), eventGroupName = params.get()) }
+
 
 
 }

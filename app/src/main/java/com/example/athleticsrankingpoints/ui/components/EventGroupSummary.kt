@@ -12,7 +12,7 @@ import com.example.athleticsrankingpoints.domain.EventGroup
 //Stateless composable to display info about an eventGroup
 
 @Composable
-fun EventGroupSummary(modifier: Modifier,eventGroup: EventGroup) {
+fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
   Column (modifier = modifier){
     Text(
       text = eventGroup.sName,

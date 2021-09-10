@@ -2,7 +2,6 @@ package com.example.athleticsrankingpoints.ui.lookupscreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,13 +10,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
-import com.example.athleticsrankingpoints.ui.components.CategorySelector
-import com.example.athleticsrankingpoints.ui.components.EventListDisplayer
-import com.example.athleticsrankingpoints.ui.components.PerformanceInput
-import com.example.athleticsrankingpoints.ui.components.PointsDisplay
+import com.example.athleticsrankingpoints.ui.components.*
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -53,7 +48,7 @@ fun PointLookUpBody() {
     )
 
     //TODO performance input should handle different inputs - also hours minutes seconds, tenths
-    PerformanceInput(modifier = Modifier, performanceString) {
+    PerformanceInput(modifier = Modifier.padding(bottom = 8.dp), performanceString) {
       lookUpViewModel.updatePerformanceString(it)
     }
 
@@ -70,14 +65,15 @@ fun PointLookUpBody() {
       }
     )
 
-    Divider(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-    color = Color(0xFFACACAC), thickness = 2.dp)
+    CustomDivider()
 
     EventListDisplayer(listOfEvents, selectedEvent) {
       lookUpViewModel.newEventSelected(it)
     }
   }
 }
+
+
 
 
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 fun PerformanceInput(modifier: Modifier, performanceString: String, onPerformanceChange: (String) -> Unit) {
   Surface(modifier = modifier
     .fillMaxWidth()
-    .padding(bottom = 16.dp)
+//    .padding(bottom = 16.dp)
   ) {
     TextField(
       value = performanceString,

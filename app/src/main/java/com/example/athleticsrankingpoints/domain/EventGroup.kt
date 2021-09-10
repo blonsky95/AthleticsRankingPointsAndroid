@@ -15,7 +15,7 @@ class EventGroup (
 
     fun getSampleEventGroup():EventGroup{
       return EventGroup(
-        sName="100m",
+        sName="Sample group",
         sMainEvent = AthleticsEvent.getSampleEvent(),
         sSimilarEvents  = arrayListOf(),
         sSex = AthleticsEvent.sexMale,
