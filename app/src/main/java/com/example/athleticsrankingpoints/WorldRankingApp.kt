@@ -24,22 +24,22 @@ fun WorldRankingApp(
       )
 
       Scaffold(
-//        bottomBar = {
-//          TopTabRow(
-//            allScreens = allScreens,
-//            onTabSelected = { screen ->
-//              navController.navigate(screen.name) },
-//            currentScreen = currentScreen
-//          )
-//        },
-        topBar = {
+        bottomBar = {
           TopTabRow(
             allScreens = allScreens,
             onTabSelected = { screen ->
               navController.navigate(screen.name) },
             currentScreen = currentScreen
           )
-        }
+        },
+//        topBar = {
+//          TopTabRow(
+//            allScreens = allScreens,
+//            onTabSelected = { screen ->
+//              navController.navigate(screen.name) },
+//            currentScreen = currentScreen
+//          )
+//        }
 
       ) { innerPadding ->
         WorldRankingNavHost(

@@ -3,8 +3,6 @@ package com.example.athleticsrankingpoints
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.athleticsrankingpoints.ui.lookupscreen.LookUpViewModel
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {

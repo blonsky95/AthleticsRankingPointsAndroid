@@ -12,6 +12,7 @@ val Green500 = Color(0xFF1EB980)
 val DarkBlue900 = Color(0xFF26282F)
 
 val MyGray = Color(0xFFB8B8B8)
+val MyDarkGray = Color(0xFF36373A)
 
 
 val ColorPalette = darkColors(

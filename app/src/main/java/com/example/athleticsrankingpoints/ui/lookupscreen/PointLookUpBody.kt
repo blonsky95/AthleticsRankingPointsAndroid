@@ -10,6 +10,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.ui.components.*
@@ -70,6 +71,14 @@ fun PointLookUpBody() {
     EventListDisplayer(listOfEvents, selectedEvent) {
       lookUpViewModel.newEventSelected(it)
     }
+  }
+}
+
+@Composable
+@Preview
+fun PointLookUpBodyPreview() {
+  MaterialTheme {
+//    PointLookUpBody()
   }
 }
 

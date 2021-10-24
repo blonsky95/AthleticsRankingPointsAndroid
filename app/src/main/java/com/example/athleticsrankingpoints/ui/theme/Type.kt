@@ -52,9 +52,9 @@ val Typography = Typography(
   ),
   subtitle1 = TextStyle(
     fontWeight = FontWeight.Light,
-    fontSize = 14.sp,
+    fontSize = 12.sp,
     lineHeight = 20.sp,
-    letterSpacing = 3.sp
+    letterSpacing = 0.1.em
   ),
   subtitle2 = TextStyle(
     fontWeight = FontWeight.Normal,

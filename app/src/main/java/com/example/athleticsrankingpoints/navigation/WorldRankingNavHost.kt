@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
 import com.example.athleticsrankingpoints.WorldRankingScreen
 import com.example.athleticsrankingpoints.domain.EventGroup
 import com.example.athleticsrankingpoints.ui.eventgroupselector.simulator.EventGroupSimulatorBody

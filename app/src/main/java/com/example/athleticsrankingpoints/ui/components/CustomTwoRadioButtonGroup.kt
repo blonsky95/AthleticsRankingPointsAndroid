@@ -26,7 +26,7 @@ fun CustomTwoRadioButtonGroup(modifier: Modifier, selectedOption: String, button
         .selectable(
           selected = selectedOption == it,
           onClick = {
-//            onSelectionChange(it)
+            onSelectionChange(it)
           }
         )) {
         if (selectedOption == it) {

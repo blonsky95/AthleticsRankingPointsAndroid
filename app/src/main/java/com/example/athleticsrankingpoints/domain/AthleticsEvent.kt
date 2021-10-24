@@ -74,6 +74,26 @@ data class AthleticsEvent (
       }
       return list
     }
+
+    fun getWindPoints(wind: String):Int {
+      wind.toDoubleOrNull().let { if (it!=null) {
+        if (it>2.0) {
+          return ((-1)*(floor(it*6).toInt()))
+        }
+        if (it<0) {
+          return ((-1)*(floor(it*6).toInt()))
+        }
+      }
+        return 0
+      }
+    }
+  }
+
+  fun hasWind():Boolean {
+    return (
+        (sCategory== categoryOutdoorMale || sCategory== categoryOutdoorFemale) &&
+        (sName == "100m" || sName == "200m" || sName == "110mh" || sName == "100mh" || sName == "Long jump" || sName == "Triple jump")
+        )
   }
 
   fun getPointsString(performance:String) : String {
