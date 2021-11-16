@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.ui.eventgroupselector.simulator
+package com.example.athleticsrankingpoints.ui.screens.simulatorscreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.AthleticsEvent.Companion.getWindPoints
 import com.example.athleticsrankingpoints.domain.EventGroup
-import com.example.athleticsrankingpoints.repository.EventGroupsRepository
+import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.toIntsArray
 import kotlin.math.floor
 
@@ -63,6 +63,12 @@ class EventGroupSimulatorViewModel(eventGroupsRepository: EventGroupsRepository,
       array1.add(selectedEventGroup.value!!.sMainEvent)
     }
     return array1
+  }
+
+  fun saveTotalPerformance() {
+    //collect all data
+    //collect name
+    //save to room through repo
   }
 
   fun updatePerformancesList(index: Int, performance: String) {

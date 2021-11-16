@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.ui.eventgroupselector
+package com.example.athleticsrankingpoints.ui.simulatorscreen
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -15,6 +15,7 @@ import com.example.athleticsrankingpoints.ui.components.CustomButton
 import com.example.athleticsrankingpoints.ui.components.CustomTwoRadioButtonGroup
 import com.example.athleticsrankingpoints.ui.components.EventGroupListDisplayer
 import com.example.athleticsrankingpoints.ui.components.EventGroupSummary
+import com.example.athleticsrankingpoints.ui.screens.simulatorscreen.EventGroupSelectorViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

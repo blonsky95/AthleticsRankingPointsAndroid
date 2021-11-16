@@ -1,12 +1,13 @@
-package com.example.athleticsrankingpoints.repository
+package com.example.athleticsrankingpoints.data
 
 import android.content.Context
 import android.util.Log
 import com.beust.klaxon.Klaxon
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 
 //There will be another repo to save stuff in the simulatr tab
-class AthleticsEventsRepositoryImpl(applicationContext: Context, override val jsonFileName: String) : AthleticsEventsRepository{
+class AthleticsEventsRepositoryImpl(applicationContext: Context, override val jsonFileName: String) : AthleticsEventsRepository {
 
   var listOfAllEvents:List<AthleticsEvent> = listOf()
   var listOfMaleIndoorEvents:MutableList<AthleticsEvent> = mutableListOf()

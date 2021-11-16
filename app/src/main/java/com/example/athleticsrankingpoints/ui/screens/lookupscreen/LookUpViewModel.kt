@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.ui.lookupscreen
+package com.example.athleticsrankingpoints.ui.screens.lookupscreen
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
-import com.example.athleticsrankingpoints.repository.AthleticsEventsRepository
+import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 import kotlinx.coroutines.launch
 
 class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepository):ViewModel() {

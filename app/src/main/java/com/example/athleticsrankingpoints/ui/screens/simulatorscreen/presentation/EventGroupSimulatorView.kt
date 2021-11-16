@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.ui.eventgroupselector.simulator
+package com.example.athleticsrankingpoints.ui.simulatorscreen.simulator
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,6 +14,7 @@ import org.koin.androidx.compose.getViewModel
 import androidx.compose.ui.Alignment
 import com.example.athleticsrankingpoints.domain.EventGroup
 import com.example.athleticsrankingpoints.ui.components.*
+import com.example.athleticsrankingpoints.ui.screens.simulatorscreen.EventGroupSimulatorViewModel
 import com.example.athleticsrankingpoints.ui.theme.MyDarkGray
 import org.koin.core.parameter.parametersOf
 
@@ -31,8 +32,6 @@ fun EventGroupSimulatorBody(eventGroupName: String) {
   val windsPointsList by eventGroupSimulatorViewModel.getListOfWindsPoints().observeAsState(listOf())
   val selectedEventsList by eventGroupSimulatorViewModel.getListOfSelectedEvents().observeAsState(listOf())
   val placementPointsList by eventGroupSimulatorViewModel.getListOfPlacementPoints().observeAsState(listOf())
-
-//  val rankingScore by eventGroupSimulatorViewModel.getRankingScore().observeAsState("0")
 
   Column(
     modifier = Modifier

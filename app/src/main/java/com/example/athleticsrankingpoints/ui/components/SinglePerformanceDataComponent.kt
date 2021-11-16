@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
-import com.example.athleticsrankingpoints.domain.SinglePerformanceData
 import com.example.athleticsrankingpoints.makeZeroIfEmpty
 import com.example.athleticsrankingpoints.toIntOrZero
 
@@ -58,7 +57,6 @@ fun SinglePerformanceDataComponent(
     Column(modifier = Modifier
       .weight(1F)
     ) {
-//      MyCustomText(text = (index+1).toString())
       PerformanceWithPoints(performance = performance, points = performancePoints, onPerformanceChange = {onPerformanceChange(index, it)})
       if (event.hasWind()){
         WindWithPoints(wind = wind, points = windPoints, onWindChange = {onWindChange(index, it)})

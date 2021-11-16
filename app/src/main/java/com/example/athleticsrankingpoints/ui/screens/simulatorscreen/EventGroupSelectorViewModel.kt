@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.ui.eventgroupselector
+package com.example.athleticsrankingpoints.ui.screens.simulatorscreen
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.EventGroup
-import com.example.athleticsrankingpoints.repository.EventGroupsRepository
+import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import kotlinx.coroutines.launch
 
 class EventGroupSelectorViewModel(private val eventGroupsRepository: EventGroupsRepository):ViewModel() {

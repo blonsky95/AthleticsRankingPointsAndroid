@@ -1,12 +1,12 @@
 package com.example.athleticsrankingpoints.di
 
-import com.example.athleticsrankingpoints.repository.AthleticsEventsRepository
-import com.example.athleticsrankingpoints.repository.AthleticsEventsRepositoryImpl
-import com.example.athleticsrankingpoints.repository.EventGroupsRepository
-import com.example.athleticsrankingpoints.repository.EventGroupsRepositoryImpl
-import com.example.athleticsrankingpoints.ui.eventgroupselector.EventGroupSelectorViewModel
-import com.example.athleticsrankingpoints.ui.eventgroupselector.simulator.EventGroupSimulatorViewModel
-import com.example.athleticsrankingpoints.ui.lookupscreen.LookUpViewModel
+import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
+import com.example.athleticsrankingpoints.data.AthleticsEventsRepositoryImpl
+import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
+import com.example.athleticsrankingpoints.data.EventGroupsRepositoryImpl
+import com.example.athleticsrankingpoints.ui.screens.simulatorscreen.EventGroupSelectorViewModel
+import com.example.athleticsrankingpoints.ui.screens.simulatorscreen.EventGroupSimulatorViewModel
+import com.example.athleticsrankingpoints.ui.screens.lookupscreen.LookUpViewModel
 import org.koin.dsl.module
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel

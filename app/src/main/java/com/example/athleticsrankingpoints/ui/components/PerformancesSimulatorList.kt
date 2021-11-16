@@ -41,21 +41,7 @@ fun PerformancesSimulatorList(
   onWindChange: (Int, String) -> Unit,
 ) {
   LazyColumn(modifier = modifier) {
-//    SinglePerformanceDataComponent(
-//      index =-1,
-//      event = AthleticsEvent.getSampleEvent(),
-//      performance = "Performance e.g. 10.44",
-//      performancePoints = "1059",
-//      wind = "Wind, if applicable, e.g. -1.2",
-//      windPoints = "7",
-//      placementPoints = "Placement points",
-//      spinnerList = spinnerList,
-//      onEventChange = {_,_ ->},
-//      onPerformanceChange = {_,_ ->},
-//      onPlacementChange = {_,_ ->},
-//      onWindChange = {_,_ ->},
-//    )
-    itemsIndexed(perfList) { index, performance ->
+    itemsIndexed(perfList) { index, _ ->
       SinglePerformanceDataComponent(
         index =index,
         event =selectedEventsList[index],

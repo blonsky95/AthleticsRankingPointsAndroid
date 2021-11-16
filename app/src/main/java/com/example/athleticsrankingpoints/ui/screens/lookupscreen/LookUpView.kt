@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.ui.components.*
+import com.example.athleticsrankingpoints.ui.screens.lookupscreen.LookUpViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

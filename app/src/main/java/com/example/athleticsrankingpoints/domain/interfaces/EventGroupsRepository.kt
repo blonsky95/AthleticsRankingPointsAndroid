@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.repository
+package com.example.athleticsrankingpoints.domain.interfaces
 
 import com.example.athleticsrankingpoints.domain.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.EventGroup
