@@ -23,13 +23,13 @@ fun EventGroupSelectorBody(
   onNextClick: (EventGroup) -> Unit = {}
 ){
 
-  val eventGroupSelectorViewModel: EventGroupSelectorViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
+  val viewModel: EventGroupSelectorViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
 
-  val listOfEventGroups by eventGroupSelectorViewModel.getListOfEventGroups().observeAsState(listOf())
+  val listOfEventGroups by viewModel.getListOfEventGroups().observeAsState(listOf())
 
-  val selectedEventGroup by eventGroupSelectorViewModel.getSelectedEventGroup().observeAsState(eventGroupSelectorViewModel.sampleFirstEventGroup)
+  val selectedEventGroup by viewModel.getSelectedEventGroup().observeAsState(viewModel.sampleFirstEventGroup)
 
-  val selectedSex by eventGroupSelectorViewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
+  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
 
   Column(Modifier.padding(16.dp)) {
     Text(
@@ -43,14 +43,14 @@ fun EventGroupSelectorBody(
     EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = selectedEventGroup)
 
     SexRadioButtonSet(selectedSex = selectedSex, onSexSelectionChange = {
-      eventGroupSelectorViewModel.updateUIWithNewSexCategory(it)
+      viewModel.updateUIWithNewSexCategory(it)
       }
     )
 
     EventGroupListDisplayer(modifier = Modifier
       .weight(1f)
       .padding(top = 8.dp, bottom = 8.dp), listOfEventGroups, selectedEventGroup) {
-      eventGroupSelectorViewModel.newEventSelected(it)
+      viewModel.newEventSelected(it)
     }
 
     Box(modifier = Modifier.align(Alignment.End) ){

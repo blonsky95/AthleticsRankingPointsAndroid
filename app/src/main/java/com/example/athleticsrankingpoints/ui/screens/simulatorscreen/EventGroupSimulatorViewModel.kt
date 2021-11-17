@@ -14,6 +14,9 @@ class EventGroupSimulatorViewModel(eventGroupsRepository: EventGroupsRepository,
 
   private var size:Int = 0
 
+  private var title = MutableLiveData("")
+  fun getTitle(): LiveData<String> = title
+
   private var selectedEventGroup = MutableLiveData(eventGroupsRepository.getEventGroupByName(eventGroupName)?: EventGroup.getSampleEventGroup())
   fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
 
@@ -66,9 +69,14 @@ class EventGroupSimulatorViewModel(eventGroupsRepository: EventGroupsRepository,
   }
 
   fun saveTotalPerformance() {
+    //TODO continue here
     //collect all data
     //collect name
     //save to room through repo
+  }
+
+  fun updateTitle(sTitle: String) {
+    title.postValue(sTitle)
   }
 
   fun updatePerformancesList(index: Int, performance: String) {

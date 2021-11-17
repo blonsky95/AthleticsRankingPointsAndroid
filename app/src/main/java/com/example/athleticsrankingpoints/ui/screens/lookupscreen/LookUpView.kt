@@ -20,17 +20,17 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun PointLookUpBody() {
 
-  val lookUpViewModel: LookUpViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
+  val viewModel: LookUpViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
 
-  val listOfEvents by lookUpViewModel.getListOfEvents().observeAsState(listOf())
+  val listOfEvents by viewModel.getListOfEvents().observeAsState(listOf())
 
-  val selectedEvent by lookUpViewModel.getSelectedEvent().observeAsState(lookUpViewModel.sampleFirstEvent)
+  val selectedEvent by viewModel.getSelectedEvent().observeAsState(viewModel.sampleFirstEvent)
 
-  val selectedSex by lookUpViewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
-  val selectedDoor by lookUpViewModel.getSelectedDoor().observeAsState(AthleticsEvent.doorIndoor)
+  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
+  val selectedDoor by viewModel.getSelectedDoor().observeAsState(AthleticsEvent.doorIndoor)
 
-  val performanceString by lookUpViewModel.getPerformanceString().observeAsState("0.0")
-  val performancePoints by lookUpViewModel.getPerformancePoints().observeAsState("0")
+  val performanceString by viewModel.getPerformanceString().observeAsState("0.0")
+  val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
 
   Column(Modifier.padding(16.dp)) {
 
@@ -51,7 +51,7 @@ fun PointLookUpBody() {
 
     //TODO performance input should handle different inputs - also hours minutes seconds, tenths
     PerformanceInput(modifier = Modifier.padding(bottom = 8.dp), performanceString) {
-      lookUpViewModel.updatePerformanceString(it)
+      viewModel.updatePerformanceString(it)
     }
 
     PointsDisplay(performancePoints)
@@ -60,17 +60,17 @@ fun PointLookUpBody() {
       selectedSex,
       selectedDoor,
       onSexSelectionChange = {
-        lookUpViewModel.updateUIWithNewSexCategory(it)
+        viewModel.updateUIWithNewSexCategory(it)
       },
       onDoorSelectionChange = {
-        lookUpViewModel.updateUIWithNewDoorCategory(it)
+        viewModel.updateUIWithNewDoorCategory(it)
       }
     )
 
     CustomDivider()
 
     EventListDisplayer(listOfEvents, selectedEvent) {
-      lookUpViewModel.newEventSelected(it)
+      viewModel.newEventSelected(it)
     }
   }
 }

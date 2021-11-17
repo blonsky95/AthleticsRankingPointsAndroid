@@ -8,11 +8,11 @@ const val PERFORMANCES_TABLE_NAME = "Ranking_score_performances"
 @Entity(tableName = PERFORMANCES_TABLE_NAME)
 data class RankingScorePerformanceData(
   val sName: String = "Unnamed",
-  val sIndex:Int,
-  var sEvent:AthleticsEvent,
-  var sPerformance: String,
-  var sWind: String,
-  var sPlacementPoints:String,
+//  val sIndex:Int,
+//  var sEvent:AthleticsEvent,
+//  var sPerformance: String,
+//  var sWind: String,
+//  var sPlacementPoints:String,
 ) {
 
 }

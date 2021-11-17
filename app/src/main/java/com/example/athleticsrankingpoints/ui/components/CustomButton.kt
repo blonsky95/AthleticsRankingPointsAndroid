@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomButton(text: String, onButtonTap: () -> Unit) {
+fun CustomButton(modifier:Modifier = Modifier, text: String, onButtonTap: () -> Unit) {
   OutlinedButton(
     //Ripple not working or not visible
     modifier = Modifier.clickable(
