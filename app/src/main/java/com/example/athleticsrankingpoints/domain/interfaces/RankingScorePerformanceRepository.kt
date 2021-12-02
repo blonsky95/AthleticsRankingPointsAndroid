@@ -1,13 +1,21 @@
 package com.example.athleticsrankingpoints.domain.interfaces
 
-import com.example.athleticsrankingpoints.domain.AthleticsEvent
+import androidx.lifecycle.LiveData
+import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 
 interface RankingScorePerformanceRepository {
-  //TODO modify
-  suspend fun getAllRankingScorePerformances():List<AthleticsEvent>
 
-  suspend fun getRankingScorePerformanceByKey(key:String):AthleticsEvent
+  suspend fun getAllRankingScorePerformances(): LiveData<List<RankingScorePerformanceData>>
 
-  suspend fun saveRankingScorePerformance()
+  suspend fun getRankingScorePerformanceByName(name: String): RankingScorePerformanceData?
+
+  suspend fun getRankingScorePerformanceById(id: Int): RankingScorePerformanceData?
+
+  suspend fun saveRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData)
+
+  suspend fun updateRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData)
+
+  suspend fun deleteRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData)
 
 }

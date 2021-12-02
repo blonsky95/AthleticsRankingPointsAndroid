@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.athleticsrankingpoints.navigation.WorldRankingNavHost
-import com.example.athleticsrankingpoints.ui.components.TopTabRow
-import com.example.athleticsrankingpoints.ui.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.components.TopTabRow
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 
 @Composable

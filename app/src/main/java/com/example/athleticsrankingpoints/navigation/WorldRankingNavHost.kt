@@ -8,11 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.athleticsrankingpoints.WorldRankingScreen
-import com.example.athleticsrankingpoints.domain.EventGroup
-import com.example.athleticsrankingpoints.ui.simulatorscreen.simulator.EventGroupSimulatorBody
-import com.example.athleticsrankingpoints.ui.InformationBody
-import com.example.athleticsrankingpoints.ui.simulatorscreen.EventGroupSelectorBody
-import com.example.athleticsrankingpoints.ui.lookupscreen.PointLookUpBody
+import com.example.athleticsrankingpoints.domain.models.EventGroup
+import com.example.athleticsrankingpoints.presentation.simulatorscreen.simulator.EventGroupSimulatorBody
+import com.example.athleticsrankingpoints.presentation.InformationBody
+import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesBody
+import com.example.athleticsrankingpoints.presentation.simulatorscreen.EventGroupSelectorBody
+import com.example.athleticsrankingpoints.presentation.lookupscreen.PointLookUpBody
 
 //So what we are going to do here is, the NavHost wont be injected, or passed around through screens.
 //All the navigations will be here
@@ -43,6 +44,9 @@ fun WorldRankingNavHost(
     }
     composable(route = WorldRankingScreen.Information.name) {
       InformationBody()
+    }
+    composable(route = WorldRankingScreen.Performances.name) {
+      PerformancesBody()
     }
     composable(
       route = "EventGroupSimulator/{eventGroupName}",

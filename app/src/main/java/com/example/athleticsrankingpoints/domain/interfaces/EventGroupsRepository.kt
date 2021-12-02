@@ -1,7 +1,6 @@
 package com.example.athleticsrankingpoints.domain.interfaces
 
-import com.example.athleticsrankingpoints.domain.AthleticsEvent
-import com.example.athleticsrankingpoints.domain.EventGroup
+import com.example.athleticsrankingpoints.domain.models.EventGroup
 
 interface EventGroupsRepository {
 
