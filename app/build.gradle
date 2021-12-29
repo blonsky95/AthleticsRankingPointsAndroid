@@ -96,4 +96,7 @@ dependencies {
 //  implementation "io.insert-koin:koin-android-viewmodel:$koin_version"
   // Testing
   implementation "io.insert-koin:koin-test:$koin_version"
+
+  implementation("io.arrow-kt:arrow-core:1.0.1")
+
 }

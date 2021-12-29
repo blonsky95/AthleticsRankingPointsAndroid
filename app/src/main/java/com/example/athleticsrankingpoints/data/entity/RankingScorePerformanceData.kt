@@ -25,6 +25,9 @@ data class RankingScorePerformanceData(
   var rankingScore: String
 ) {
   companion object {
+
+    val NEW_ENTRY = "NEW_ENTRY"
+
     fun getSampleData():RankingScorePerformanceData {
       return RankingScorePerformanceData(
         name = "Test name:${(floor(Math.random()*100)).toInt()} ",

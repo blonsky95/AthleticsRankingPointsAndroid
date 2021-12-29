@@ -12,6 +12,10 @@ fun String.makeZeroIfEmpty():String {
   }
 }
 
+fun String.upperCaseFirstLetter():String {
+  return "${this.substring(0,1).uppercase()}${this.substring(1,this.length)}"
+}
+
 /**
  * Returns ints (0 if not possible)
  */

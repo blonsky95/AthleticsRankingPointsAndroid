@@ -17,6 +17,10 @@ class RankingScorePerformanceRepository (private val rankingScoreDatabaseDao: Ra
     return rankingScoreDatabaseDao.getById(id = id)
   }
 
+  override suspend fun isEntryNameFree(name: String): Boolean {
+    return rankingScoreDatabaseDao.getByName(name)==null
+  }
+
   override suspend fun saveRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData) {
     rankingScoreDatabaseDao.insert(rankingScorePerformanceData)
   }

@@ -1,6 +1,5 @@
-package com.example.athleticsrankingpoints.presentation.simulatorscreen.simulator
+package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,17 +19,25 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
+import com.example.athleticsrankingpoints.Strings.AttentionText
+import com.example.athleticsrankingpoints.Strings.CancelText
+import com.example.athleticsrankingpoints.Strings.DeletePerformanceDialogText
+import com.example.athleticsrankingpoints.Strings.NameOverwritePerformanceDialogText
+import com.example.athleticsrankingpoints.Strings.PerformanceSavedSuccesfullyText
+import com.example.athleticsrankingpoints.Strings.YesText
+import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.SimulatorDataModel
 import com.example.athleticsrankingpoints.presentation.theme.MyDarkGray
 import org.koin.core.parameter.parametersOf
 
 
 @Composable
-fun EventGroupSimulatorBody(eventGroupName: String) {
+fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupName: String, loadPerformanceName: String) {
 
-  val viewModel: EventGroupSimulatorViewModel = getViewModel(parameters = {parametersOf(eventGroupName)})//INJECTED
+  val viewModel: EventGroupSimulatorViewModel = getViewModel(parameters = {parametersOf(SimulatorDataModel(eventGroupName, loadPerformanceName))})//INJECTED
 
   val title by viewModel.getTitle().observeAsState("")
 
@@ -43,71 +50,112 @@ fun EventGroupSimulatorBody(eventGroupName: String) {
   val selectedEventsList by viewModel.getListOfSelectedEvents().observeAsState(listOf())
   val placementPointsList by viewModel.getListOfPlacementPoints().observeAsState(listOf())
 
-  Column(
+  val isSnackBarShowing by viewModel.isSnackBarBarShowing
+  val scaffoldState = rememberScaffoldState()
+
+  val showDeleteDialog by viewModel.getShowDeleteDialog().observeAsState(false)
+  val showNameOverwriteDialog by viewModel.getShowNameOverwriteDialog().observeAsState(false)
+//  val (showDialog, setShowDialog) = remember { mutableStateOf(false) }
+
+  val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
+
+  Scaffold(
     modifier = Modifier
       .padding(16.dp)
-      .semantics { contentDescription = "Simulator Screen" }
-
+      .fillMaxSize(),
+    scaffoldState = scaffoldState
   ) {
-    Spacer(modifier = Modifier.height(8.dp))
-    MyPerformanceTitleTextField(title = title, onValueChange = {viewModel.updateTitle(it)}, hint = "Title")
-    Spacer(modifier = Modifier.height(4.dp))
-    EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = eventGroup?: EventGroup.getSampleEventGroup())
-    PerformancesSimulatorList(
+    if (showDeleteDialog) {
+      DialogWindow(hideDialog = {viewModel.hideDeleteDialog()}, dialogText = DeletePerformanceDialogText) {
+        viewModel.confirmDeletePerformance()
+        navigateToSavedPerformances()
+      }
+    }
+    if (showNameOverwriteDialog) {
+      DialogWindow(hideDialog = {viewModel.hideNameOverwriteDialog()}, dialogText = NameOverwritePerformanceDialogText) {
+        viewModel.confirmSavePerformance()
+      }
+    }
+
+    if (isSnackBarShowing) {
+      LaunchedEffect(isSnackBarShowing) {
+        scaffoldState.snackbarHostState.showSnackbar(PerformanceSavedSuccesfullyText)
+      }
+    }
+
+    Column(
       modifier = Modifier
-        .weight(1f)
-        .background(color = MyDarkGray, shape = RoundedCornerShape(4.dp)),
-      perfList = performanceList,
-      perfPointsList = performancePointsList,
-      windsList = windsList,
-      windPointsList = windsPointsList,
-      selectedEventsList = selectedEventsList,
-      placementPointsList = placementPointsList,
-      spinnerList = eventGroup!!.getAllEventsInGroup(),
-      onEventChange = {index, event ->
-        viewModel.updateSelectedEvent(index = index, event = event)
-      },
-      onPerformanceChange = { index, perf ->
-        viewModel.updatePerformancesList(index = index, performance = perf)
-      },
-      onPlacementChange = {index, placement ->
-        viewModel.updatePlacementPointsList(index = index, points = placement)
-      },
-      onWindChange = {index, wind ->
-        viewModel.updateWindList(index = index, wind = wind)
-      }
+        .semantics { contentDescription = "Simulator Screen" }
 
-    )
-
-    Row (Modifier.padding(top = 16.dp)){
-      Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(bottom = 8.dp)) {
-        Text(modifier = Modifier
-          .align(Alignment.CenterStart),
-          style = MaterialTheme.typography.body1,
-          text = "Ranking Score:")
-
-        Text(modifier = Modifier
-          .align(Alignment.CenterEnd),
-          style = MaterialTheme.typography.body1,
-          text = viewModel.getRankingScore(performancePointsList,placementPointsList, windsPointsList))
-      }
-    }
-//    Spacer(modifier = Modifier.height(8.dp))
-    Row(
-      modifier = Modifier.fillMaxWidth(),
-      horizontalArrangement = Arrangement.End
     ) {
+      Spacer(modifier = Modifier.height(8.dp))
+      MyPerformanceTitleTextField(title = title, onValueChange = {viewModel.updateTitle(it)}, hint = "Title")
+      Spacer(modifier = Modifier.height(4.dp))
+      EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = eventGroup?: EventGroup.getSampleEventGroup())
+      PerformancesSimulatorList(
+        modifier = Modifier
+          .weight(1f)
+          .background(color = MyDarkGray, shape = RoundedCornerShape(4.dp)),
+        perfList = performanceList,
+        perfPointsList = performancePointsList,
+        windsList = windsList,
+        windPointsList = windsPointsList,
+        selectedEventsList = selectedEventsList,
+        placementPointsList = placementPointsList,
+        spinnerList = eventGroup!!.getAllEventsInGroup(),
+        onEventChange = {index, event ->
+          viewModel.updateSelectedEvent(index = index, event = event)
+        },
+        onPerformanceChange = { index, perf ->
+          viewModel.updatePerformancesList(index = index, performance = perf)
+        },
+        onPlacementChange = {index, placement ->
+          viewModel.updatePlacementPointsList(index = index, points = placement)
+        },
+        onWindChange = {index, wind ->
+          viewModel.updateWindList(index = index, wind = wind)
+        }
+
+      )
+
+      Row (Modifier.padding(top = 16.dp)){
+        Box(modifier = Modifier
+          .fillMaxWidth()
+          .padding(bottom = 8.dp)) {
+          Text(modifier = Modifier
+            .align(Alignment.CenterStart),
+            style = MaterialTheme.typography.body1,
+            text = "Ranking Score:")
+
+          Text(modifier = Modifier
+            .align(Alignment.CenterEnd),
+            style = MaterialTheme.typography.body1,
+            text = viewModel.getRankingScore(performancePointsList,placementPointsList, windsPointsList))
+        }
+      }
+      Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween.takeIf { isLoaded } ?: Arrangement.End
+//        horizontalArrangement = if (isLoaded) Arrangement.SpaceBetween else Arrangement.End
+      ) {
+
+        if (isLoaded) {
+          CustomButton(
+            text = "DELETE") {
+            viewModel.deleteButtonPressed()
+          }
+        }
         CustomButton(text = "SAVE") {
-          Log.d("BROH", "GO TO SAVE")
           viewModel.saveButtonPressed()
+        }
+
       }
 
     }
-
   }
+
 }
+
 
 
 
@@ -136,6 +184,41 @@ fun MyPerformanceTitleTextField(title:String, onValueChange : (String) -> Unit, 
     },
   )
 }
+
+@Composable
+fun DialogWindow(hideDialog: () -> Unit, dialogText: String = "Missing text", onConfirmDialog: () -> Unit) {
+    AlertDialog(
+      onDismissRequest = {
+        hideDialog()
+      },
+      title = {
+        Text(AttentionText)
+      },
+      text = {
+        Text(dialogText)
+      },
+      confirmButton = {
+        Button(
+          onClick = {
+            onConfirmDialog()
+            hideDialog()
+          },
+        ) {
+          Text(YesText)
+        }
+      },
+      dismissButton = {
+        Button(
+          onClick = {
+            hideDialog()
+          },
+        ) {
+          Text(CancelText)
+        }
+      },
+    )
+  }
+
 
 
 

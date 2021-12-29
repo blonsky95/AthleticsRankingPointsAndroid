@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.simulatorscreen
+package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -19,7 +19,7 @@ import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.E
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun EventGroupSelectorBody(
+fun EventGroupSelectorView(
   onNextClick: (EventGroup) -> Unit = {}
 ){
 

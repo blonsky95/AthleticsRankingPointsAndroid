@@ -16,7 +16,6 @@ class AthleticsEventsRepository(applicationContext: Context, override val jsonFi
   var listOfFemaleOutdoorEvents:MutableList<AthleticsEvent> = mutableListOf()
 
   init {
-    Log.d("LOOK UP REPO", "WAS INIT")
     val jsonFile: String = applicationContext.assets.open(jsonFileName).bufferedReader().use {it.readText()}
     val result = Klaxon().parseArray<AthleticsEvent>(jsonFile)
     if (result!=null){
@@ -24,8 +23,6 @@ class AthleticsEventsRepository(applicationContext: Context, override val jsonFi
       filterListByCategories(listOfAllEvents)
       //filter list
     }
-    Log.d("LOOK UP REPO", "WAS FINITO LOADING")
-
   }
 
   private fun filterListByCategories(list: List<AthleticsEvent>) {

@@ -15,6 +15,8 @@ class EventGroup (
     const val sSexMale = "male"
     const val sSexFemale = "female"
 
+    val DEFAULT_GROUP = "Men´s 100m"
+
     fun getSampleEventGroup(): EventGroup {
       return EventGroup(
         sName="Sample group",

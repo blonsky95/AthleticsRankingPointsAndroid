@@ -12,7 +12,7 @@ interface RankingScoreDatabaseDao {
   fun getAll(): LiveData<List<RankingScorePerformanceData>>
 
   @Query("SELECT * from $PERFORMANCES_TABLE_NAME where name = :name")
-  fun getByName(name: String) : RankingScorePerformanceData?
+  suspend fun getByName(name: String) : RankingScorePerformanceData?
 
   @Query("SELECT * from $PERFORMANCES_TABLE_NAME where scoreId = :id")
   fun getById(id: Int) : RankingScorePerformanceData?

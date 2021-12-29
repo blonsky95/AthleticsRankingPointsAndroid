@@ -8,11 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.athleticsrankingpoints.WorldRankingScreen
+import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData.Companion.NEW_ENTRY
 import com.example.athleticsrankingpoints.domain.models.EventGroup
-import com.example.athleticsrankingpoints.presentation.simulatorscreen.simulator.EventGroupSimulatorBody
+import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSimulatorView
 import com.example.athleticsrankingpoints.presentation.InformationBody
 import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesBody
-import com.example.athleticsrankingpoints.presentation.simulatorscreen.EventGroupSelectorBody
+import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSelectorView
 import com.example.athleticsrankingpoints.presentation.lookupscreen.PointLookUpBody
 
 //So what we are going to do here is, the NavHost wont be injected, or passed around through screens.
@@ -33,40 +34,62 @@ fun WorldRankingNavHost(
     startDestination = WorldRankingScreen.PointLookUp.name,
     modifier = modifier
   ) {
+
     composable(route = WorldRankingScreen.PointLookUp.name) {
       PointLookUpBody()
     }
+
     composable(route = WorldRankingScreen.Simulator.name) {
-      EventGroupSelectorBody(
+      EventGroupSelectorView(
         onNextClick = { eventGroup ->
           navigateToEventGroupSimulator(navHostController, eventGroup)
         })
     }
+
     composable(route = WorldRankingScreen.Information.name) {
       InformationBody()
     }
+
     composable(route = WorldRankingScreen.Performances.name) {
-      PerformancesBody()
+      PerformancesBody(
+        onPerformanceClick = { eventGroup, performanceName ->
+          navigateToEventGroupSimulator(navHostController, eventGroup, performanceName)
+        })
     }
+
     composable(
-      route = "EventGroupSimulator/{eventGroupName}",
+      route = "EventGroupSimulator/{eventGroupName}/{performanceName}",
       arguments = listOf(
         navArgument("eventGroupName") {
           type = NavType.StringType
-        }
+        },
+        navArgument("performanceName") {
+          type = NavType.StringType
+        },
       )
     )
     {
-      entry ->
-      val eventGroupName = entry.arguments?.getString("eventGroupName")
-      EventGroupSimulatorBody(eventGroupName = eventGroupName ?: "empty" )
+        entry ->
+      val eventGroupName = entry.arguments?.getString("eventGroupName").takeUnless { it.isNullOrEmpty() } ?: EventGroup.DEFAULT_GROUP
+      val performanceName = entry.arguments?.getString("performanceName").takeUnless { it.isNullOrEmpty() } ?: NEW_ENTRY
+
+      EventGroupSimulatorView(
+        navigateToSavedPerformances = { navigateToPerformances(navHostController) },
+        eventGroupName = eventGroupName,
+        loadPerformanceName = performanceName
+      )
     }
   }
 }
 
+private fun navigateToPerformances(navHostController: NavHostController) {
+  navHostController.navigate(WorldRankingScreen.Performances.name)
+}
+
 private fun navigateToEventGroupSimulator(
   navController: NavHostController,
-  eventGroup: EventGroup
+  eventGroup: EventGroup,
+  performanceName: String = NEW_ENTRY
 ) {
-  navController.navigate("EventGroupSimulator/${eventGroup.sName}")
+  navController.navigate("EventGroupSimulator/${eventGroup.sName}/$performanceName")
 }
