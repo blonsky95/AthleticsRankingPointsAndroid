@@ -23,7 +23,6 @@ import com.example.athleticsrankingpoints.Strings.AttentionText
 import com.example.athleticsrankingpoints.Strings.CancelText
 import com.example.athleticsrankingpoints.Strings.DeletePerformanceDialogText
 import com.example.athleticsrankingpoints.Strings.NameOverwritePerformanceDialogText
-import com.example.athleticsrankingpoints.Strings.PerformanceSavedSuccesfullyText
 import com.example.athleticsrankingpoints.Strings.YesText
 import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.EventGroup
@@ -50,12 +49,11 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
   val selectedEventsList by viewModel.getListOfSelectedEvents().observeAsState(listOf())
   val placementPointsList by viewModel.getListOfPlacementPoints().observeAsState(listOf())
 
-  val isSnackBarShowing by viewModel.isSnackBarBarShowing
+  val snackBarModel by viewModel.snackBarModel
   val scaffoldState = rememberScaffoldState()
 
   val showDeleteDialog by viewModel.getShowDeleteDialog().observeAsState(false)
   val showNameOverwriteDialog by viewModel.getShowNameOverwriteDialog().observeAsState(false)
-//  val (showDialog, setShowDialog) = remember { mutableStateOf(false) }
 
   val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
 
@@ -73,13 +71,13 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
     }
     if (showNameOverwriteDialog) {
       DialogWindow(hideDialog = {viewModel.hideNameOverwriteDialog()}, dialogText = NameOverwritePerformanceDialogText) {
-        viewModel.confirmSavePerformance()
+        viewModel.confirmUpdatePerformance()
       }
     }
 
-    if (isSnackBarShowing) {
-      LaunchedEffect(isSnackBarShowing) {
-        scaffoldState.snackbarHostState.showSnackbar(PerformanceSavedSuccesfullyText)
+    if (snackBarModel.isShowing) {
+      LaunchedEffect(snackBarModel) {
+        scaffoldState.snackbarHostState.showSnackbar(snackBarModel.text)
       }
     }
 

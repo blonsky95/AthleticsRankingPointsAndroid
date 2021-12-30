@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.athleticsrankingpoints.Strings
 import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
@@ -20,17 +21,24 @@ data class SimulatorDataModel(
   val loadPerformanceName: String
 )
 
+data class SnackBarModel(
+  var isShowing:Boolean,
+  var text:String
+)
+
 class EventGroupSimulatorViewModel(
   eventGroupsRepository: EventGroupsRepository, private val simulatorDataModel: SimulatorDataModel,
   private val rankingScorePerformanceRepository: RankingScorePerformanceRepository
 ):ViewModel() {
 
-  var isSnackBarBarShowing =  mutableStateOf(false)
+  var snackBarModel =  mutableStateOf(SnackBarModel(false,""))
     private set
 
   private var size:Int = 0
 
   var loadedRankingScorePerformanceData :RankingScorePerformanceData? = null
+
+  var isPerformanceNew = loadedRankingScorePerformanceData==null
 
   init {
     viewModelScope.launch {
@@ -131,7 +139,7 @@ class EventGroupSimulatorViewModel(
 
   //SAVING PERFORMANCE
 
-  fun savePerformance() {
+  private fun savePerformance() {
     val rankingScore = collectClassData()
     viewModelScope.launch {
       rankingScorePerformanceRepository.isEntryNameFree(rankingScore.name).apply {
@@ -144,24 +152,31 @@ class EventGroupSimulatorViewModel(
     }
   }
 
-  fun confirmSavePerformance() {
+  private fun confirmSavePerformance() {
     viewModelScope.launch {
-      savePerformanceToRepository()
+      saveNewPerformanceToRepository()
     }
   }
 
-  private suspend fun savePerformanceToRepository(performanceData: RankingScorePerformanceData? = null) {
-    val rankingScore = performanceData ?: collectClassData()
+  private suspend fun saveNewPerformanceToRepository() {
+    val rankingScore = collectClassData()
     rankingScorePerformanceRepository.saveRankingScorePerformance(rankingScore)
-    showSnackBar()
+    showSnackBar(Strings.PerformanceSavedSuccesfullyText)
   }
 
   //UPDATING PERFORMANCE
 
-  private suspend fun confirmUpdatePerformance(performanceData: RankingScorePerformanceData? = null) {
-    val rankingScore = performanceData ?: collectClassData()
-    rankingScorePerformanceRepository.updateRankingScorePerformance(rankingScore)
-    showSnackBar()
+  fun confirmUpdatePerformance() {
+    viewModelScope.launch {
+      updatePerformanceToRepository()
+    }
+  }
+
+  private suspend fun updatePerformanceToRepository() {
+    loadedRankingScorePerformanceData?.let {
+      rankingScorePerformanceRepository.updateRankingScorePerformance(collectClassData().copy(scoreId = it.scoreId))
+    }
+    showSnackBar(Strings.PerformanceUpdatedSuccesfullyText)
   }
 
   //DELETE PERFORMANCE
@@ -174,11 +189,10 @@ class EventGroupSimulatorViewModel(
   }
 
   private suspend fun deletePerformanceFromRepo() {
-    viewModelScope.launch {
-      loadedRankingScorePerformanceData?.let {
-        rankingScorePerformanceRepository.deleteRankingScorePerformance(it)
-      }
+    loadedRankingScorePerformanceData?.let {
+      rankingScorePerformanceRepository.deleteRankingScorePerformance(it)
     }
+    showSnackBar(Strings.PerformanceDeletedSuccesfullyText)
   }
 
   //USER ACTIONS
@@ -190,8 +204,8 @@ class EventGroupSimulatorViewModel(
     showDeleteDialog.value=true
   }
 
-  private fun showSnackBar() {
-    isSnackBarBarShowing.value = true
+  private fun showSnackBar(text: String) {
+    snackBarModel.value = SnackBarModel(true, text)
   }
 
   fun hideDeleteDialog() {
