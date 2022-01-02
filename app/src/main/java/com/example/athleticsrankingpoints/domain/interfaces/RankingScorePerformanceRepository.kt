@@ -1,9 +1,7 @@
 package com.example.athleticsrankingpoints.domain.interfaces
 
 import androidx.lifecycle.LiveData
-import arrow.core.Either
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
-import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 
 interface RankingScorePerformanceRepository {
 

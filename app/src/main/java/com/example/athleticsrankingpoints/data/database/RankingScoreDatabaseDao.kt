@@ -1,14 +1,14 @@
-package com.example.athleticsrankingpoints.data
+package com.example.athleticsrankingpoints.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.athleticsrankingpoints.data.entity.PERFORMANCES_TABLE_NAME
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.entities.PERFORMANCES_TABLE_NAME
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 
 @Dao
 interface RankingScoreDatabaseDao {
 
-  @Query("SELECT * from $PERFORMANCES_TABLE_NAME")
+  @Query("SELECT * from $PERFORMANCES_TABLE_NAME ORDER BY date DESC")
   fun getAll(): LiveData<List<RankingScorePerformanceData>>
 
   @Query("SELECT * from $PERFORMANCES_TABLE_NAME where name = :name")

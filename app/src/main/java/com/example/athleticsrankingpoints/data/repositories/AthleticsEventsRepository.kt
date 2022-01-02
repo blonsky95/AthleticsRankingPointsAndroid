@@ -1,7 +1,6 @@
-package com.example.athleticsrankingpoints.data
+package com.example.athleticsrankingpoints.data.repositories
 
 import android.content.Context
-import android.util.Log
 import com.beust.klaxon.Klaxon
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository

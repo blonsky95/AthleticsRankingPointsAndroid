@@ -1,8 +1,10 @@
-package com.example.athleticsrankingpoints.data
+package com.example.athleticsrankingpoints.data.repositories
 
 import androidx.lifecycle.LiveData
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.database.RankingScoreDatabaseDao
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
+import java.util.*
 
 class RankingScorePerformanceRepository (private val rankingScoreDatabaseDao: RankingScoreDatabaseDao) : RankingScorePerformanceRepository {
   override suspend fun getAllRankingScorePerformances(): LiveData<List<RankingScorePerformanceData>> {
@@ -22,10 +24,12 @@ class RankingScorePerformanceRepository (private val rankingScoreDatabaseDao: Ra
   }
 
   override suspend fun saveRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData) {
+    rankingScorePerformanceData.refreshDate()
     rankingScoreDatabaseDao.insert(rankingScorePerformanceData)
   }
 
   override suspend fun updateRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData) {
+    rankingScorePerformanceData.refreshDate()
     rankingScoreDatabaseDao.update(rankingScorePerformanceData)
   }
 

@@ -1,9 +1,9 @@
 package com.example.athleticsrankingpoints
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.athleticsrankingpoints.data.RankingScoreDatabase
-import com.example.athleticsrankingpoints.data.RankingScoreDatabaseDao
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.database.RankingScoreDatabase
+import com.example.athleticsrankingpoints.data.database.RankingScoreDatabaseDao
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.di.roomTestModule
 import kotlinx.coroutines.runBlocking
 import org.junit.After

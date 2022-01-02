@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.athleticsrankingpoints.WorldRankingScreen
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData.Companion.NEW_ENTRY
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData.Companion.NEW_ENTRY
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSimulatorView
 import com.example.athleticsrankingpoints.presentation.InformationBody

@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.data
+package com.example.athleticsrankingpoints.data.repositories
 
 import android.content.Context
 import android.util.Log

@@ -24,7 +24,7 @@ import com.example.athleticsrankingpoints.Strings.CancelText
 import com.example.athleticsrankingpoints.Strings.DeletePerformanceDialogText
 import com.example.athleticsrankingpoints.Strings.NameOverwritePerformanceDialogText
 import com.example.athleticsrankingpoints.Strings.YesText
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel

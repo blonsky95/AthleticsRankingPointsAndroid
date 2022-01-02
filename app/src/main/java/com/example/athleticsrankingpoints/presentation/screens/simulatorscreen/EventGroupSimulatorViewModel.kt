@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.athleticsrankingpoints.Strings
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent

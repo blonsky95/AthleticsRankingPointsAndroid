@@ -1,10 +1,11 @@
-package com.example.athleticsrankingpoints.data.entity
+package com.example.athleticsrankingpoints.data.entities
 
-import androidx.room.Embedded
+import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.EventGroup
+import java.util.*
 import kotlin.math.floor
 
 const val PERFORMANCES_TABLE_NAME = "Ranking_score_performances"
@@ -14,6 +15,10 @@ data class RankingScorePerformanceData(
 
   @PrimaryKey(autoGenerate = true)
   var scoreId: Int = 0,
+
+  @NonNull
+  var date: Date? = null, //date of last update
+
   var name: String = "Unnamed",
   val eventGroup:EventGroup,
   val performances: List<String>,
@@ -24,6 +29,12 @@ data class RankingScorePerformanceData(
   val selectedEvents: List<AthleticsEvent>,
   var rankingScore: String
 ) {
+
+  //call to update the last updated date
+  fun refreshDate() {
+    this.date=Calendar.getInstance().time
+  }
+
   companion object {
 
     val NEW_ENTRY = "NEW_ENTRY"

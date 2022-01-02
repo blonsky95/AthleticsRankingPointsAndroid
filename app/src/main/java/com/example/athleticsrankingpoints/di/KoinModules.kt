@@ -1,17 +1,18 @@
 package com.example.athleticsrankingpoints.di
 
 import androidx.room.Room
-import com.example.athleticsrankingpoints.data.*
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
-import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.LookUpViewModel
-import org.koin.dsl.module
-import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import com.example.athleticsrankingpoints.data.database.MIGRATION_1_2
+import com.example.athleticsrankingpoints.data.database.RankingScoreDatabase
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
+import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.LookUpViewModel
 import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesViewModel
+import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 
 const val allEventsJsonFileName = "all_events.json"
@@ -21,32 +22,33 @@ const val DATABASE_NAME = "ranking_score_database"
 
 
 val databaseModule = module {
-  single <RankingScoreDatabase>{
+  single {
     Room.databaseBuilder(androidContext(), RankingScoreDatabase::class.java, DATABASE_NAME)
-      .fallbackToDestructiveMigration()
+//      .fallbackToDestructiveMigration()
+      .addMigrations(MIGRATION_1_2)
       .build()
   }
-  single <RankingScoreDatabaseDao>{get<RankingScoreDatabase>().rankingScoreDatabaseDao()}
+  single {get<RankingScoreDatabase>().rankingScoreDatabaseDao()}
 }
 
 
 val reposModule = module {
   single <AthleticsEventsRepository> {
-    AthleticsEventsRepository(
+    com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepository(
       applicationContext = androidContext(),
       jsonFileName = allEventsJsonFileName
     )
   }
 
   single <EventGroupsRepository> {
-    EventGroupsRepository(
+    com.example.athleticsrankingpoints.data.repositories.EventGroupsRepository(
       applicationContext = androidContext(),
       jsonFileName = allEventGroupsJsonFileName
     )
   }
 
   single <RankingScorePerformanceRepository>{
-    RankingScorePerformanceRepository(
+    com.example.athleticsrankingpoints.data.repositories.RankingScorePerformanceRepository(
       rankingScoreDatabaseDao = get()
     )
   }

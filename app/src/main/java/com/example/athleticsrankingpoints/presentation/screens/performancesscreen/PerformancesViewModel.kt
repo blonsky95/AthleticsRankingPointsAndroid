@@ -3,7 +3,7 @@ package com.example.athleticsrankingpoints.presentation.screens.performancesscre
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.athleticsrankingpoints.data.entity.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
 import kotlinx.coroutines.launch
 
