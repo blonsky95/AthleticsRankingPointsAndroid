@@ -35,8 +35,7 @@ val databaseModule = module {
 val reposModule = module {
   single <AthleticsEventsRepository> {
     com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepository(
-      applicationContext = androidContext(),
-      jsonFileName = allEventsJsonFileName
+      applicationContext = androidContext()
     )
   }
 

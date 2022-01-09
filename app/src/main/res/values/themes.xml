@@ -19,6 +19,12 @@
     <item name="windowNoTitle">true</item>
   </style>
 
+  <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">#272501</item>
+    <item name="windowSplashScreenAnimatedIcon">@drawable/ic_baseline_baby_changing_station_24</item>
+    <item name="postSplashScreenTheme">@style/Theme.AthleticsRankingPoints</item>  # Required.
+  </style>
+
   <style name="Theme.AthleticsRankingPoints.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
   <style name="Theme.AthleticsRankingPoints.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
