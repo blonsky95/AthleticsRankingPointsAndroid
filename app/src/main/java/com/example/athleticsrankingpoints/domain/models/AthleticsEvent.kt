@@ -1,13 +1,17 @@
 package com.example.athleticsrankingpoints.domain.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.athleticsrankingpoints.data.database.ATHLETICS_EVENTS_TABLE_NAME
 import kotlin.math.floor
 import kotlin.math.pow
 
-
+@Entity(tableName = ATHLETICS_EVENTS_TABLE_NAME)
 data class AthleticsEvent (
   val sName:String,
   val sType:String, //run, jump or throw
-  val sCategory: String,
+  val sCategory: AthleticsEventCategory,
+  @PrimaryKey
   val sKey: String,
   val sCoefficients:HashMap<String, Double>
 ){
@@ -20,24 +24,19 @@ data class AthleticsEvent (
     const val type_throw="type_throw" //only needs metres
     const val type_combined_events="type_combined_events" //only needs points aka Int, no decimals
 
-    const val categoryIndoorFemale = "category_indoor_female"
-    const val categoryIndoorMale = "category_indoor_male"
-    const val categoryOutdoorFemale = "category_outdoor_female"
-    const val categoryOutdoorMale = "category_outdoor_male"
+//    const val sexFemale = "Female"
+//    const val sexMale = "Male"
+//    const val doorIndoor = "Indoor"
+//    const val doorOutdoor = "Outdoor"
 
-    const val sexFemale = "Female"
-    const val sexMale = "Male"
-    const val doorIndoor = "Indoor"
-    const val doorOutdoor = "Outdoor"
-
-    val listSexOptions = listOf(sexMale, sexFemale)
-    val listDoorOptions = listOf(doorIndoor, doorOutdoor)
+    val listSexOptions = listOf(AthleticsEventSex.Male, AthleticsEventSex.Female)
+    val listDoorOptions = listOf(AthleticsEventDoor.Indoor, AthleticsEventDoor.Outdoor)
 
     fun getSampleEvent(): AthleticsEvent {
       return AthleticsEvent(
         sName="100m",
         sType = type_run,
-        sCategory = categoryOutdoorMale,
+        sCategory = AthleticsEventCategory.category_outdoor_male,
         sKey = "100_m_o",
         sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
       )
@@ -47,21 +46,21 @@ data class AthleticsEvent (
       return listOf(AthleticsEvent(
         sName="100m",
         sType = type_run,
-        sCategory = categoryOutdoorMale,
+        sCategory = AthleticsEventCategory.category_outdoor_male,
         sKey = "100_m_o",
         sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
       ),
         AthleticsEvent(
           sName="Decathlon",
           sType = type_combined_events,
-          sCategory = categoryOutdoorMale,
+          sCategory = AthleticsEventCategory.category_outdoor_male,
           sKey = "decathlon_m_o",
           sCoefficients = hashMapOf("a" to 0.0000009772, "b" to 71186.6785041732, "c" to -5001.0472144005)
         ),
         AthleticsEvent(
           sName="Shot put",
           sType = type_throw,
-          sCategory = categoryOutdoorMale,
+          sCategory = AthleticsEventCategory.category_outdoor_male,
           sKey = "shot_put_m_o",
           sCoefficients = hashMapOf("a" to 0.0423461436, "b" to 684.8281542324, "c" to -19915.7245727669)
         ))
@@ -91,7 +90,7 @@ data class AthleticsEvent (
 
   fun hasWind():Boolean {
     return (
-        (sCategory== categoryOutdoorMale || sCategory== categoryOutdoorFemale) &&
+        (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) &&
         (sName == "100m" || sName == "200m" || sName == "110mh" || sName == "100mh" || sName == "Long jump" || sName == "Triple jump")
         )
   }
@@ -124,7 +123,7 @@ data class AthleticsEvent (
   //Use this function if you want the event name to display "(i)" for indoor.
   fun getDoorInclusiveName():String {
     var string = sName
-    if (sCategory== categoryIndoorMale || sCategory== categoryIndoorFemale) {
+    if (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) {
       string+=" (i)"
     }
     return string

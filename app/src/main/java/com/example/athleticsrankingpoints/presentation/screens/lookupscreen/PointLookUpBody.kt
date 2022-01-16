@@ -12,7 +12,9 @@ import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.interfaces.findById
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventDoor
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.LookUpViewModel
 import org.koin.androidx.compose.getViewModel
@@ -26,8 +28,8 @@ fun PointLookUpBody() {
 
   val selectedEvent by viewModel.getSelectedEvent().observeAsState(viewModel.sampleFirstEvent)
 
-  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
-  val selectedDoor by viewModel.getSelectedDoor().observeAsState(AthleticsEvent.doorIndoor)
+  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEventSex.Male)
+  val selectedDoor by viewModel.getSelectedDoor().observeAsState(AthleticsEventDoor.Indoor)
 
   val performanceString by viewModel.getPerformanceString().observeAsState("0.0")
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
@@ -60,10 +62,10 @@ fun PointLookUpBody() {
       selectedSex,
       selectedDoor,
       onSexSelectionChange = {
-        viewModel.updateUIWithNewSexCategory(it)
+        viewModel.updateUIWithNewSexCategory(findById(it.id))
       },
       onDoorSelectionChange = {
-        viewModel.updateUIWithNewDoorCategory(it)
+        viewModel.updateUIWithNewDoorCategory(findById(it.id))
       }
     )
 

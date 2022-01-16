@@ -3,12 +3,11 @@ package com.example.athleticsrankingpoints.data.entities
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.athleticsrankingpoints.data.database.PERFORMANCES_TABLE_NAME
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import java.util.*
 import kotlin.math.floor
-
-const val PERFORMANCES_TABLE_NAME = "Ranking_score_performances"
 
 @Entity(tableName = PERFORMANCES_TABLE_NAME)
 data class RankingScorePerformanceData(

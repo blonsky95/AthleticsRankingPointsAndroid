@@ -5,6 +5,7 @@ import android.util.Log
 import com.beust.klaxon.Klaxon
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
 
 //There will be another repo to save stuff in the simulatr tab
 class EventGroupsRepository(applicationContext: Context, override val jsonFileName: String) : EventGroupsRepository {
@@ -29,8 +30,8 @@ class EventGroupsRepository(applicationContext: Context, override val jsonFileNa
   private fun filterListBySex(list: List<EventGroup>) {
     for (event in list) {
       when (event.sSex) {
-        EventGroup.sSexMale -> listOfMaleGroups.add(event)
-        EventGroup.sSexFemale -> listOfFemaleGroups.add(event)
+        AthleticsEventSex.Male -> listOfMaleGroups.add(event)
+        AthleticsEventSex.Female -> listOfFemaleGroups.add(event)
       }
     }
   }
@@ -39,12 +40,11 @@ class EventGroupsRepository(applicationContext: Context, override val jsonFileNa
     return listOfAllEventGroups
   }
 
-  override fun getEventGroupsBySex(sex: String): List<EventGroup> {
+  override fun getEventGroupsBySex(sex: AthleticsEventSex): List<EventGroup> {
     //Little modification, the sex identifier in event group is not the same as AthleticsEvent, "male" vs "Male
-    return when (sex.lowercase()) {
-      EventGroup.sSexMale -> listOfMaleGroups
-      EventGroup.sSexFemale -> listOfFemaleGroups
-      else -> listOf()
+    return when (sex) {
+      AthleticsEventSex.Male -> listOfMaleGroups
+      AthleticsEventSex.Female -> listOfFemaleGroups
     }  }
 
   override fun getEventGroupByName(eventGroupName: String): EventGroup? {

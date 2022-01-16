@@ -1,12 +1,10 @@
 package com.example.athleticsrankingpoints.domain.models
 
-import androidx.room.Embedded
-
 class EventGroup (
   val sName:String,
   val sMainEvent: AthleticsEvent,
   val sSimilarEvents: List<AthleticsEvent>,
-  val sSex:String,
+  val sSex:AthleticsEventSex,
   val sMinNumberPerformancesGroup: Int,
   val sMinNumberPerformancesMainEvent: Int
  ){
@@ -22,7 +20,7 @@ class EventGroup (
         sName="Sample group",
         sMainEvent = AthleticsEvent.getSampleEvent(),
         sSimilarEvents  = listOf(),
-        sSex = AthleticsEvent.sexMale,
+        sSex = AthleticsEventSex.Male,
         sMinNumberPerformancesMainEvent = 3,
         sMinNumberPerformancesGroup = 5
       )

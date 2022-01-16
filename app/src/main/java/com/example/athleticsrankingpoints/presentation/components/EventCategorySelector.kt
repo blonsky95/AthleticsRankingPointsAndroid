@@ -4,10 +4,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 
 @Composable
-fun CategorySelector(selectedSex: String, selectedDoor: String, onSexSelectionChange: (String) -> Unit, onDoorSelectionChange: (String) -> Unit)  {
+fun CategorySelector(selectedSex: SelectableIdentifiable, selectedDoor: SelectableIdentifiable, onSexSelectionChange: (SelectableIdentifiable) -> Unit, onDoorSelectionChange: (SelectableIdentifiable) -> Unit)  {
   Row(Modifier.fillMaxWidth()) {
     CustomTwoRadioButtonGroup(
       modifier = Modifier.weight(1F),

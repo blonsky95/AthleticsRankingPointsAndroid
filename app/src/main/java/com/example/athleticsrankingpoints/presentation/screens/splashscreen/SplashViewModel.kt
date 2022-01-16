@@ -14,8 +14,13 @@ class SplashViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
 
   init {
     viewModelScope.launch {
+      //check if db contains athletic events and athletic groups
+      //if not, insert from the json file
       athleticsEventsRepository
-      _isLoading.value=false
+      _isLoading.value=localDbsAreLoaded()
+
     }
   }
+
+  private fun localDbsAreLoaded() = false
 }

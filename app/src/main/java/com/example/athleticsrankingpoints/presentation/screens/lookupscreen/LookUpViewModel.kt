@@ -1,12 +1,14 @@
 package com.example.athleticsrankingpoints.presentation.screens.lookupscreen
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventCategory
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventDoor
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
 import kotlinx.coroutines.launch
 
 class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepository):ViewModel() {
@@ -19,11 +21,11 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
   private var listOfEvents = MutableLiveData(listOf<AthleticsEvent>())
   fun getListOfEvents() : LiveData<List<AthleticsEvent>> = listOfEvents
 
-  private var selectedSex = MutableLiveData(AthleticsEvent.sexMale)
-  fun getSelectedSex() : LiveData<String> = selectedSex
+  private var selectedSex = MutableLiveData(AthleticsEventSex.Male)
+  fun getSelectedSex() : LiveData<AthleticsEventSex> = selectedSex
 
-  private var selectedDoor = MutableLiveData(AthleticsEvent.doorIndoor)
-  fun getSelectedDoor() : LiveData<String> = selectedDoor
+  private var selectedDoor = MutableLiveData(AthleticsEventDoor.Indoor)
+  fun getSelectedDoor() : LiveData<AthleticsEventDoor> = selectedDoor
 
   private var performanceString = MutableLiveData("0.0")
   fun getPerformanceString() : LiveData<String> = performanceString
@@ -32,11 +34,11 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
   fun getPerformancePoints() : LiveData<String> = performancePoints
 
 
-  var fullListOfEvents = listOf<AthleticsEvent>()
+//  var fullListOfEvents = listOf<AthleticsEvent>()
 
   init {
     viewModelScope.launch {
-      fullListOfEvents = athleticsEventsRepository.getAllAthleticsEvents()
+//      fullListOfEvents = athleticsEventsRepository.getAllAthleticsEvents()
       updateEventList()
     }
   }
@@ -46,35 +48,37 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
     updatePerformanceString("0.0")
   }
 
-  private fun updateEventList(selectedSex:String = AthleticsEvent.sexMale, selectedDoor:String = AthleticsEvent.doorIndoor) {
-    Log.d("Update event list check", "This would call the list for $selectedSex $selectedDoor")
-    val category:String = buildCategoryWord(selectedSex,selectedDoor)
-    listOfEvents.postValue(athleticsEventsRepository.getAthleticEventsByCategory(category = category))
-    newEventSelected(athleticsEventsRepository.getAthleticEventsByCategory(category = category)[0])
-  }
-
-  private fun buildCategoryWord(selectedSex: String, selectedDoor: String): String {
-    return if (selectedSex == AthleticsEvent.sexMale) {
-      if (selectedDoor == AthleticsEvent.doorIndoor) {
-        AthleticsEvent.categoryIndoorMale
-      } else {
-        AthleticsEvent.categoryOutdoorMale
-      }
-    } else {
-      if (selectedDoor == AthleticsEvent.doorIndoor) {
-        AthleticsEvent.categoryIndoorFemale
-      } else {
-        AthleticsEvent.categoryOutdoorFemale
+  private fun updateEventList(selectedSex: AthleticsEventSex = AthleticsEventSex.Male, selectedDoor: AthleticsEventDoor = AthleticsEventDoor.Indoor) {
+    getCategory(selectedSex,selectedDoor).let {
+      viewModelScope.launch {
+        listOfEvents.postValue(athleticsEventsRepository.getAthleticEventByCategory(it))
+        newEventSelected(athleticsEventsRepository.getAthleticEventByCategory(it)[0])
       }
     }
   }
 
-  fun updateUIWithNewSexCategory(selection:String) {
+  private fun getCategory(selectedSex: AthleticsEventSex, selectedDoor: AthleticsEventDoor): AthleticsEventCategory {
+    return if (selectedSex == AthleticsEventSex.Male) {
+      if (selectedDoor == AthleticsEventDoor.Indoor) {
+        AthleticsEventCategory.category_indoor_male
+      } else {
+        AthleticsEventCategory.category_outdoor_male
+      }
+    } else {
+      if (selectedDoor == AthleticsEventDoor.Indoor) {
+        AthleticsEventCategory.category_indoor_female
+      } else {
+        AthleticsEventCategory.category_outdoor_female
+      }
+    }
+  }
+
+  fun updateUIWithNewSexCategory(selection:AthleticsEventSex) {
     selectedSex.postValue(selection)
     updateEventList(selectedSex = selection, selectedDoor = selectedDoor.value!!)
   }
 
-  fun updateUIWithNewDoorCategory(selection:String) {
+  fun updateUIWithNewDoorCategory(selection:AthleticsEventDoor) {
     selectedDoor.postValue(selection)
     updateEventList(selectedSex = selectedSex.value!!, selectedDoor = selection)
   }

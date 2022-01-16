@@ -1,7 +1,6 @@
 package com.example.athleticsrankingpoints.di
 
 import androidx.room.Room
-import com.example.athleticsrankingpoints.data.database.MIGRATION_1_2
 import com.example.athleticsrankingpoints.data.database.RankingScoreDatabase
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
@@ -10,6 +9,7 @@ import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.Look
 import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesViewModel
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.splashscreen.SplashViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +25,7 @@ val databaseModule = module {
   single {
     Room.databaseBuilder(androidContext(), RankingScoreDatabase::class.java, DATABASE_NAME)
 //      .fallbackToDestructiveMigration()
-      .addMigrations(MIGRATION_1_2)
+//      .addMigrations(MIGRATION_1_2)
       .build()
   }
   single {get<RankingScoreDatabase>().rankingScoreDatabaseDao()}
@@ -35,7 +35,8 @@ val databaseModule = module {
 val reposModule = module {
   single <AthleticsEventsRepository> {
     com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepository(
-      applicationContext = androidContext()
+      applicationContext = androidContext(),
+      get()
     )
   }
 
@@ -63,6 +64,9 @@ val viewModelsModule = module {
     EventGroupSimulatorViewModel(get(), simulatorDataModel = params.get(), get()) }
 
   viewModel { PerformancesViewModel(get()) }
+
+  viewModel { SplashViewModel(get()) }
+
 }
 
 val roomTestModule = module {

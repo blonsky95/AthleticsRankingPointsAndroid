@@ -91,7 +91,7 @@ fun PerformancesListItem(
           modifier = Modifier.align(Alignment.Start)
         )
         Text(
-          text = performanceData.eventGroup.sSex.upperCaseFirstLetter(),
+          text = performanceData.eventGroup.sSex.name,
           style = MaterialTheme.typography.body1,
           color = Color.White,
           modifier = Modifier.align(Alignment.Start)

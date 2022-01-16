@@ -9,7 +9,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
+import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.CustomButton
 import com.example.athleticsrankingpoints.presentation.components.CustomTwoRadioButtonGroup
@@ -29,7 +32,7 @@ fun EventGroupSelectorView(
 
   val selectedEventGroup by viewModel.getSelectedEventGroup().observeAsState(viewModel.sampleFirstEventGroup)
 
-  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEvent.sexMale)
+  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEventSex.Male)
 
   Column(Modifier.padding(16.dp)) {
     Text(
@@ -43,7 +46,7 @@ fun EventGroupSelectorView(
     EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = selectedEventGroup)
 
     SexRadioButtonSet(selectedSex = selectedSex, onSexSelectionChange = {
-      viewModel.updateUIWithNewSexCategory(it)
+      viewModel.updateUIWithNewSexCategory(findById(it.id))
       }
     )
 
@@ -64,7 +67,7 @@ fun EventGroupSelectorView(
 }
 
 @Composable
-fun SexRadioButtonSet(selectedSex: String, onSexSelectionChange: (String) -> Unit) {
+fun SexRadioButtonSet(selectedSex: AthleticsEventSex, onSexSelectionChange: (SelectableIdentifiable) -> Unit) {
   CustomTwoRadioButtonGroup(
     modifier = Modifier.fillMaxWidth(),
     selectedOption = selectedSex,
