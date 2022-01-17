@@ -34,7 +34,7 @@ val databaseModule = module {
 
 val reposModule = module {
   single <AthleticsEventsRepository> {
-    com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepository(
+    com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepositoryImpl(
       applicationContext = androidContext(),
       get()
     )

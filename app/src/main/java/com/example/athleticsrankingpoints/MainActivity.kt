@@ -20,7 +20,8 @@ class MainActivity : ComponentActivity() {
 
     splashScreen.apply {
       setKeepVisibleCondition{
-        splashViewModel.isLoading.value
+        splashViewModel.getIsRepoLoading().value!=true
+//        splashViewModel.isLoading.value
       }
     }
 
