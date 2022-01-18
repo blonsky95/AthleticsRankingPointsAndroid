@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
-const val allEventsJsonFileName = "all_events.json"
+const val allAthleticsEventsJsonFileName = "all_events.json"
 const val allEventGroupsJsonFileName = "event_groups.json"
 const val DATABASE_NAME = "ranking_score_database"
 
@@ -41,14 +41,14 @@ val reposModule = module {
   }
 
   single <EventGroupsRepository> {
-    com.example.athleticsrankingpoints.data.repositories.EventGroupsRepository(
+    com.example.athleticsrankingpoints.data.repositories.EventGroupsRepositoryImpl(
       applicationContext = androidContext(),
-      jsonFileName = allEventGroupsJsonFileName
+      get()
     )
   }
 
   single <RankingScorePerformanceRepository>{
-    com.example.athleticsrankingpoints.data.repositories.RankingScorePerformanceRepository(
+    com.example.athleticsrankingpoints.data.repositories.RankingScorePerformanceRepositoryImpl(
       rankingScoreDatabaseDao = get()
     )
   }
@@ -65,7 +65,7 @@ val viewModelsModule = module {
 
   viewModel { PerformancesViewModel(get()) }
 
-  viewModel { SplashViewModel(get()) }
+  viewModel { SplashViewModel(get(), get()) }
 
 }
 

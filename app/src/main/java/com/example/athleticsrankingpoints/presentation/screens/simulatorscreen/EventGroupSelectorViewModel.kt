@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
+import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import kotlinx.coroutines.launch
 
 class EventGroupSelectorViewModel(private val eventGroupsRepository: EventGroupsRepository):ViewModel() {
@@ -19,14 +19,12 @@ class EventGroupSelectorViewModel(private val eventGroupsRepository: EventGroups
   private var listOfEvents = MutableLiveData(listOf<EventGroup>())
   fun getListOfEventGroups() : LiveData<List<EventGroup>> = listOfEvents
 
-  private var selectedSex = MutableLiveData(AthleticsEventSex.Male)
-  fun getSelectedSex() : LiveData<AthleticsEventSex> = selectedSex
+  private var selectedSex = MutableLiveData(AthleticsSex.Male)
+  fun getSelectedSex() : LiveData<AthleticsSex> = selectedSex
 
-  var fullListOfEventGroups = listOf<EventGroup>()
 
   init {
     viewModelScope.launch {
-      fullListOfEventGroups = eventGroupsRepository.getAllEventGroups()
       updateEventList()
     }
   }
@@ -35,12 +33,12 @@ class EventGroupSelectorViewModel(private val eventGroupsRepository: EventGroups
     selectedEventGroup.postValue(eventGroup)
   }
 
-  private fun updateEventList(selectedSex:AthleticsEventSex = AthleticsEventSex.Male) {
+  private fun updateEventList(selectedSex:AthleticsSex = AthleticsSex.Male) = viewModelScope.launch {
     listOfEvents.postValue(eventGroupsRepository.getEventGroupsBySex(selectedSex))
     newEventSelected(eventGroupsRepository.getEventGroupsBySex(selectedSex)[0])
   }
 
-  fun updateUIWithNewSexCategory(selection:AthleticsEventSex) {
+  fun updateUIWithNewSexCategory(selection:AthleticsSex) {
     selectedSex.postValue(selection)
     updateEventList(selectedSex = selection)
   }

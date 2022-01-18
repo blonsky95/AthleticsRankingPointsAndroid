@@ -24,13 +24,8 @@ data class AthleticsEvent (
     const val type_throw="type_throw" //only needs metres
     const val type_combined_events="type_combined_events" //only needs points aka Int, no decimals
 
-//    const val sexFemale = "Female"
-//    const val sexMale = "Male"
-//    const val doorIndoor = "Indoor"
-//    const val doorOutdoor = "Outdoor"
-
-    val listSexOptions = listOf(AthleticsEventSex.Male, AthleticsEventSex.Female)
-    val listDoorOptions = listOf(AthleticsEventDoor.Indoor, AthleticsEventDoor.Outdoor)
+    val listSexOptions = listOf(AthleticsSex.Male, AthleticsSex.Female)
+    val listDoorOptions = listOf(AthleticsDoor.Indoor, AthleticsDoor.Outdoor)
 
     fun getSampleEvent(): AthleticsEvent {
       return AthleticsEvent(

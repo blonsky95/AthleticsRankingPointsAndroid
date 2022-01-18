@@ -5,7 +5,7 @@ import com.example.athleticsrankingpoints.data.database.RankingScoreDatabaseDao
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
 
-class RankingScorePerformanceRepository (private val rankingScoreDatabaseDao: RankingScoreDatabaseDao) : RankingScorePerformanceRepository {
+class RankingScorePerformanceRepositoryImpl (private val rankingScoreDatabaseDao: RankingScoreDatabaseDao) : RankingScorePerformanceRepository {
   override suspend fun getAllRankingScorePerformances(): LiveData<List<RankingScorePerformanceData>> {
    return rankingScoreDatabaseDao.getAllPerformances()
   }

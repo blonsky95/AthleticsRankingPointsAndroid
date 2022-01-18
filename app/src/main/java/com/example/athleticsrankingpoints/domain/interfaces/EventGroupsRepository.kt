@@ -1,16 +1,21 @@
 package com.example.athleticsrankingpoints.domain.interfaces
 
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
+import androidx.lifecycle.LiveData
+import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventCategory
+import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 
 interface EventGroupsRepository {
 
-  val jsonFileName:String
-
   suspend fun getAllEventGroups():List<EventGroup>
 
-  fun getEventGroupsBySex(sex: AthleticsEventSex):List<EventGroup>
+  suspend fun getEventGroupsBySex(sex: AthleticsSex):List<EventGroup>
 
-  fun getEventGroupByName(eventGroupName: String) : EventGroup?
+  suspend fun getEventGroupByName(name: String) : EventGroup?
+
+  suspend fun insertAllEventGroups(list:List<EventGroup>)
+
+  fun getIsRepositoryLoading(): LiveData<Boolean>
 
 }

@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.interfaces.findById
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventDoor
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
+import com.example.athleticsrankingpoints.domain.models.AthleticsDoor
+import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.LookUpViewModel
 import org.koin.androidx.compose.getViewModel
@@ -28,8 +28,8 @@ fun PointLookUpBody() {
 
   val selectedEvent by viewModel.getSelectedEvent().observeAsState(viewModel.sampleFirstEvent)
 
-  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEventSex.Male)
-  val selectedDoor by viewModel.getSelectedDoor().observeAsState(AthleticsEventDoor.Indoor)
+  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsSex.Male)
+  val selectedDoor by viewModel.getSelectedDoor().observeAsState(AthleticsDoor.Indoor)
 
   val performanceString by viewModel.getPerformanceString().observeAsState("0.0")
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")

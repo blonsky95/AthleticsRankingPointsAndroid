@@ -3,17 +3,19 @@ package com.example.athleticsrankingpoints.domain.models
 import com.beust.klaxon.Json
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
 
-enum class AthleticsEventDoor(@Json override val id: String) : SelectableIdentifiable {
-  @Json(name = "indoor")
-  Indoor("indoor") {
+enum class AthleticsSex(override val id: String) : SelectableIdentifiable {
+  @Json(name = "female")
+  Female("female") {
     override fun getReadableText(): String {
-      return "Indoor"
+      return "Female"
     }
   },
-  @Json(name = "outdoor")
-  Outdoor("outdoor") {
+  @Json(name = "male")
+  Male("male") {
     override fun getReadableText(): String {
-      return "Outdoor"
+      return "Male"
     }
   }
 }
+
+

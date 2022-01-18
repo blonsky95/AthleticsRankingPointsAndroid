@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
 import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventSex
+import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.CustomButton
 import com.example.athleticsrankingpoints.presentation.components.CustomTwoRadioButtonGroup
@@ -32,7 +32,7 @@ fun EventGroupSelectorView(
 
   val selectedEventGroup by viewModel.getSelectedEventGroup().observeAsState(viewModel.sampleFirstEventGroup)
 
-  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsEventSex.Male)
+  val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsSex.Male)
 
   Column(Modifier.padding(16.dp)) {
     Text(
@@ -67,7 +67,7 @@ fun EventGroupSelectorView(
 }
 
 @Composable
-fun SexRadioButtonSet(selectedSex: AthleticsEventSex, onSexSelectionChange: (SelectableIdentifiable) -> Unit) {
+fun SexRadioButtonSet(selectedSex: AthleticsSex, onSexSelectionChange: (SelectableIdentifiable) -> Unit) {
   CustomTwoRadioButtonGroup(
     modifier = Modifier.fillMaxWidth(),
     selectedOption = selectedSex,

@@ -38,10 +38,9 @@ class EventGroupSimulatorViewModel(
 
   var loadedRankingScorePerformanceData :RankingScorePerformanceData? = null
 
-  var isPerformanceNew = loadedRankingScorePerformanceData==null
-
   init {
     viewModelScope.launch {
+      selectedEventGroup.value=eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)
       if (simulatorDataModel.loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY) {
         rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDataModel.loadPerformanceName)?.let {
           loadedRankingScorePerformanceData=it
@@ -78,7 +77,7 @@ class EventGroupSimulatorViewModel(
   fun getTitle(): LiveData<String> = title
 
   private var selectedEventGroup = MutableLiveData(
-    eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)?: EventGroup.getSampleEventGroup()
+    EventGroup.getSampleEventGroup()
   )
   fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
 

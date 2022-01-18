@@ -1,24 +1,21 @@
 package com.example.athleticsrankingpoints.data.repositories
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beust.klaxon.Klaxon
 import com.example.athleticsrankingpoints.data.database.RankingScoreDatabaseDao
-import com.example.athleticsrankingpoints.di.allEventsJsonFileName
+import com.example.athleticsrankingpoints.di.allAthleticsEventsJsonFileName
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsEventCategory
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.runBlocking
 
 class AthleticsEventsRepositoryImpl(applicationContext: Context, private val rankingScoreDatabaseDao: RankingScoreDatabaseDao) : AthleticsEventsRepository {
 
   private val _isLoading = MutableLiveData(true)
 
-  private val jsonFileName: String = allEventsJsonFileName
+  private val jsonFileName: String = allAthleticsEventsJsonFileName
 
   private var cacheListOfMaleIndoorEvents:List<AthleticsEvent> = listOf()
   private var cacheListOfFemaleIndoorEvents:List<AthleticsEvent> = listOf()
@@ -26,8 +23,6 @@ class AthleticsEventsRepositoryImpl(applicationContext: Context, private val ran
   private var cacheListOfFemaleOutdoorEvents:List<AthleticsEvent> = listOf()
 
   init {
-    Log.d("TESTXX","Repo has been init")
-
     runBlocking {
       if (!roomDatabaseExists()) {
         val jsonFile: String = applicationContext.assets.open(jsonFileName).bufferedReader().use { it.readText() }

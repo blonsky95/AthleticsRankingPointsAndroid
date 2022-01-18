@@ -5,6 +5,8 @@ import androidx.room.*
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsEventCategory
+import com.example.athleticsrankingpoints.domain.models.AthleticsSex
+import com.example.athleticsrankingpoints.domain.models.EventGroup
 
 @Dao
 interface RankingScoreDatabaseDao {
@@ -28,6 +30,27 @@ interface RankingScoreDatabaseDao {
 
   @Insert
   suspend fun insertAllAthleticsEvents(athleticsEvent: List<AthleticsEvent>)
+
+/*
+  ATHLETICS EVENT GROUPS
+ */
+  @Query("SELECT * from $EVENT_GROUPS_TABLE_NAME")
+  fun getAllEventGroups(): List<EventGroup>
+
+  @Query("SELECT * from $EVENT_GROUPS_TABLE_NAME LIMIT 1")
+  suspend fun getFirstEventGroup(): EventGroup?
+
+  @Query("SELECT * from $EVENT_GROUPS_TABLE_NAME where sName = :name")
+  suspend fun getEventGroupByName(name: String) : EventGroup?
+
+  @Query("SELECT * from $EVENT_GROUPS_TABLE_NAME where sSex = :sex")
+  suspend fun getEventGroupBySex(sex: AthleticsSex) : List<EventGroup>
+
+  @Insert
+  suspend fun insertEventGroup(eventGroup: EventGroup)
+
+  @Insert
+  suspend fun insertAllEventGroups(eventGroup: List<EventGroup>)
 
   /*
   RANKING SCORE PERFORMANCE DATA

@@ -1,18 +1,21 @@
 package com.example.athleticsrankingpoints.domain.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.athleticsrankingpoints.data.database.EVENT_GROUPS_TABLE_NAME
+
+@Entity(tableName = EVENT_GROUPS_TABLE_NAME)
 class EventGroup (
+  @PrimaryKey
   val sName:String,
   val sMainEvent: AthleticsEvent,
   val sSimilarEvents: List<AthleticsEvent>,
-  val sSex:AthleticsEventSex,
+  val sSex:AthleticsSex,
   val sMinNumberPerformancesGroup: Int,
   val sMinNumberPerformancesMainEvent: Int
  ){
 
   companion object{
-    const val sSexMale = "male"
-    const val sSexFemale = "female"
-
     val DEFAULT_GROUP = "Men´s 100m"
 
     fun getSampleEventGroup(): EventGroup {
@@ -20,7 +23,7 @@ class EventGroup (
         sName="Sample group",
         sMainEvent = AthleticsEvent.getSampleEvent(),
         sSimilarEvents  = listOf(),
-        sSex = AthleticsEventSex.Male,
+        sSex = AthleticsSex.Male,
         sMinNumberPerformancesMainEvent = 3,
         sMinNumberPerformancesGroup = 5
       )
