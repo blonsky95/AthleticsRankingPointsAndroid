@@ -10,6 +10,7 @@ import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceD
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getSampleEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getWindPoints
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.toIntsArray
@@ -38,9 +39,17 @@ class EventGroupSimulatorViewModel(
 
   var loadedRankingScorePerformanceData :RankingScorePerformanceData? = null
 
+  private var selectedEventGroup = MutableLiveData(
+    EventGroup.getSampleEventGroup()
+  )
+  fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
+
   init {
     viewModelScope.launch {
-      selectedEventGroup.value=eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)
+      eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)?.let {
+        selectedEventGroup.value=it
+        listOfSelectedEvents.value = initListOfEvents(it.sMainEvent, it.sMinNumberPerformancesGroup)
+      }
       if (simulatorDataModel.loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY) {
         rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDataModel.loadPerformanceName)?.let {
           loadedRankingScorePerformanceData=it
@@ -76,11 +85,6 @@ class EventGroupSimulatorViewModel(
   private var title = MutableLiveData("")
   fun getTitle(): LiveData<String> = title
 
-  private var selectedEventGroup = MutableLiveData(
-    EventGroup.getSampleEventGroup()
-  )
-  fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
-
   private var listOfPerformances = MutableLiveData(
     initListOfDoubles()
   )
@@ -103,7 +107,7 @@ class EventGroupSimulatorViewModel(
   fun getListOfPlacementPoints() : LiveData<List<String>> = listOfPlacementPoints
 
   private var listOfSelectedEvents = MutableLiveData(
-    initListOfEvents())
+    initListOfEvents(athleticsEvent = selectedEventGroup.value?.sMainEvent?: getSampleEvent(), size = selectedEventGroup.value?.sMinNumberPerformancesGroup?:1))
   fun getListOfSelectedEvents() : LiveData<List<AthleticsEvent>> = listOfSelectedEvents
 
   private var rankingScore = MutableLiveData("0")
@@ -127,11 +131,10 @@ class EventGroupSimulatorViewModel(
     return array1
   }
 
-  private fun initListOfEvents(): List<AthleticsEvent> {
-    size = selectedEventGroup.value!!.sMinNumberPerformancesGroup
+  private fun initListOfEvents(athleticsEvent: AthleticsEvent, size: Int): List<AthleticsEvent> {
     val array1 = arrayListOf<AthleticsEvent>()
     for (index in 1..size) {
-      array1.add(selectedEventGroup.value!!.sMainEvent)
+      array1.add(athleticsEvent)
     }
     return array1
   }
@@ -289,7 +292,13 @@ class EventGroupSimulatorViewModel(
   }
 
   fun getRankingScore(perfPoints:List<String>, placementPoints:List<String>, windPoints:List<String>):String  =
-    getAverage(total = perfPoints.toIntsArray().sum() + placementPoints.toIntsArray().sum() + windPoints.toIntsArray().sum(), size = size)
+//    getAverage(total = perfPoints.toIntsArray().sum() + placementPoints.toIntsArray().sum() + windPoints.toIntsArray().sum(), size = size)
+    getAverage(total = (
+        (listOfPerformancePoints.value?.toIntsArray()?.sum()?:0)
+            + (listOfPlacementPoints.value?.toIntsArray()?.sum()?:0)
+            + (listOfWindsPoints.value?.toIntsArray()?.sum()?:0)
+        ),
+      size = listOfSelectedEvents.value?.size?:0)
 
 
   private fun getAverage(total:Int, size:Int):String {

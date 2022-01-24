@@ -1,6 +1,7 @@
 package com.example.athleticsrankingpoints
 
 import android.app.Application
+import com.example.athleticsrankingpoints.di.cachesModule
 import com.example.athleticsrankingpoints.di.databaseModule
 import com.example.athleticsrankingpoints.di.reposModule
 import com.example.athleticsrankingpoints.di.viewModelsModule
@@ -11,6 +12,7 @@ class AthleticsRankingPointsClass : Application() {
 
   val koinModules = listOf(
     databaseModule,
+    cachesModule,
     reposModule,
     viewModelsModule
   )

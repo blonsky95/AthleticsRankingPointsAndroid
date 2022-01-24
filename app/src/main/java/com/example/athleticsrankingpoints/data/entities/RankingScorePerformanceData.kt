@@ -3,6 +3,7 @@ package com.example.athleticsrankingpoints.data.entities
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.athleticsrankingpoints.data.cache.Cacheable
 import com.example.athleticsrankingpoints.data.database.PERFORMANCES_TABLE_NAME
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.EventGroup
@@ -27,7 +28,10 @@ data class RankingScorePerformanceData(
   val placementPoints: List<String>,
   val selectedEvents: List<AthleticsEvent>,
   var rankingScore: String
-) {
+) :Cacheable {
+
+  override val key: String
+    get() = name
 
   //call to update the last updated date
   fun refreshDate() {

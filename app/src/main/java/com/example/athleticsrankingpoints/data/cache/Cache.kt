@@ -4,22 +4,22 @@ interface Cacheable {
   val key: String
 }
 
-class Cache(private val storage: HashMap<String,Cacheable> = HashMap()) {
+class Cache<T: Cacheable>(private val storage: HashMap<String,T> = HashMap()) {
 
   val isLoaded
     get() = storage.isNotEmpty()
 
   operator fun get(key: String) = storage[key]
 
-  fun save(item: Cacheable) {
+  fun save(item: T) {
     storage[item.key]=item
   }
 
-  fun saveAll(items: List<Cacheable>) {
+  fun saveAll(items: List<T>) {
     storage.putAll(items.map { it.key to it })
   }
 
-  fun clearAndSaveAll(items: List<Cacheable>) {
+  fun clearAndSaveAll(items: List<T>) {
     removeAll()
     saveAll(items)
   }
@@ -28,6 +28,6 @@ class Cache(private val storage: HashMap<String,Cacheable> = HashMap()) {
 
   fun getAll() = storage.values.toList()
 
-  fun getAllByKeys(keys: List<String>): List<Cacheable> = keys.mapNotNull { storage[it] }
+  fun getAllByKeys(keys: List<String>): List<T> = keys.mapNotNull { storage[it] }
 
 }

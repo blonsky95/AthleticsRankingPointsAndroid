@@ -22,7 +22,7 @@ fun PerformancesSimulatorList(
   onWindChange: (Int, String) -> Unit,
 ) {
   LazyColumn(modifier = modifier) {
-    itemsIndexed(perfList) { index, _ ->
+    itemsIndexed(selectedEventsList) { index, _ ->
       SinglePerformanceDataComponent(
         index =index,
         event =selectedEventsList[index],

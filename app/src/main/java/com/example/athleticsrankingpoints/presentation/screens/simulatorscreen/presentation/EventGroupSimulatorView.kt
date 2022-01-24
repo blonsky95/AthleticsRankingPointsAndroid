@@ -134,7 +134,6 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
       Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween.takeIf { isLoaded } ?: Arrangement.End
-//        horizontalArrangement = if (isLoaded) Arrangement.SpaceBetween else Arrangement.End
       ) {
 
         if (isLoaded) {

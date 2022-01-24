@@ -2,6 +2,10 @@ package com.example.athleticsrankingpoints.di
 
 import androidx.room.Room
 import com.example.athleticsrankingpoints.data.database.RankingScoreDatabase
+import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
+import com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepositoryImpl
+import com.example.athleticsrankingpoints.data.repositories.EventGroupsRepositoryImpl
+import com.example.athleticsrankingpoints.data.repositories.RankingScorePerformanceRepositoryImpl
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
@@ -31,28 +35,31 @@ val databaseModule = module {
   single {get<RankingScoreDatabase>().rankingScoreDatabaseDao()}
 }
 
+val cachesModule = module {
+  singleCache<RankingScorePerformanceData>()
+}
 
 val reposModule = module {
   single <AthleticsEventsRepository> {
-    com.example.athleticsrankingpoints.data.repositories.AthleticsEventsRepositoryImpl(
+    AthleticsEventsRepositoryImpl(
       applicationContext = androidContext(),
       get()
     )
   }
 
   single <EventGroupsRepository> {
-    com.example.athleticsrankingpoints.data.repositories.EventGroupsRepositoryImpl(
+    EventGroupsRepositoryImpl(
       applicationContext = androidContext(),
       get()
     )
   }
 
   single <RankingScorePerformanceRepository>{
-    com.example.athleticsrankingpoints.data.repositories.RankingScorePerformanceRepositoryImpl(
-      rankingScoreDatabaseDao = get()
+    RankingScorePerformanceRepositoryImpl(
+      rankingScoreDatabaseDao = get(),
+      cache = getCache()
     )
   }
-
 }
 
 val viewModelsModule = module {
@@ -77,4 +84,6 @@ val roomTestModule = module {
       .build()
   }
 }
+
+
 
