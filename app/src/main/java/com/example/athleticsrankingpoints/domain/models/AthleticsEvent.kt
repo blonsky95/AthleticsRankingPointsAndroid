@@ -3,6 +3,7 @@ package com.example.athleticsrankingpoints.domain.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.athleticsrankingpoints.data.database.ATHLETICS_EVENTS_TABLE_NAME
+import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.pow
 
@@ -111,9 +112,10 @@ data class AthleticsEvent (
     }
   }
 
-  private fun getPoints(performance: Double): Int {
-    return floor(sCoefficients["a"]!! * (performance + sCoefficients["b"]!!).pow(2) + sCoefficients["c"]!!).toInt()
-  }
+  private fun getPoints(performance: Double)=
+    performance.takeIf { performance <= abs(sCoefficients["b"]!!) }?.let {
+      floor(sCoefficients["a"]!! * (it + sCoefficients["b"]!!).pow(2) + sCoefficients["c"]!!).toInt()
+    }?:-1
 
   //Use this function if you want the event name to display "(i)" for indoor.
   fun getDoorInclusiveName():String {
