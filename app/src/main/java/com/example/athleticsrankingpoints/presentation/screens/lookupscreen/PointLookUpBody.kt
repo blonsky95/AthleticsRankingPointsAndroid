@@ -1,6 +1,8 @@
 package com.example.athleticsrankingpoints.presentation.lookupscreen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -51,11 +53,10 @@ fun PointLookUpBody() {
         .padding(bottom = 16.dp)
     )
 
-    //TODO performance input should handle different inputs - also hours minutes seconds, tenths
-    PerformanceInput(modifier = Modifier.padding(bottom = 8.dp), performanceString) {
+    PerformanceInput(inputType = selectedEvent.sType, performanceString =  performanceString) {
       viewModel.updatePerformanceString(it)
     }
-
+    Spacer(modifier = Modifier.height(8.dp))
     PointsDisplay(performancePoints)
 
     CategorySelector(

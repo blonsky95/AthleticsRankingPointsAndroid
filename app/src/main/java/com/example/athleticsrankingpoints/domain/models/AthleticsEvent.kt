@@ -10,7 +10,7 @@ import kotlin.math.pow
 @Entity(tableName = ATHLETICS_EVENTS_TABLE_NAME)
 data class AthleticsEvent (
   val sName:String,
-  val sType:String, //run, jump or throw
+  val sType:AthleticsEventType, //run, jump or throw
   val sCategory: AthleticsEventCategory,
   @PrimaryKey
   val sKey: String,
@@ -18,12 +18,6 @@ data class AthleticsEvent (
 ){
 
   companion object{
-    const val type_run="type_run" //only needs seconds and hundredths
-    const val type_long_run="type_long_run" //needs minutes, seconds and hundredths
-    const val type_very_long_run="type_very_long_run" //needs hours, minutes, seconds and hundredths
-    const val type_jump="type_jump" //only needs metres
-    const val type_throw="type_throw" //only needs metres
-    const val type_combined_events="type_combined_events" //only needs points aka Int, no decimals
 
     val listSexOptions = listOf(AthleticsSex.Male, AthleticsSex.Female)
     val listDoorOptions = listOf(AthleticsDoor.Indoor, AthleticsDoor.Outdoor)
@@ -31,7 +25,7 @@ data class AthleticsEvent (
     fun getSampleEvent(): AthleticsEvent {
       return AthleticsEvent(
         sName="100m",
-        sType = type_run,
+        sType = AthleticsEventType.type_run,
         sCategory = AthleticsEventCategory.category_outdoor_male,
         sKey = "100_m_o",
         sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
@@ -41,21 +35,21 @@ data class AthleticsEvent (
     fun getThreeSampleEvents():List<AthleticsEvent>{
       return listOf(AthleticsEvent(
         sName="100m",
-        sType = type_run,
+        sType = AthleticsEventType.type_run,
         sCategory = AthleticsEventCategory.category_outdoor_male,
         sKey = "100_m_o",
         sCoefficients = hashMapOf("a" to 24.6422116633, "b" to -16.9975315583, "c" to -0.2186620480)
       ),
         AthleticsEvent(
           sName="Decathlon",
-          sType = type_combined_events,
+          sType = AthleticsEventType.type_combined_events,
           sCategory = AthleticsEventCategory.category_outdoor_male,
           sKey = "decathlon_m_o",
           sCoefficients = hashMapOf("a" to 0.0000009772, "b" to 71186.6785041732, "c" to -5001.0472144005)
         ),
         AthleticsEvent(
           sName="Shot put",
-          sType = type_throw,
+          sType = AthleticsEventType.type_throw,
           sCategory = AthleticsEventCategory.category_outdoor_male,
           sKey = "shot_put_m_o",
           sCoefficients = hashMapOf("a" to 0.0423461436, "b" to 684.8281542324, "c" to -19915.7245727669)
@@ -96,7 +90,7 @@ data class AthleticsEvent (
       return "0"
     } else {
       val performanceDouble =
-        if (this.sType== type_combined_events) {
+        if (this.sType== AthleticsEventType.type_combined_events) {
           floor(performance.toDouble())
         } else {
           performance.toDouble()
