@@ -14,7 +14,7 @@ import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.p
 import com.example.athleticsrankingpoints.presentation.InformationBody
 import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesBody
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSelectorView
-import com.example.athleticsrankingpoints.presentation.lookupscreen.PointLookUpBody
+import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.PointLookUpBody
 
 //So what we are going to do here is, the NavHost wont be injected, or passed around through screens.
 //All the navigations will be here

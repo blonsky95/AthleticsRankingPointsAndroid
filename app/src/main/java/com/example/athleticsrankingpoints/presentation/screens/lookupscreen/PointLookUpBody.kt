@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.lookupscreen
+package com.example.athleticsrankingpoints.presentation.screens.lookupscreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,16 +9,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsDoor
+import com.example.athleticsrankingpoints.domain.models.AthleticsEventType
 import com.example.athleticsrankingpoints.domain.models.AthleticsSex
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.presentation.components.*
-import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.LookUpViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -33,7 +33,8 @@ fun PointLookUpBody() {
   val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsSex.Male)
   val selectedDoor by viewModel.getSelectedDoor().observeAsState(AthleticsDoor.Indoor)
 
-  val performanceString by viewModel.getPerformanceString().observeAsState("0.0")
+  val performanceUnitsAware by viewModel.getPerformanceUnitsAware().observeAsState(PerformanceUnitsAware.getDefault())
+
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
 
   Column(Modifier.padding(16.dp)) {
@@ -43,18 +44,12 @@ fun PointLookUpBody() {
       style = MaterialTheme.typography.h2,
       modifier = Modifier
         .align(Start)
-        .padding(bottom = 8.dp)
-    )
-    Text(
-      text = "Write the time or distance in the following box:",
-      style = MaterialTheme.typography.body1,
-      modifier = Modifier
-        .align(Alignment.CenterHorizontally)
-        .padding(bottom = 16.dp)
     )
 
-    PerformanceInput(inputType = selectedEvent.sType, performanceString =  performanceString) {
-      viewModel.updatePerformanceString(it)
+    Spacer(modifier = Modifier.height(8.dp))
+
+    PerformanceInput(performanceUnitsAware = performanceUnitsAware) {newPerformance, hasErrorValidating ->
+      viewModel.updatePerformanceUnitsAware(newPerformance,hasErrorValidating)
     }
     Spacer(modifier = Modifier.height(8.dp))
     PointsDisplay(performancePoints)

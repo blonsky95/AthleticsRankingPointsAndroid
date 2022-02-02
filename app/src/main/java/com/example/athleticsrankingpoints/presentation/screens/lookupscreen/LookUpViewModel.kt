@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventCategory
-import com.example.athleticsrankingpoints.domain.models.AthleticsDoor
-import com.example.athleticsrankingpoints.domain.models.AthleticsSex
+import com.example.athleticsrankingpoints.domain.models.*
 import kotlinx.coroutines.launch
+import kotlin.math.pow
 
 class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepository):ViewModel() {
 
@@ -27,25 +25,28 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
   private var selectedDoor = MutableLiveData(AthleticsDoor.Indoor)
   fun getSelectedDoor() : LiveData<AthleticsDoor> = selectedDoor
 
-  private var performanceString = MutableLiveData("0.0")
-  fun getPerformanceString() : LiveData<String> = performanceString
+  private var performanceUnitsAware = MutableLiveData(
+    PerformanceUnitsAware.getDefault()
+  )
+
+  fun getPerformanceUnitsAware() : LiveData<PerformanceUnitsAware> = performanceUnitsAware
 
   private var performancePoints = MutableLiveData("0")
   fun getPerformancePoints() : LiveData<String> = performancePoints
 
 
-//  var fullListOfEvents = listOf<AthleticsEvent>()
 
   init {
     viewModelScope.launch {
-//      fullListOfEvents = athleticsEventsRepository.getAllAthleticsEvents()
       updateEventList()
     }
   }
 
   fun newEventSelected(athleticsEvent: AthleticsEvent) {
     selectedEvent.postValue(athleticsEvent)
-    updatePerformanceString("0.0")
+    updatePerformanceUnitsAware(
+      PerformanceUnitsAware(athleticsEvent.sType.getUnitsDefaultValues(),athleticsEvent.sType.getUnits())
+    )
   }
 
   private fun updateEventList(selectedSex: AthleticsSex = AthleticsSex.Male, selectedDoor: AthleticsDoor = AthleticsDoor.Indoor) {
@@ -83,8 +84,24 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
     updateEventList(selectedSex = selectedSex.value!!, selectedDoor = selection)
   }
 
-  fun updatePerformanceString(newPerformance: String){
-    performanceString.postValue(newPerformance)
-    performancePoints.postValue(selectedEvent.value!!.getPointsString(newPerformance))
+  fun updatePerformanceUnitsAware(newPerformance: PerformanceUnitsAware, isError:Boolean=false){
+    performanceUnitsAware.postValue(newPerformance)
+    performancePoints.postValue(
+      if (isError) {
+        "Error"
+      } else {
+        selectedEvent.value!!.getPointsString(newPerformance.performanceAbsoluteValue)
+      })
   }
+
+
+fun getTotalFromList(list:List<String>):String {
+  var total = 0.0
+  for (n in list.indices) {
+    total += (list[list.size-1-n].toDoubleOrNull() ?: 0.0) * (60.0.pow(n.toDouble()))
+  }
+
+  return total.toString()
+}
+
 }
