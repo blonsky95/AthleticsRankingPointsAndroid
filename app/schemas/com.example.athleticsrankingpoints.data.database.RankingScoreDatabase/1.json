@@ -1,0 +1,188 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "db02658db87122e126c7f0dc190ed3a9",
+    "entities": [
+      {
+        "tableName": "Ranking_score_performances",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scoreId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` INTEGER, `name` TEXT NOT NULL, `eventGroup` TEXT NOT NULL, `performances` TEXT NOT NULL, `performancesPoints` TEXT NOT NULL, `winds` TEXT NOT NULL, `windsPoints` TEXT NOT NULL, `placementPoints` TEXT NOT NULL, `selectedEvents` TEXT NOT NULL, `rankingScore` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "scoreId",
+            "columnName": "scoreId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eventGroup",
+            "columnName": "eventGroup",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performances",
+            "columnName": "performances",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "performancesPoints",
+            "columnName": "performancesPoints",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "winds",
+            "columnName": "winds",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "windsPoints",
+            "columnName": "windsPoints",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "placementPoints",
+            "columnName": "placementPoints",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "selectedEvents",
+            "columnName": "selectedEvents",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rankingScore",
+            "columnName": "rankingScore",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "scoreId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Athletics_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sName` TEXT NOT NULL, `sType` TEXT NOT NULL, `sCategory` TEXT NOT NULL, `sKey` TEXT NOT NULL, `sCoefficients` TEXT NOT NULL, PRIMARY KEY(`sKey`))",
+        "fields": [
+          {
+            "fieldPath": "sName",
+            "columnName": "sName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sType",
+            "columnName": "sType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sCategory",
+            "columnName": "sCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sKey",
+            "columnName": "sKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sCoefficients",
+            "columnName": "sCoefficients",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sKey"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Events_groups",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sName` TEXT NOT NULL, `sMainEvent` TEXT NOT NULL, `sSimilarEvents` TEXT NOT NULL, `sSex` TEXT NOT NULL, `sMinNumberPerformancesGroup` INTEGER NOT NULL, `sMinNumberPerformancesMainEvent` INTEGER NOT NULL, PRIMARY KEY(`sName`))",
+        "fields": [
+          {
+            "fieldPath": "sName",
+            "columnName": "sName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sMainEvent",
+            "columnName": "sMainEvent",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sSimilarEvents",
+            "columnName": "sSimilarEvents",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sSex",
+            "columnName": "sSex",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sMinNumberPerformancesGroup",
+            "columnName": "sMinNumberPerformancesGroup",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sMinNumberPerformancesMainEvent",
+            "columnName": "sMinNumberPerformancesMainEvent",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'db02658db87122e126c7f0dc190ed3a9')"
+    ]
+  }
+}

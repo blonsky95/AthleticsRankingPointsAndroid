@@ -3,10 +3,10 @@ package com.example.athleticsrankingpoints.domain.models
 import android.util.Log
 import kotlin.math.pow
 
-class PerformanceUnitsAware(listOfUnits : List<String>, listOfUnitsNames : List<String>) {
+class PerformanceUnitsAware(listOfPerformanceUnitValues : List<String>, listOfPerformanceUnits : List<PerformanceUnits>) {
 
-  var performanceUnitValues = listOfUnits
-  var performanceUnitsNames = listOfUnitsNames
+  var performanceUnitValues = listOfPerformanceUnitValues
+  var performanceUnits = listOfPerformanceUnits
 
   var performanceAbsoluteValue = "0"
     get() {
@@ -17,17 +17,12 @@ class PerformanceUnitsAware(listOfUnits : List<String>, listOfUnitsNames : List<
       return total.toString()
     }
 
-  fun updateUnitValues(value: String, index: Int) : List<String>{
-    Log.d("MEIN CHECK", "index $index updated $value")
-    return performanceUnitValues.toMutableList().also { it[index] = value }.toList()
-  }
-
   companion object {
     fun getDefault(): PerformanceUnitsAware {
       Log.d("MEIN CHECK 3", "getting default")
 
       return PerformanceUnitsAware(
-        AthleticsEventType.type_run.getUnitsDefaultValues(),
+        AthleticsEventType.type_run.getUnits().map { unit -> unit.unitDefaultValue },
         AthleticsEventType.type_run.getUnits()
       )
     }

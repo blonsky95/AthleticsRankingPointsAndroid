@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventType
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -22,7 +22,7 @@ import kotlin.math.floor
 fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware, Boolean) -> Unit) {
 
   val listOfValues = performanceUnitsAware.performanceUnitValues.toMutableList()
-  val listOfUnits = performanceUnitsAware.performanceUnitsNames
+  val listOfUnits = performanceUnitsAware.performanceUnits
 
   Surface(modifier = Modifier
     .fillMaxWidth()
@@ -32,7 +32,7 @@ fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformance
       for ((index,value) in listOfValues.withIndex()) {
         PerformanceInputUnit(
           unitValue = value,
-          unit = performanceUnitsAware.performanceUnitsNames[index],
+          unit = performanceUnitsAware.performanceUnits[index],
           onValueChange = {newValue, hasValidationError ->
               listOfValues[index]=newValue
               onPerformanceChange(PerformanceUnitsAware(listOfValues,listOfUnits), hasValidationError)
@@ -48,7 +48,7 @@ fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformance
 @Composable
 fun PerformanceInputUnit(
   unitValue:String,
-  unit:String,
+  unit:PerformanceUnits,
   onValueChange:(String, Boolean) -> Unit
 ) {
   var isError by rememberSaveable { mutableStateOf(false) }
@@ -59,7 +59,7 @@ fun PerformanceInputUnit(
     label = {
       Text(
         modifier = Modifier.padding(bottom = 2.dp),
-        text = unit
+        text = unit.unitTextString
       )
     },
     isError = isError,
@@ -71,10 +71,10 @@ fun PerformanceInputUnit(
   )
 }
 
-fun hasError(text:String, units:String) : Boolean {
+fun hasError(text:String, units: PerformanceUnits) : Boolean {
   if (text.toDoubleOrNull()==null) return true
   return text.toDoubleOrNull()?.let {
-     (AthleticsEventType.unitCanNotContainDecimal(units) && ceil(it)!=floor(it) )
+     (PerformanceUnits.unitCanNotContainDecimal(units) && ceil(it)!=floor(it) )
   }?:true
 }
 
