@@ -87,13 +87,13 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
     updateEventList(selectedSex = selectedSex.value!!, selectedDoor = selection)
   }
 
-  fun updatePerformanceUnitsAware(newPerformance: PerformanceUnitsAware, isError:Boolean=false){
+  fun updatePerformanceUnitsAware(newPerformance: PerformanceUnitsAware){
     performanceUnitsAware.postValue(newPerformance)
     performancePoints.postValue(
-      if (isError) {
-        "Error"
-      } else {
+      if (newPerformance.isPerformanceValid) {
         selectedEvent.value!!.getPointsString(newPerformance.performanceAbsoluteValue)
+      } else {
+        "Error"
       })
   }
 

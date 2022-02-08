@@ -7,6 +7,11 @@ class PerformanceUnitsAware(listOfPerformanceUnitValues : List<String>, listOfPe
 
   var performanceUnitValues = listOfPerformanceUnitValues
   var performanceUnits = listOfPerformanceUnits
+  val performanceUnitIsValid
+    get() = performanceUnits.mapIndexed {
+        index, performanceUnits ->
+      performanceUnits.isValid(performanceUnitValues[index])
+    }
 
   var performanceAbsoluteValue = "0"
     get() {
@@ -17,10 +22,10 @@ class PerformanceUnitsAware(listOfPerformanceUnitValues : List<String>, listOfPe
       return total.toString()
     }
 
+  val isPerformanceValid = !performanceUnitIsValid.contains(false)
+
   companion object {
     fun getDefault(): PerformanceUnitsAware {
-      Log.d("MEIN CHECK 3", "getting default")
-
       return PerformanceUnitsAware(
         AthleticsEventType.type_run.getUnits().map { unit -> unit.unitDefaultValue },
         AthleticsEventType.type_run.getUnits()

@@ -48,8 +48,8 @@ fun PointLookUpBody() {
 
     Spacer(modifier = Modifier.height(8.dp))
 
-    PerformanceInput(performanceUnitsAware = performanceUnitsAware) {newPerformance, hasErrorValidating ->
-      viewModel.updatePerformanceUnitsAware(newPerformance,hasErrorValidating)
+    PerformanceInput(performanceUnitsAware = performanceUnitsAware) {newPerformance ->
+      viewModel.updatePerformanceUnitsAware(newPerformance)
     }
     Spacer(modifier = Modifier.height(8.dp))
     PointsDisplay(performancePoints)

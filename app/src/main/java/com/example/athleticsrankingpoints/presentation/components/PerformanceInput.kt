@@ -15,11 +15,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
+import com.example.athleticsrankingpoints.domain.models.isValid
 import kotlin.math.ceil
 import kotlin.math.floor
 
 @Composable
-fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware, Boolean) -> Unit) {
+fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
 
   val listOfValues = performanceUnitsAware.performanceUnitValues.toMutableList()
   val listOfUnits = performanceUnitsAware.performanceUnits
@@ -33,10 +34,10 @@ fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformance
         PerformanceInputUnit(
           unitValue = value,
           unit = performanceUnitsAware.performanceUnits[index],
-          onValueChange = {newValue, hasValidationError ->
+          isUnitValueValid = performanceUnitsAware.performanceUnitIsValid[index],
+          onValueChange = {newValue ->
               listOfValues[index]=newValue
-              onPerformanceChange(PerformanceUnitsAware(listOfValues,listOfUnits), hasValidationError)
-
+              onPerformanceChange(PerformanceUnitsAware(listOfValues,listOfUnits))
           }
         )
         Spacer(modifier = Modifier.width(4.dp))
@@ -49,9 +50,9 @@ fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformance
 fun PerformanceInputUnit(
   unitValue:String,
   unit:PerformanceUnits,
-  onValueChange:(String, Boolean) -> Unit
+  isUnitValueValid:Boolean,
+  onValueChange:(String) -> Unit
 ) {
-  var isError by rememberSaveable { mutableStateOf(false) }
 
   OutlinedTextField(
     modifier = Modifier.width(80.dp),
@@ -62,21 +63,20 @@ fun PerformanceInputUnit(
         text = unit.unitTextString
       )
     },
-    isError = isError,
+    isError = !isUnitValueValid,
     onValueChange = {
-      isError = hasError(it, unit)
-      onValueChange(it, isError)
+      onValueChange(it)
     },
     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
   )
 }
 
-fun hasError(text:String, units: PerformanceUnits) : Boolean {
-  if (text.toDoubleOrNull()==null) return true
-  return text.toDoubleOrNull()?.let {
-     (PerformanceUnits.unitCanNotContainDecimal(units) && ceil(it)!=floor(it) )
-  }?:true
-}
+//fun hasError(text:String, units: PerformanceUnits) : Boolean {
+//  if (text.toDoubleOrNull()==null) return true
+//  return text.toDoubleOrNull()?.let {
+//     (PerformanceUnits.unitCanNotContainDecimal(units) && ceil(it)!=floor(it) )
+//  }?:true
+//}
 
 //@Preview
 //@Composable
