@@ -45,10 +45,7 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
   fun newEventSelected(athleticsEvent: AthleticsEvent) {
     selectedEvent.postValue(athleticsEvent)
     updatePerformanceUnitsAware(
-      PerformanceUnitsAware(
-        athleticsEvent.sType.getUnits().map { unit -> unit.unitDefaultValue },
-        athleticsEvent.sType.getUnits()
-      )
+      PerformanceUnitsAware.getDefault(event = athleticsEvent)
     )
   }
 
@@ -90,8 +87,8 @@ class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepo
   fun updatePerformanceUnitsAware(newPerformance: PerformanceUnitsAware){
     performanceUnitsAware.postValue(newPerformance)
     performancePoints.postValue(
-      if (newPerformance.isPerformanceValid) {
-        selectedEvent.value!!.getPointsString(newPerformance.performanceAbsoluteValue)
+      if (newPerformance.isPerformanceValid()) {
+        selectedEvent.value!!.getPointsString(newPerformance.getPerformanceAbsoluteValue())
       } else {
         "Error"
       })

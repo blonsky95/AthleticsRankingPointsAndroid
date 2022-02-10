@@ -1,12 +1,14 @@
 package com.example.athleticsrankingpoints.data.entities
 
 import androidx.annotation.NonNull
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.athleticsrankingpoints.data.cache.Cacheable
 import com.example.athleticsrankingpoints.data.database.PERFORMANCES_TABLE_NAME
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.EventGroup
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import java.util.*
 import kotlin.math.floor
 
@@ -21,7 +23,7 @@ data class RankingScorePerformanceData(
 
   var name: String = "Unnamed",
   val eventGroup:EventGroup,
-  val performances: List<String>,
+  val performances: List<PerformanceUnitsAware>,
   val performancesPoints: List<String>,
   val winds: List<String>,
   val windsPoints: List<String>,
@@ -46,7 +48,12 @@ data class RankingScorePerformanceData(
       return RankingScorePerformanceData(
         name = "Test name:${(floor(Math.random()*100)).toInt()} ",
         eventGroup = EventGroup.getSampleEventGroup(),
-        performances = listOf("11.11","11.22","11.15","11.16","10.98",),
+        performances = listOf(
+          PerformanceUnitsAware.getDefault(perfValue = "11.23"),
+          PerformanceUnitsAware.getDefault(perfValue = "10.88"),
+          PerformanceUnitsAware.getDefault(perfValue = "11.44"),
+          PerformanceUnitsAware.getDefault(perfValue = "11.11"),
+          PerformanceUnitsAware.getDefault(perfValue = "11.03")),
         performancesPoints = listOf("1111","1122","1115","1116","1098",),
         winds = listOf("0.0","0.0","0.0","0.0","0.0",),
         windsPoints = listOf("0","0","0","0","0",),

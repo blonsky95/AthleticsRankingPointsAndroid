@@ -17,6 +17,48 @@ data class AthleticsEvent (
   val sCoefficients:HashMap<String, Double>
 ){
 
+  fun hasWind():Boolean {
+    return (
+        (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) &&
+        (sName == "100m" || sName == "200m" || sName == "110mh" || sName == "100mh" || sName == "Long jump" || sName == "Triple jump")
+        )
+  }
+
+  fun getPointsString(performance:String) : String {
+    if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
+      return "0"
+    } else {
+      val performanceDouble =
+        if (this.sType== AthleticsEventType.type_combined_events) {
+          floor(performance.toDouble())
+        } else {
+          performance.toDouble()
+        }
+      val pointsInt = getPoints(performanceDouble)
+      if (pointsInt>2000) {
+        return "Limit set to 2000p"
+      }
+      if (pointsInt<0) {
+        return "0"
+      }
+      return getPoints(performanceDouble).toString()
+    }
+  }
+
+  private fun getPoints(performance: Double)=
+    performance.takeIf { performance <= abs(sCoefficients["b"]!!) }?.let {
+      floor(sCoefficients["a"]!! * (it + sCoefficients["b"]!!).pow(2) + sCoefficients["c"]!!).toInt()
+    }?:-1
+
+  //Use this function if you want the event name to display "(i)" for indoor.
+  fun getDoorInclusiveName():String {
+    var string = sName
+    if (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) {
+      string+=" (i)"
+    }
+    return string
+  }
+
   companion object{
 
     val listSexOptions = listOf(AthleticsSex.Male, AthleticsSex.Female)
@@ -76,48 +118,6 @@ data class AthleticsEvent (
         return 0
       }
     }
-  }
-
-  fun hasWind():Boolean {
-    return (
-        (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) &&
-        (sName == "100m" || sName == "200m" || sName == "110mh" || sName == "100mh" || sName == "Long jump" || sName == "Triple jump")
-        )
-  }
-
-  fun getPointsString(performance:String) : String {
-    if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
-      return "0"
-    } else {
-      val performanceDouble =
-        if (this.sType== AthleticsEventType.type_combined_events) {
-          floor(performance.toDouble())
-        } else {
-          performance.toDouble()
-        }
-      val pointsInt = getPoints(performanceDouble)
-      if (pointsInt>2000) {
-        return "Limit set to 2000p"
-      }
-      if (pointsInt<0) {
-        return "0"
-      }
-      return getPoints(performanceDouble).toString()
-    }
-  }
-
-  private fun getPoints(performance: Double)=
-    performance.takeIf { performance <= abs(sCoefficients["b"]!!) }?.let {
-      floor(sCoefficients["a"]!! * (it + sCoefficients["b"]!!).pow(2) + sCoefficients["c"]!!).toInt()
-    }?:-1
-
-  //Use this function if you want the event name to display "(i)" for indoor.
-  fun getDoorInclusiveName():String {
-    var string = sName
-    if (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) {
-      string+=" (i)"
-    }
-    return string
   }
 
 }

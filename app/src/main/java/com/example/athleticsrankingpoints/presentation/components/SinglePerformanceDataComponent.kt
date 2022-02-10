@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.makeZeroIfEmpty
 import com.example.athleticsrankingpoints.toIntOrZero
 
@@ -31,14 +32,14 @@ import com.example.athleticsrankingpoints.toIntOrZero
 fun SinglePerformanceDataComponent(
   index: Int,
   event: AthleticsEvent,
-  performance: String,
+  performance: PerformanceUnitsAware,
   performancePoints: String,
   wind: String,
   windPoints: String,
   placementPoints: String,
   spinnerList: List<AthleticsEvent>,
   onEventChange: (Int, AthleticsEvent) -> Unit,
-  onPerformanceChange: (Int, String) -> Unit,
+  onPerformanceChange: (Int, PerformanceUnitsAware) -> Unit,
   onPlacementChange: (Int, String) -> Unit,
   onWindChange: (Int, String) -> Unit,
   ) {
@@ -95,9 +96,17 @@ fun SinglePerformanceDataComponent(
 }
 
 @Composable
-fun PerformanceWithPoints(performance: String, points: String, onPerformanceChange: (String) -> Unit) {
+fun PerformanceWithPoints(performance: PerformanceUnitsAware, points: String, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
   MyCustomTwoComposableRow {
-    MyCustomTextField(performance = performance, hint = "Performance (0.0)", onPerformanceChange = onPerformanceChange)
+//    MyCustomTextField(performance = performance, hint = "Performance (0.0)", onPerformanceChange = onPerformanceChange)
+    PerformanceInput(
+      modifier = Modifier
+        .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
+        .padding(4.dp),
+      modifierForInputUnit = Modifier.width(80.dp),
+      performanceUnitsAware = performance,
+      onPerformanceChange = onPerformanceChange
+    )
     MyCustomText(text = points.makeZeroIfEmpty())
   }
 }
@@ -249,14 +258,27 @@ fun AthleticEventsDropDownList(
 
 @Composable
 @Preview
-fun PreviewThis() {
+fun PreviewSinglePerformanceDataComponent() {
 //  PerformanceWithPoints(performance = "11.22", points = "928") {}
   MaterialTheme {
-//    SinglePerformanceDataComponent(spinnerList = AthleticsEvent.getThreeSampleEvents(), onEventChange =
-//    {index, event ->
-//      //do nothing
-//    }
-//    )
-    MyCustomTextField(hint = "Performance (0.0)", onPerformanceChange = {})
+    SinglePerformanceDataComponent(
+
+      spinnerList = AthleticsEvent.getThreeSampleEvents(),
+      onEventChange =
+    {index, event ->
+      //do nothing
+    },
+      index = 0,
+      event = AthleticsEvent.getSampleEvent(),
+      performance = PerformanceUnitsAware.getDefault(perfValue = "10.55"),
+      performancePoints = "502",
+      wind = "1.2",
+      windPoints = "0",
+      placementPoints = "45",
+      onWindChange = {index, string -> },
+      onPlacementChange = {index, string -> },
+      onPerformanceChange = {index, pua -> }
+      )
+//    MyCustomTextField(hint = "Performance (0.0)", onPerformanceChange = {})
   }
 }

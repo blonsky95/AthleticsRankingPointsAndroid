@@ -5,11 +5,12 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 
 @Composable
 fun PerformancesSimulatorList(
   modifier: Modifier,
-  perfList: List<String>,
+  perfList: List<PerformanceUnitsAware>,
   perfPointsList : List<String>,
   windsList: List<String>,
   windPointsList : List<String>,
@@ -17,7 +18,7 @@ fun PerformancesSimulatorList(
   selectedEventsList: List<AthleticsEvent>,
   spinnerList: List<AthleticsEvent>,
   onEventChange: (Int, AthleticsEvent) -> Unit,
-  onPerformanceChange: (Int, String) -> Unit,
+  onPerformanceChange: (Int, PerformanceUnitsAware) -> Unit,
   onPlacementChange: (Int, String) -> Unit,
   onWindChange: (Int, String) -> Unit,
 ) {

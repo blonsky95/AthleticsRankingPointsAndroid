@@ -20,34 +20,37 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 @Composable
-fun PerformanceInput(performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
+fun PerformanceInput(modifier: Modifier = Modifier, modifierForInputUnit: Modifier = Modifier, performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
 
-  val listOfValues = performanceUnitsAware.performanceUnitValues.toMutableList()
-  val listOfUnits = performanceUnitsAware.performanceUnits
+  val listOfValues = performanceUnitsAware.listOfPerformanceUnitValues.toMutableList()
+  val listOfUnits = performanceUnitsAware.listOfPerformanceUnits
 
-  Surface(modifier = Modifier
-    .fillMaxWidth()
-  ) {
-    Row(verticalAlignment = Alignment.CenterVertically,
+    Row(
+      modifier = modifier,
+      verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.Start) {
       for ((index,value) in listOfValues.withIndex()) {
         PerformanceInputUnit(
+          modifier = modifierForInputUnit,
           unitValue = value,
-          unit = performanceUnitsAware.performanceUnits[index],
-          isUnitValueValid = performanceUnitsAware.performanceUnitIsValid[index],
+          unit = performanceUnitsAware.listOfPerformanceUnits[index],
+          isUnitValueValid = performanceUnitsAware.getListOfValidUnits()[index],
           onValueChange = {newValue ->
               listOfValues[index]=newValue
               onPerformanceChange(PerformanceUnitsAware(listOfValues,listOfUnits))
           }
         )
-        Spacer(modifier = Modifier.width(4.dp))
+        if (index<listOfValues.size-1) {
+          Spacer(modifier = Modifier.width(4.dp))
+        }
       }
     }
-  }
+
 }
 
 @Composable
 fun PerformanceInputUnit(
+  modifier: Modifier=Modifier,
   unitValue:String,
   unit:PerformanceUnits,
   isUnitValueValid:Boolean,
@@ -55,7 +58,7 @@ fun PerformanceInputUnit(
 ) {
 
   OutlinedTextField(
-    modifier = Modifier.width(80.dp),
+    modifier = modifier,
     value = unitValue,
     label = {
       Text(

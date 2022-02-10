@@ -3,8 +3,10 @@ package com.example.athleticsrankingpoints.data
 import androidx.room.TypeConverter
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.EventGroup
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -19,6 +21,13 @@ class DataConverter {
     fun dateToTimestamp(date: Date?): Long? {
         return date?.time
     }
+
+    @TypeConverter
+    fun performanceUnitsAwareToJsonString(value: List<PerformanceUnitsAware>): String = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonStringToPerformanceUnitsAware(value: String) : List<PerformanceUnitsAware> =
+        Gson().fromJson(value, object : TypeToken<List<PerformanceUnitsAware>>() {}.type)
 
     @TypeConverter
     fun listToJsonString(value: List<String>?): String = Gson().toJson(value)

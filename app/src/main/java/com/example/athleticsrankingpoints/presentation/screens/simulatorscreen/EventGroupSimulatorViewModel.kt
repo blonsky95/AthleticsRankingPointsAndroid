@@ -13,6 +13,7 @@ import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getSampleEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getWindPoints
 import com.example.athleticsrankingpoints.domain.models.EventGroup
+import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.toIntsArray
 import kotlinx.coroutines.launch
 import kotlin.math.floor
@@ -49,6 +50,7 @@ class EventGroupSimulatorViewModel(
       eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)?.let {
         selectedEventGroup.value=it
         listOfSelectedEvents.value = initListOfEvents(it.sMainEvent, it.sMinNumberPerformancesGroup)
+        listOfPerformances.value=initListOfPerformances(it.getAllEventsInGroup().first())
       }
       if (simulatorDataModel.loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY) {
         rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDataModel.loadPerformanceName)?.let {
@@ -86,9 +88,10 @@ class EventGroupSimulatorViewModel(
   fun getTitle(): LiveData<String> = title
 
   private var listOfPerformances = MutableLiveData(
-    initListOfDoubles()
+        initListOfPerformances()
   )
-  fun getListOfPerformances() : LiveData<List<String>> = listOfPerformances
+
+  fun getListOfPerformances() : LiveData<List<PerformanceUnitsAware>> = listOfPerformances
 
   private var listOfPerformancePoints = MutableLiveData(
     initListOfInts())
@@ -135,6 +138,15 @@ class EventGroupSimulatorViewModel(
     val array1 = arrayListOf<AthleticsEvent>()
     for (index in 1..size) {
       array1.add(athleticsEvent)
+    }
+    return array1
+  }
+
+  private fun initListOfPerformances(event: AthleticsEvent = getSampleEvent()): List<PerformanceUnitsAware> {
+    size = selectedEventGroup.value!!.sMinNumberPerformancesGroup
+    val array1 = arrayListOf<PerformanceUnitsAware>()
+    for (index in 1..size) {
+      array1.add(PerformanceUnitsAware.getDefault(event = event))
     }
     return array1
   }
@@ -250,13 +262,13 @@ class EventGroupSimulatorViewModel(
     title.postValue(sTitle)
   }
 
-  fun updatePerformancesList(index: Int, performance: String) {
+  fun updatePerformancesList(index: Int, performance: PerformanceUnitsAware) {
     val performancesArrayValue = listOfPerformances.value!!.toMutableList()
 
     performancesArrayValue[index] = performance
     listOfPerformances.postValue(performancesArrayValue.toList())
 
-    updatePerformancePointsList(index = index, performance = performance)
+    updatePerformancePointsList(index = index, performance = performance.getPerformanceAbsoluteValue())
   }
 
   fun updateWindList(index: Int, wind: String) {
@@ -270,7 +282,8 @@ class EventGroupSimulatorViewModel(
     val selectedEventsValue = listOfSelectedEvents.value!!.toMutableList()
     selectedEventsValue[index] = event
     listOfSelectedEvents.postValue(selectedEventsValue.toList())
-    updatePerformancePointsList(index = index, performance = listOfPerformances.value!![index], event = event)
+    updatePerformancesList(index, PerformanceUnitsAware.getDefault(event = event))
+    updatePerformancePointsList(index = index, performance = listOfPerformances.value!![index].getPerformanceAbsoluteValue(), event = event)
   }
 
   private fun updatePerformancePointsList(index: Int, performance: String, event: AthleticsEvent? = null) {
