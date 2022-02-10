@@ -51,54 +51,74 @@ fun SinglePerformanceDataComponent(
   else
     Icons.Filled.ArrowDropDown
 
-  Row(
-    modifier = Modifier.fillMaxWidth(),
-    verticalAlignment = Alignment.CenterVertically) {
+  Column(modifier = Modifier
+    .fillMaxWidth()
+  ) {
+    Spacer(modifier = Modifier.height(4.dp))
 
-    Column(modifier = Modifier
-      .weight(1F)
-    ) {
-      PerformanceWithPoints(performance = performance, points = performancePoints, onPerformanceChange = {onPerformanceChange(index, it)})
-      if (event.hasWind()){
-        WindWithPoints(wind = wind, points = windPoints, onWindChange = {onWindChange(index, it)})
+    TitleAndEventAndPoints(expanded, spinnerList, onEventChange, event, index, icon, performancePoints, windPoints, placementPoints,
+      onSpinnerClick = {
+        expanded=!expanded
+      },
+      onSpinnerDismiss = {
+        expanded=false
       }
-      PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = {onPlacementChange(index, it)})
-      TotalPoints(perfId = (index+1).toString(), points = (performancePoints.toIntOrZero()+windPoints.toIntOrZero()+placementPoints.toIntOrZero()).toString())
-    }
-
-    Divider(
-      modifier = Modifier
-        .width(1.dp),
-      //do height
-
-      color = Color.White
     )
 
-    Box(modifier = Modifier
-    ) {
-      AthleticEventsDropDownList(
-        modifier = Modifier
-          .padding(start = 4.dp)
-          .align(Alignment.CenterEnd)
-          .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
-          .padding(8.dp),
-        expanded = expanded,
-        events = spinnerList,
-        selectedEvent = event,
-        icon = icon,
-        onDisplayClicked = { expanded = !expanded },
-        onSelectionChange = {onEventChange(index, it)},
-        onDismissRequest = {expanded = false}
-      )
+    PerformanceWithPoints(performance = performance, points = performancePoints, onPerformanceChange = {onPerformanceChange(index, it)})
+    if (event.hasWind()){
+      WindWithPoints(wind = wind, points = windPoints, onWindChange = {onWindChange(index, it)})
     }
+    PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = {onPlacementChange(index, it)})
+  }
 
+  Divider(
+      modifier = Modifier
+        .width(1.dp),
+      color = Color.White
+    )
+}
+
+@Composable
+private fun TitleAndEventAndPoints(
+  expanded: Boolean,
+  spinnerList: List<AthleticsEvent>,
+  onEventChange: (Int, AthleticsEvent) -> Unit,
+  event: AthleticsEvent,
+  index: Int,
+  icon: ImageVector,
+  performancePoints: String,
+  windPoints: String,
+  placementPoints: String,
+  onSpinnerClick: (Boolean) -> Unit,
+  onSpinnerDismiss: () -> Unit
+) {
+  MyCustomTwoComposableRow {
+    TextAndSpinner(
+      expanded = expanded,
+      spinnerList = spinnerList,
+      onEventChange = onEventChange,
+      event = event,
+      index = index,
+      icon = icon,
+      onSpinnerClick = onSpinnerClick,
+      onSpinnerDismiss = onSpinnerDismiss
+    )
+    Text(
+      modifier = Modifier.padding(horizontal = 8.dp),
+      text = (performancePoints.toIntOrZero() + windPoints.toIntOrZero() + placementPoints.toIntOrZero()).toString(),
+      style = TextStyle(
+        color = Color.White,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold
+      ),
+    )
   }
 }
 
 @Composable
 fun PerformanceWithPoints(performance: PerformanceUnitsAware, points: String, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
   MyCustomTwoComposableRow {
-//    MyCustomTextField(performance = performance, hint = "Performance (0.0)", onPerformanceChange = onPerformanceChange)
     PerformanceInput(
       modifier = Modifier
         .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
@@ -129,22 +149,40 @@ fun PlacementWithPoints(placementPoints: String, points: String, onPlacementsPoi
 
 
 @Composable
-fun TotalPoints(perfId:String, points:String) {
-  MyCustomTwoComposableRow {
+fun TextAndSpinner(
+  expanded: Boolean,
+  spinnerList: List<AthleticsEvent>,
+  event: AthleticsEvent,
+  index: Int,
+  icon: ImageVector,
+  onEventChange: (Int, AthleticsEvent) -> Unit,
+  onSpinnerClick: (Boolean) -> Unit,
+  onSpinnerDismiss: () -> Unit
+) {
+  Row(
+    verticalAlignment = Alignment.CenterVertically
+  ) {
     Text(
-      text = "Total for #$perfId",
+      text = "Performance #${index+1}",
       color = Color.White,
       style = MaterialTheme.typography.body2
     )
-    Text(
-      modifier = Modifier.padding(horizontal = 8.dp),
-      text = points,
-      style = TextStyle(
-        color = Color.White,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold
-      ),
-      )
+    Spacer(modifier = Modifier.width(4.dp))
+    AthleticEventsDropDownList(
+      modifier = Modifier
+        .padding(horizontal = 8.dp, vertical = 4.dp)
+        .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
+        .padding(4.dp),
+      expanded = expanded,
+      events = spinnerList,
+      selectedEvent = event,
+      icon = icon,
+      onDisplayClicked = onSpinnerClick,
+      onSelectionChange = {
+        onEventChange(index, it)
+      },
+      onDismissRequest = onSpinnerDismiss
+    )
   }
 }
 
@@ -218,12 +256,13 @@ fun AthleticEventsDropDownList(
         onDisplayClicked(expanded)
       },
       verticalAlignment = Alignment.CenterVertically
-    ){ // Anchor view
+    ){ 
       Text(
         text = selectedEvent.sName,
         color = Color.White,
         style = TextStyle(fontSize = 13.sp)
-      ) // City name label
+      ) 
+      Spacer(modifier = Modifier.width(4.dp))
       Icon(
         imageVector = icon,
         tint = Color.White,
@@ -242,14 +281,13 @@ fun AthleticEventsDropDownList(
         }) {
           Column {
             Text(
-              text = event.sName,
+              text = event.getDoorInclusiveName(),
               color = Color.White
             )
             Divider(
               color = Color.White,
             )
           }
-
         }
       }
     }
@@ -259,7 +297,6 @@ fun AthleticEventsDropDownList(
 @Composable
 @Preview
 fun PreviewSinglePerformanceDataComponent() {
-//  PerformanceWithPoints(performance = "11.22", points = "928") {}
   MaterialTheme {
     SinglePerformanceDataComponent(
 
@@ -279,6 +316,5 @@ fun PreviewSinglePerformanceDataComponent() {
       onPlacementChange = {index, string -> },
       onPerformanceChange = {index, pua -> }
       )
-//    MyCustomTextField(hint = "Performance (0.0)", onPerformanceChange = {})
   }
 }
