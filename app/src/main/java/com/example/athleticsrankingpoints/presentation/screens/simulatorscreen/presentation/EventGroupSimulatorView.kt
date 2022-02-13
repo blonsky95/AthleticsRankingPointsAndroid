@@ -29,7 +29,7 @@ import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.SimulatorDataModel
-import com.example.athleticsrankingpoints.presentation.theme.MyDarkGray
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import org.koin.core.parameter.parametersOf
 
 
@@ -93,7 +93,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
       PerformancesSimulatorList(
         modifier = Modifier
           .weight(1f)
-          .background(color = MyDarkGray, shape = RoundedCornerShape(4.dp)),
+          .background(color = AthleticsRankingPointsTheme.colors.surface, shape = RoundedCornerShape(4.dp)),
         perfList = performanceList,
         perfPointsList = performancePointsList,
         windsList = windsList,

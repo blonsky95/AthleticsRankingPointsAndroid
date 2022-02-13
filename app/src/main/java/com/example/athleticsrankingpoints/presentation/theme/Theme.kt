@@ -1,48 +1,42 @@
 package com.example.athleticsrankingpoints.presentation.theme
 
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 
-private val DarkColorPalette = darkColors(
-  primary = Purple200,
-  primaryVariant = Purple700,
-  secondary = Teal200
-)
 
-private val LightColorPalette = lightColors(
-  primary = Purple500,
-  primaryVariant = Purple700,
-  secondary = Teal200
+object AthleticsRankingPointsTheme {
+  val colors: AppColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColors.current
 
-  /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+  val typography: AppTypography
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalTypography.current
 
-@Composable
-fun AthleticsRankingPointsTheme(content: @Composable () -> Unit) {
-  MaterialTheme(colors = ColorPalette, typography = Typography, content = content)
-
+  val dimensions: AppDimensions
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalDimensions.current
 }
 
-//fun AthleticsRankingPointsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-//  val colors = if (darkTheme) {
-//    DarkColorPalette
-//  } else {
-//    LightColorPalette
-//  }
-//
-//  MaterialTheme(
-//    colors = colors,
-//    typography = Typography,
-//    shapes = Shapes,
-//    content = content
-//  )
-//}
+
+@Composable
+fun AthleticsRankingPointsTheme(
+  colors: AppColors = AthleticsRankingPointsTheme.colors,
+  typography: AppTypography = AthleticsRankingPointsTheme.typography,
+  dimensions: AppDimensions = AthleticsRankingPointsTheme.dimensions,
+  content: @Composable () -> Unit
+) {
+  val rememberedColors = remember { colors.copy() }.apply { updateColorsFrom(colors) }
+  CompositionLocalProvider(
+    LocalColors provides rememberedColors,
+    LocalTypography provides typography,
+    LocalDimensions provides dimensions
+  ) {
+    content()
+  }
+}

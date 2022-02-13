@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.athleticsrankingpoints.navigation.WorldRankingNavHost
-import com.example.athleticsrankingpoints.presentation.components.TopTabRow
+import com.example.athleticsrankingpoints.presentation.components.NavTabRow
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 
@@ -24,23 +24,15 @@ fun WorldRankingApp(
       )
 
       Scaffold(
+        backgroundColor = AthleticsRankingPointsTheme.colors.background,
         bottomBar = {
-          TopTabRow(
+          NavTabRow(
             allScreens = allScreens,
             onTabSelected = { screen ->
               navController.navigate(screen.name) },
             currentScreen = currentScreen
           )
         },
-//        topBar = {
-//          TopTabRow(
-//            allScreens = allScreens,
-//            onTabSelected = { screen ->
-//              navController.navigate(screen.name) },
-//            currentScreen = currentScreen
-//          )
-//        }
-
       ) { innerPadding ->
         WorldRankingNavHost(
           navHostController = navController,

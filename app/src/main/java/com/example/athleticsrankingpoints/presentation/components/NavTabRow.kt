@@ -25,10 +25,11 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.WorldRankingScreen
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import java.util.*
 
 @Composable
-fun TopTabRow(
+fun NavTabRow(
   allScreens: List<WorldRankingScreen>,
   onTabSelected: (WorldRankingScreen) -> Unit,
   currentScreen: WorldRankingScreen
@@ -37,7 +38,8 @@ fun TopTabRow(
   Surface(
     Modifier
       .height(TabHeight)
-      .fillMaxWidth()
+      .fillMaxWidth(),
+    color = AthleticsRankingPointsTheme.colors.surface
   ) {
     Row(Modifier.selectableGroup()) {
       allScreens.forEach { screen ->

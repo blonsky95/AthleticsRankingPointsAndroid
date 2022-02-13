@@ -16,6 +16,7 @@ import com.example.athleticsrankingpoints.domain.models.AthleticsEventType
 import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.presentation.components.*
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -38,7 +39,7 @@ fun PointLookUpBody() {
 
     Text(
       text = selectedEvent.sName,
-      style = MaterialTheme.typography.h2,
+      style = AthleticsRankingPointsTheme.typography.title1,
       modifier = Modifier
         .align(Start)
     )

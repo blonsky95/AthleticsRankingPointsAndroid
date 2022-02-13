@@ -1,6 +1,7 @@
 package com.example.athleticsrankingpoints.presentation.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -19,84 +20,29 @@ private val RobotoCondensed = FontFamily(
   Font(R.font.robotocondensed_bold, FontWeight.Bold)
 )
 
-val Typography = Typography(
-  defaultFontFamily = RobotoCondensed,
-  h1 = TextStyle(
-    fontWeight = FontWeight.W100,
-    fontSize = 48.sp,
+data class AppTypography(
+  val title1 :TextStyle= TextStyle(
+    fontWeight = FontWeight.Light,
+    fontSize = 60.sp,
+    letterSpacing = (-0.5).sp
   ),
-  h2 = TextStyle(
+  val title2:TextStyle = TextStyle(
     fontWeight = FontWeight.SemiBold,
     fontSize = 44.sp,
     fontFamily = EczarFontFamily,
-    letterSpacing = 1.5.sp
+    letterSpacing = 1.5.sp,
+    lineHeight = 20.sp,
   ),
-  h3 = TextStyle(
+  val text1:TextStyle = TextStyle(
     fontWeight = FontWeight.W400,
     fontSize = 14.sp
   ),
-  h4 = TextStyle(
+  val text2:TextStyle = TextStyle(
     fontWeight = FontWeight.W700,
     fontSize = 34.sp
-  ),
-  h5 = TextStyle(
-    fontWeight = FontWeight.W700,
-    fontSize = 24.sp
-  ),
-  h6 = TextStyle(
-    fontWeight = FontWeight.Normal,
-    fontSize = 18.sp,
-    lineHeight = 20.sp,
-    fontFamily = EczarFontFamily,
-    letterSpacing = 3.sp
-  ),
-  subtitle1 = TextStyle(
-    fontWeight = FontWeight.Light,
-    fontSize = 12.sp,
-    lineHeight = 20.sp,
-    letterSpacing = 0.1.em
-  ),
-  subtitle2 = TextStyle(
-    fontWeight = FontWeight.Normal,
-    fontSize = 14.sp,
-    letterSpacing = 0.1.em
-  ),
-  body1 = TextStyle(
-    fontWeight = FontWeight.Normal,
-    fontSize = 16.sp,
-    letterSpacing = 0.1.em
-  ),
-  body2 = TextStyle(
-    fontWeight = FontWeight.Normal,
-    fontSize = 14.sp,
-    lineHeight = 20.sp,
-    letterSpacing = 0.1.em
-  ),
-  button = TextStyle(
-    fontWeight = FontWeight.Bold,
-    fontSize = 14.sp,
-    lineHeight = 16.sp,
-    letterSpacing = 0.2.em
-  ),
-  caption = TextStyle(
-    fontWeight = FontWeight.W500,
-    fontSize = 12.sp
-  ),
-  overline = TextStyle(
-    fontWeight = FontWeight.W500,
-    fontSize = 10.sp
   )
 )
 
-  /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
+internal val LocalTypography = staticCompositionLocalOf { AppTypography() }
+
+
