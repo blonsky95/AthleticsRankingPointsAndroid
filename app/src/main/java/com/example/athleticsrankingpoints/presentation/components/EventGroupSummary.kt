@@ -49,7 +49,6 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
         style = MaterialTheme.typography.body1,
         modifier = Modifier
       )
-      //todo add animation and make cool, maybe change arrow
       Icon(
         modifier = Modifier
           .padding(end = 12.dp)

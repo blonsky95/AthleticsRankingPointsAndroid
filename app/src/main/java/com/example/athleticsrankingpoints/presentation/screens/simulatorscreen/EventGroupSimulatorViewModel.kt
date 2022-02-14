@@ -63,7 +63,7 @@ class EventGroupSimulatorViewModel(
 
   //INITIALIZATIONS
   private fun loadAllLoadedValues(performanceData: RankingScorePerformanceData) {
-    title.postValue(performanceData.name)
+    scoreTitle.postValue(performanceData.name)
     selectedEventGroup.postValue(performanceData.eventGroup)
     listOfPerformances.postValue(performanceData.performances)
     listOfPerformancePoints.postValue(performanceData.performancesPoints)
@@ -83,9 +83,14 @@ class EventGroupSimulatorViewModel(
   )
   fun getShowNameOverwriteDialog() : LiveData<Boolean> = showNameOverwriteDialog
 
+  private var showErrorValidatingDialog:MutableLiveData<String?> = MutableLiveData(
+    null
+  )
+  fun getShowErrorValidatingDialog() : LiveData<String?> = showErrorValidatingDialog
 
-  private var title = MutableLiveData("")
-  fun getTitle(): LiveData<String> = title
+
+  private var scoreTitle = MutableLiveData("")
+  fun getTitle(): LiveData<String> = scoreTitle
 
   private var listOfPerformances = MutableLiveData(
         initListOfPerformances()
@@ -212,7 +217,7 @@ class EventGroupSimulatorViewModel(
   //USER ACTIONS
 
   fun saveButtonPressed() =
-    getFieldValidation().takeIf { it!=null }?.let { showDialogWithError() } ?: savePerformance()
+    getFieldValidation().takeIf { it!=null }?.let { showDialogWithError(it) } ?: savePerformance()
 
   fun deleteButtonPressed() {
     showDeleteDialog.value=true
@@ -230,23 +235,29 @@ class EventGroupSimulatorViewModel(
     showNameOverwriteDialog.value=false
   }
 
-  private fun showDialogWithError() {
-    TODO("Not yet implemented")
+  fun hideErrorValidateDialog() {
+    showErrorValidatingDialog.value=null
   }
 
-  fun getFieldValidation():String? {
-    //todo do an enum to check fields
-    //do this stuff, then proceed with saving name override
-    //for now it always passes, this could return the string message for the error in validation message
-//    warningDialogWindowMessage.value = ""
-      return null
+  private fun showDialogWithError(s: String) {
+    showErrorValidatingDialog.postValue(s)
+  }
+
+  private fun getFieldValidation():String? {
+    var errorMessage = ""
+    if (scoreTitle.value?.length?:0 > 2)  {
+      errorMessage = "Name of ranking score must be longer than 2 characters"
+    }
+    //todo here you could add check for minimum number performances
+
+    return errorMessage
   }
 
   //DATA & MODEL HANDLING
 
   private fun collectClassData(): RankingScorePerformanceData {
     return RankingScorePerformanceData(
-      name = title.value!!,
+      name = scoreTitle.value!!,
       eventGroup = selectedEventGroup.value!!,
       performances = listOfPerformances.value!!,
       performancesPoints = listOfPerformancePoints.value!!,
@@ -259,7 +270,7 @@ class EventGroupSimulatorViewModel(
   }
 
   fun updateTitle(sTitle: String) {
-    title.postValue(sTitle)
+    scoreTitle.postValue(sTitle)
   }
 
   fun updatePerformancesList(index: Int, performance: PerformanceUnitsAware) {

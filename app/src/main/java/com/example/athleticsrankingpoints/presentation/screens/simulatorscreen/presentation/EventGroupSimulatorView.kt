@@ -56,6 +56,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
   val showDeleteDialog by viewModel.getShowDeleteDialog().observeAsState(false)
   val showNameOverwriteDialog by viewModel.getShowNameOverwriteDialog().observeAsState(false)
+  val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(null)
 
   val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
 
@@ -65,6 +66,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
       .fillMaxSize(),
     scaffoldState = scaffoldState
   ) {
+    //todo refactor this into composables
     if (showDeleteDialog) {
       DialogWindow(hideDialog = {viewModel.hideDeleteDialog()}, dialogText = DeletePerformanceDialogText) {
         viewModel.confirmDeletePerformance()
@@ -74,6 +76,12 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
     if (showNameOverwriteDialog) {
       DialogWindow(hideDialog = {viewModel.hideNameOverwriteDialog()}, dialogText = NameOverwritePerformanceDialogText) {
         viewModel.confirmUpdatePerformance()
+      }
+    }
+    if (showErrorValidatingDialog!=null) {
+      DialogWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = showErrorValidatingDialog?:"Wops") {
+        //todo continuuueee here
+//        viewModel.confirmUpdatePerformance()
       }
     }
 
