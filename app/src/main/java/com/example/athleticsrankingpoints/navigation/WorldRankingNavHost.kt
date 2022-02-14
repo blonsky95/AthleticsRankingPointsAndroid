@@ -1,5 +1,6 @@
 package com.example.athleticsrankingpoints.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -23,6 +24,7 @@ import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.Poin
 //Example - if selectorbody will take you to selectorsimulator, onNextClick will carry this implementation
 //If it gets more and more complicated, it will be injected.
 
+@ExperimentalAnimationApi
 @Composable
 fun WorldRankingNavHost(
   navHostController: NavHostController,
