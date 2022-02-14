@@ -24,7 +24,7 @@ data class AppTypography(
   val title1 :TextStyle= TextStyle(
     fontWeight = FontWeight.Light,
     fontSize = 60.sp,
-    letterSpacing = (-0.5).sp
+    letterSpacing = (-0.5).sp,
   ),
   val title2:TextStyle = TextStyle(
     fontWeight = FontWeight.SemiBold,

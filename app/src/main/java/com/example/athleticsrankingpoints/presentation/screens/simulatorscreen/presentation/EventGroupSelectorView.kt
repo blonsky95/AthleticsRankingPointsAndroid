@@ -1,6 +1,7 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
 import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import com.example.athleticsrankingpoints.presentation.components.EventGroupSumm
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
 import org.koin.androidx.compose.getViewModel
 
+@ExperimentalAnimationApi
 @Composable
 fun EventGroupSelectorView(
   onNextClick: (EventGroup) -> Unit = {}

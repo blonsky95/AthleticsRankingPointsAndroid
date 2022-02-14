@@ -1,5 +1,7 @@
 package com.example.athleticsrankingpoints.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -21,6 +23,7 @@ import kotlin.math.exp
 
 //Stateless composable to display info about an eventGroup
 
+@ExperimentalAnimationApi
 @Composable
 fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
 
@@ -51,70 +54,73 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
         modifier = Modifier
           .padding(end = 12.dp)
           .clickable {
-          expanded= !expanded
-        },
+            expanded = !expanded
+          },
         imageVector = icon, contentDescription = "")
     }
 
-    if (expanded) {
-      Row{
-        Box(modifier = Modifier
-          .fillMaxWidth()
-          .padding(bottom = 8.dp)) {
-          Text(
-            text = "Minimum number of performances:",
-            style = MaterialTheme.typography.body1,
-            modifier = Modifier
-              .align(Alignment.CenterStart)
-          )
-          Text(
-            text = "${eventGroup.sMinNumberPerformancesGroup}",
-            style = MaterialTheme.typography.body1,
-            modifier = Modifier
-              .align(Alignment.CenterEnd)
-          )
+    AnimatedVisibility(visible = expanded) {
+      Column {
+        Row{
+          Box(modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)) {
+            Text(
+              text = "Minimum number of performances:",
+              style = MaterialTheme.typography.body1,
+              modifier = Modifier
+                .align(Alignment.CenterStart)
+            )
+            Text(
+              text = "${eventGroup.sMinNumberPerformancesGroup}",
+              style = MaterialTheme.typography.body1,
+              modifier = Modifier
+                .align(Alignment.CenterEnd)
+            )
+          }
         }
-      }
 
-      Row{
-        Box(modifier = Modifier
-          .fillMaxWidth()
-          .padding(bottom = 8.dp)) {
-          Text(
-            text = "Minimum number of performances for main event:",
-            style = MaterialTheme.typography.body1,
-            modifier = Modifier
-              .align(Alignment.CenterStart)
-          )
-          Text(
-            text = "${eventGroup.sMinNumberPerformancesMainEvent}",
-            style = MaterialTheme.typography.body1,
-            modifier = Modifier
-              .align(Alignment.CenterEnd)
-          )
+        Row{
+          Box(modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)) {
+            Text(
+              text = "Minimum number of performances for main event:",
+              style = MaterialTheme.typography.body1,
+              modifier = Modifier
+                .align(Alignment.CenterStart)
+            )
+            Text(
+              text = "${eventGroup.sMinNumberPerformancesMainEvent}",
+              style = MaterialTheme.typography.body1,
+              modifier = Modifier
+                .align(Alignment.CenterEnd)
+            )
+          }
         }
-      }
 
-      var listOfEventNamesInGroup = ""
-      val numberEvents = eventGroup.getAllEventsInGroup().size
-      eventGroup.getAllEventsInGroup().forEachIndexed{index, event ->
-        listOfEventNamesInGroup+=event.getDoorInclusiveName()
-        if (index<numberEvents-1) {
-          listOfEventNamesInGroup+=", "
+        var listOfEventNamesInGroup = ""
+        val numberEvents = eventGroup.getAllEventsInGroup().size
+        eventGroup.getAllEventsInGroup().forEachIndexed{index, event ->
+          listOfEventNamesInGroup+=event.getDoorInclusiveName()
+          if (index<numberEvents-1) {
+            listOfEventNamesInGroup+=", "
+          }
         }
-      }
 
-      Text(
-        text = "Events in group: $listOfEventNamesInGroup",
-        style = MaterialTheme.typography.body1,
-        modifier = Modifier
-          .align(Alignment.Start)
-          .padding(bottom = 0.dp)
-      )
+        Text(
+          text = "Events in group: $listOfEventNamesInGroup",
+          style = MaterialTheme.typography.body1,
+          modifier = Modifier
+            .align(Alignment.Start)
+            .padding(bottom = 0.dp)
+        )
+      }
     }
   }
 }
 
+@ExperimentalAnimationApi
 @Composable
 @Preview
 fun PreviewEventGroupSummary() {

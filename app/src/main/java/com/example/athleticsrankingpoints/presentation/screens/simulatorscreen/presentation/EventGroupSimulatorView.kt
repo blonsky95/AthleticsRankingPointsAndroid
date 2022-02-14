@@ -1,5 +1,6 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,6 +34,7 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 import org.koin.core.parameter.parametersOf
 
 
+@ExperimentalAnimationApi
 @Composable
 fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupName: String, loadPerformanceName: String) {
 
