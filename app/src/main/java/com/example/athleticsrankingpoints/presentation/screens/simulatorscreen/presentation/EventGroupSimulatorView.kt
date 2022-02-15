@@ -79,10 +79,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
       }
     }
     if (showErrorValidatingDialog!=null) {
-      DialogWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = showErrorValidatingDialog?:"Wops") {
-        //todo continuuueee here
-//        viewModel.confirmUpdatePerformance()
-      }
+      AlertWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = showErrorValidatingDialog?:"Wops")
     }
 
     if (snackBarModel.isShowing) {
@@ -225,6 +222,30 @@ fun DialogWindow(hideDialog: () -> Unit, dialogText: String = "Missing text", on
       },
     )
   }
+
+@Composable
+fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
+  AlertDialog(
+    onDismissRequest = {
+      hideDialog()
+    },
+    title = {
+      Text(AttentionText)
+    },
+    text = {
+      Text(dialogText)
+    },
+    confirmButton = {
+      Button(
+        onClick = {
+          hideDialog()
+        },
+      ) {
+        Text(CancelText)
+      }
+    }
+  )
+}
 
 
 

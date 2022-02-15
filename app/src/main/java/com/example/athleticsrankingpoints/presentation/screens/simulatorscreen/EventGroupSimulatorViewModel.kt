@@ -245,12 +245,28 @@ class EventGroupSimulatorViewModel(
 
   private fun getFieldValidation():String? {
     var errorMessage = ""
-    if (scoreTitle.value?.length?:0 > 2)  {
+    if (scoreTitle.value?.length?:0 <= 2)  {
       errorMessage = "Name of ranking score must be longer than 2 characters"
     }
-    //todo here you could add check for minimum number performances
-
+    if (!isNumberPerformancesOfMainEventValid()) {
+      errorMessage = "Not enough main event performances"
+    }
     return errorMessage
+  }
+
+  private fun isNumberPerformancesOfMainEventValid():Boolean{
+    selectedEventGroup.value?.let { eventGroup ->
+      var mainEventCounter = 0
+      listOfSelectedEvents.value?.let {
+        for (event in it) {
+          if (event==eventGroup.sMainEvent) {
+            mainEventCounter++
+          }
+        }
+      }
+      return mainEventCounter>=eventGroup.sMinNumberPerformancesMainEvent
+    }
+    return false
   }
 
   //DATA & MODEL HANDLING
