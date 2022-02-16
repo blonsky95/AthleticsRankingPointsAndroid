@@ -1,5 +1,6 @@
 package com.example.athleticsrankingpoints
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -11,10 +12,11 @@ import com.example.athleticsrankingpoints.presentation.components.NavTabRow
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 
+@ExperimentalAnimationApi
 @Composable
 fun WorldRankingApp(
 ) {
-    AthleticsRankingPointsTheme {
+//    AthleticsRankingPointsTheme {
 
       val allScreens = WorldRankingScreen.values().toList()
       val navController = rememberNavController()
@@ -29,7 +31,9 @@ fun WorldRankingApp(
           NavTabRow(
             allScreens = allScreens,
             onTabSelected = { screen ->
-              navController.navigate(screen.name) },
+              navController.navigate(screen.name){
+                popUpTo(WorldRankingScreen.PointLookUp.name) {inclusive = false}
+              } },
             currentScreen = currentScreen
           )
         },
@@ -40,4 +44,4 @@ fun WorldRankingApp(
         )
       }
       }
-  }
+//  }
