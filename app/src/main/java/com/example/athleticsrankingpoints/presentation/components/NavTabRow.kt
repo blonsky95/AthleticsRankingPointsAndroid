@@ -39,7 +39,7 @@ fun NavTabRow(
     Modifier
       .height(TabHeight)
       .fillMaxWidth(),
-    color = AthleticsRankingPointsTheme.colors.surface
+    color = AthleticsRankingPointsTheme.colors.elevatedSurface
   ) {
     Row(Modifier.selectableGroup()) {
       allScreens.forEach { screen ->
@@ -64,7 +64,7 @@ fun CustomTab(
   onSelected: () -> Unit,
   selected: Boolean
 ) {
-  val color = MaterialTheme.colors.onSurface
+  val color = AthleticsRankingPointsTheme.colors.color4
   val durationMillis = if (selected) TabFadeInAnimationDuration else TabFadeOutAnimationDuration
   val animSpec = remember {
     tween<Color>(

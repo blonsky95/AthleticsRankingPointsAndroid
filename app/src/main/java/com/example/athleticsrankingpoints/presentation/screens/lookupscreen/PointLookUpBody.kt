@@ -1,5 +1,6 @@
 package com.example.athleticsrankingpoints.presentation.screens.lookupscreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -35,7 +36,10 @@ fun PointLookUpBody() {
 
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
 
-  Column(Modifier.padding(16.dp)) {
+  Column(Modifier
+    .background(color = AthleticsRankingPointsTheme.colors.backgroundSecondary)
+    .padding(16.dp)
+  ) {
 
     Text(
       text = selectedEvent.sName,

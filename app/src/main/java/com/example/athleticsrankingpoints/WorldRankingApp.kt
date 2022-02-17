@@ -26,7 +26,7 @@ fun WorldRankingApp(
       )
 
       Scaffold(
-        backgroundColor = AthleticsRankingPointsTheme.colors.background,
+        backgroundColor = AthleticsRankingPointsTheme.colors.backgroundPrimary,
         bottomBar = {
           NavTabRow(
             allScreens = allScreens,

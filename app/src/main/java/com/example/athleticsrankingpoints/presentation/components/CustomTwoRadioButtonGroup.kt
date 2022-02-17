@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 
 //This is a stateless composable that allows useer to select between 2 options, it displays a white border around the selected box.
@@ -31,7 +32,7 @@ fun CustomTwoRadioButtonGroup(modifier: Modifier, selectedOption: SelectableIden
           }
         )) {
         if (selectedOption == it) {
-          borderColor = Color.White
+          borderColor = AthleticsRankingPointsTheme.colors.backgroundPrimary
         }
         Text(modifier = Modifier
           .border(width = 2.dp, color = borderColor, shape = RoundedCornerShape(4.dp))

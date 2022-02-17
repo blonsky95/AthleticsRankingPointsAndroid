@@ -6,11 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-val background = Color(0xFFBD5065)
-val surface = Color(0xFFAA3A4F)
-val lightColor3 = Color(0xFF3700B3)
-val lightColor4 = Color(0xFFBB86FC)
-val lightColor5 = Color(0xFF6200EE)
+val normalBlue = Color(0xFF5780E3)
+val lightGrey = Color(0xFFF6F8FA)
+val lightBlue = Color(0xFF5D86EA)
+val darkBlue = Color(0xFF456CC9)
+val white = Color(0xFFFFFFFF)
+val grey = Color(0xFFE4E6EB)
 val lightColor6 = Color(0xFF3700B3)
 
 val darkColor1 = Color(0xFFBB86FC)
@@ -21,16 +22,16 @@ val darkColor5 = Color(0xFF6200EE)
 val darkColor6 = Color(0xFF3700B3)
 
 fun lightColors(
-  background: Color = com.example.athleticsrankingpoints.presentation.theme.background,
-  surface: Color = com.example.athleticsrankingpoints.presentation.theme.surface,
-  color3: Color = lightColor3,
-  color4: Color = lightColor4,
-  color5: Color = lightColor5,
+  backgroundPrimary: Color = normalBlue,
+  backgroundSecondary: Color = lightGrey,
+  elevatedSurface: Color = darkBlue,
+  color4: Color = white,
+  color5: Color = grey,
   color6: Color = lightColor6,
 ) : AppColors = AppColors(
-  background,
-  surface,
-  color3,
+  backgroundPrimary,
+  backgroundSecondary,
+  elevatedSurface,
   color4,
   color5,
   color6,
@@ -57,19 +58,19 @@ fun darkColors(
 internal val LocalColors = staticCompositionLocalOf { lightColors() }
 
 class AppColors(
-  background: Color,
-  surface: Color,
-  color3: Color,
+  backgroundPrimary: Color,
+  backgroundSecondary: Color,
+  elevatedSurface: Color,
   color4: Color,
   color5: Color,
   color6: Color,
   isLightTheme: Boolean
 ) {
-  var background by mutableStateOf(background)
+  var backgroundPrimary by mutableStateOf(backgroundPrimary)
     private set
-  var surface by mutableStateOf(surface)
+  var backgroundSecondary by mutableStateOf(backgroundSecondary)
     private set
-  var color3 by mutableStateOf(color3)
+  var elevatedSurface by mutableStateOf(elevatedSurface)
     private set
   var color4 by mutableStateOf(color4)
     private set
@@ -82,9 +83,9 @@ class AppColors(
 
 
   fun copy(
-    background: Color = this.background,
-    surface: Color = this.surface,
-    color3: Color = this.color3,
+    background: Color = this.backgroundPrimary,
+    surface: Color = this.backgroundSecondary,
+    color3: Color = this.elevatedSurface,
     color4: Color = this.color4,
     color5: Color = this.color5,
     color6: Color = this.color6,
@@ -100,9 +101,9 @@ class AppColors(
   )
 
   fun updateColorsFrom(newAppColors: AppColors) {
-    background = newAppColors.background
-    surface = newAppColors.surface
-    color3 = newAppColors.color3
+    backgroundPrimary = newAppColors.backgroundPrimary
+    backgroundSecondary = newAppColors.backgroundSecondary
+    elevatedSurface = newAppColors.elevatedSurface
     color4 = newAppColors.color4
     color5 = newAppColors.color5
     color6 = newAppColors.color6
