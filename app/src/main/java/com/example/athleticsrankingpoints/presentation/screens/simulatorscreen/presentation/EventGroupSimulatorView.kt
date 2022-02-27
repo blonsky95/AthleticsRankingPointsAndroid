@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import com.example.athleticsrankingpoints.Strings.AttentionText
@@ -62,7 +63,6 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
   Scaffold(
     modifier = Modifier
-      .padding(16.dp)
       .fillMaxSize(),
     scaffoldState = scaffoldState
   ) {
@@ -90,17 +90,19 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
     Column(
       modifier = Modifier
+        .background(color = AthleticsRankingPointsTheme.colors.backgroundSecondary)
+        .padding(16.dp)
         .semantics { contentDescription = "Simulator Screen" }
 
     ) {
-      Spacer(modifier = Modifier.height(8.dp))
+      Spacer(modifier = Modifier.height(4.dp))
       MyPerformanceTitleTextField(title = title, onValueChange = {viewModel.updateTitle(it)}, hint = "Title")
       Spacer(modifier = Modifier.height(4.dp))
       EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = eventGroup?: EventGroup.getSampleEventGroup())
       PerformancesSimulatorList(
         modifier = Modifier
           .weight(1f)
-          .background(color = AthleticsRankingPointsTheme.colors.backgroundSecondary, shape = RoundedCornerShape(4.dp)),
+          .background(color = AthleticsRankingPointsTheme.colors.backgroundPrimary, shape = RoundedCornerShape(4.dp)),
         perfList = performanceList,
         perfPointsList = performancePointsList,
         windsList = windsList,
@@ -157,11 +159,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
     }
   }
-
 }
-
-
-
 
 @Composable
 fun MyPerformanceTitleTextField(title:String, onValueChange : (String) -> Unit, hint:String) {
@@ -171,12 +169,12 @@ fun MyPerformanceTitleTextField(title:String, onValueChange : (String) -> Unit, 
       onValueChange(it)
     },
     modifier = Modifier
-      .background(Color(0xFF3C3C3C), shape = RoundedCornerShape(4.dp))
+      .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
       .padding(8.dp)
       .widthIn(1.dp, Dp.Infinity)
       .heightIn(1.dp, Dp.Infinity),
-    textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
-    cursorBrush = SolidColor(Color.White),
+    textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
+    cursorBrush = SolidColor(Color.Black),
     decorationBox = { innerTextField ->
       if (title.isEmpty()) {
         Text(
@@ -247,6 +245,14 @@ fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
   )
 }
 
+@ExperimentalAnimationApi
+@Preview
+@Composable
+fun PreviewEventGroupSimulatorView() {
+  AthleticsRankingPointsTheme() {
+    EventGroupSimulatorView(navigateToSavedPerformances = {}, eventGroupName = EventGroup.getSampleEventGroup().sName, loadPerformanceName = "")
+  }
+}
 
 
 

@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
 fun PerformancesSimulatorList(
@@ -38,7 +39,7 @@ fun PerformancesSimulatorList(
         onPlacementChange = onPlacementChange,
         onWindChange = onWindChange,
       )
-      CustomDivider()
+      CustomDivider(color = AthleticsRankingPointsTheme.colors.color4)
     }
   }
 }

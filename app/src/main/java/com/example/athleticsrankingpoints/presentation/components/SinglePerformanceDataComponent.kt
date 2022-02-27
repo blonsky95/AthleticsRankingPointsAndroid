@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.makeZeroIfEmpty
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.toIntOrZero
 
 @Composable
@@ -121,7 +122,7 @@ fun PerformanceWithPoints(performance: PerformanceUnitsAware, points: String, on
   MyCustomTwoComposableRow {
     PerformanceInput(
       modifier = Modifier
-        .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
+        .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
         .padding(4.dp),
       modifierForInputUnit = Modifier.width(80.dp),
       performanceUnitsAware = performance,
@@ -164,14 +165,14 @@ fun TextAndSpinner(
   ) {
     Text(
       text = "Performance #${index+1}",
-      color = Color.White,
+      color = Color.Black,
       style = MaterialTheme.typography.body2
     )
     Spacer(modifier = Modifier.width(4.dp))
     AthleticEventsDropDownList(
       modifier = Modifier
         .padding(horizontal = 8.dp, vertical = 4.dp)
-        .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
+        .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
         .padding(4.dp),
       expanded = expanded,
       events = spinnerList,
@@ -210,12 +211,12 @@ fun MyCustomTextField(performance: String = "", hint: String, onPerformanceChang
       onPerformanceChange(it)
     },
     modifier = Modifier
-      .background(Color.DarkGray, shape = RoundedCornerShape(4.dp))
+      .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
       .padding(8.dp)
       .widthIn(1.dp, Dp.Infinity)
       .heightIn(1.dp, Dp.Infinity),
-    textStyle = TextStyle(color = Color.White, fontSize = 12.sp),
-    cursorBrush = SolidColor(Color.White),
+    textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
+    cursorBrush = SolidColor(Color.Black),
     decorationBox = { innerTextField ->
         if (performance.isEmpty()) {
           Text(
@@ -259,13 +260,13 @@ fun AthleticEventsDropDownList(
     ){ 
       Text(
         text = selectedEvent.sName,
-        color = Color.White,
+        color = Color.Black,
         style = TextStyle(fontSize = 13.sp)
       ) 
       Spacer(modifier = Modifier.width(4.dp))
       Icon(
         imageVector = icon,
-        tint = Color.White,
+        tint = Color.Black,
         contentDescription = ""
       )
     }
@@ -282,10 +283,10 @@ fun AthleticEventsDropDownList(
           Column {
             Text(
               text = event.getDoorInclusiveName(),
-              color = Color.White
+              color = Color.Black
             )
             Divider(
-              color = Color.White,
+              color = Color.Black,
             )
           }
         }

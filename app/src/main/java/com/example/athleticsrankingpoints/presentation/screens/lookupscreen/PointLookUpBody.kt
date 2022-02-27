@@ -43,7 +43,7 @@ fun PointLookUpBody() {
 
     Text(
       text = selectedEvent.sName,
-      style = AthleticsRankingPointsTheme.typography.title1,
+      style = AthleticsRankingPointsTheme.typography.title2,
       modifier = Modifier
         .align(Start)
     )
@@ -72,7 +72,7 @@ fun PointLookUpBody() {
 
     CustomDivider()
 
-    EventListDisplayer(listOfEvents, selectedEvent) {
+    EventListDisplayer(listOfEvents = listOfEvents, selectedEvent= selectedEvent) {
       viewModel.newEventSelected(it)
     }
   }

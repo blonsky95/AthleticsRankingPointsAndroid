@@ -5,12 +5,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 //import androidx.compose.runtime.mutableStateOf
 //import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
@@ -71,15 +73,9 @@ fun PerformanceInputUnit(
       onValueChange(it)
     },
     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//    colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.Red)
   )
 }
-
-//fun hasError(text:String, units: PerformanceUnits) : Boolean {
-//  if (text.toDoubleOrNull()==null) return true
-//  return text.toDoubleOrNull()?.let {
-//     (PerformanceUnits.unitCanNotContainDecimal(units) && ceil(it)!=floor(it) )
-//  }?:true
-//}
 
 //@Preview
 //@Composable

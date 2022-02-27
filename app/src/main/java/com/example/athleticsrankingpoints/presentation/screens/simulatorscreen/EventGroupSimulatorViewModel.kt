@@ -1,6 +1,7 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -217,7 +218,7 @@ class EventGroupSimulatorViewModel(
   //USER ACTIONS
 
   fun saveButtonPressed() =
-    getFieldValidation().takeIf { it!=null }?.let { showDialogWithError(it) } ?: savePerformance()
+    getFieldValidation().takeIf { !it.isNullOrEmpty() }?.let { showDialogWithError(it) } ?: savePerformance()
 
   fun deleteButtonPressed() {
     showDeleteDialog.value=true

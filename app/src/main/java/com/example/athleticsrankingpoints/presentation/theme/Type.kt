@@ -28,10 +28,9 @@ data class AppTypography(
   ),
   val title2:TextStyle = TextStyle(
     fontWeight = FontWeight.SemiBold,
-    fontSize = 44.sp,
-    fontFamily = EczarFontFamily,
+    fontSize = 30.sp,
+    fontFamily = RobotoCondensed,
     letterSpacing = 1.5.sp,
-    lineHeight = 20.sp,
   ),
   val text1:TextStyle = TextStyle(
     fontWeight = FontWeight.W400,

@@ -2,6 +2,7 @@ package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.
 
 import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -15,11 +16,9 @@ import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.EventGroup
-import com.example.athleticsrankingpoints.presentation.components.CustomButton
-import com.example.athleticsrankingpoints.presentation.components.CustomTwoRadioButtonGroup
-import com.example.athleticsrankingpoints.presentation.components.EventGroupListDisplayer
-import com.example.athleticsrankingpoints.presentation.components.EventGroupSummary
+import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import org.koin.androidx.compose.getViewModel
 
 @ExperimentalAnimationApi
@@ -29,21 +28,21 @@ fun EventGroupSelectorView(
 ){
 
   val viewModel: EventGroupSelectorViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
-
   val listOfEventGroups by viewModel.getListOfEventGroups().observeAsState(listOf())
-
   val selectedEventGroup by viewModel.getSelectedEventGroup().observeAsState(viewModel.sampleFirstEventGroup)
-
   val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsSex.Male)
 
-  Column(Modifier.padding(16.dp)) {
+  Column(Modifier
+    .background(color = AthleticsRankingPointsTheme.colors.backgroundSecondary)
+    .padding(16.dp)) {
     Text(
       text = "Select your Event Group",
-      style = MaterialTheme.typography.h4,
+      style = AthleticsRankingPointsTheme.typography.title2,
       modifier = Modifier
         .align(Alignment.Start)
-        .padding(bottom = 8.dp)
     )
+
+    Spacer(modifier = Modifier.height(8.dp))
 
     EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = selectedEventGroup)
 
@@ -52,9 +51,11 @@ fun EventGroupSelectorView(
       }
     )
 
+    CustomDivider()
+
     EventGroupListDisplayer(modifier = Modifier
-      .weight(1f)
-      .padding(top = 8.dp, bottom = 8.dp), listOfEventGroups, selectedEventGroup) {
+      .weight(1f),
+      listOfEventGroups, selectedEventGroup) {
       viewModel.newEventSelected(it)
     }
 
