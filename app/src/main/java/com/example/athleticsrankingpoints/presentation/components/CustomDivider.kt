@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
-fun CustomDivider(color: Color = AthleticsRankingPointsTheme.colors.backgroundPrimary) {
+fun CustomDivider(color: Color = AthleticsRankingPointsTheme.colors.background) {
   Divider(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
     color = color, thickness = 2.dp)
 }

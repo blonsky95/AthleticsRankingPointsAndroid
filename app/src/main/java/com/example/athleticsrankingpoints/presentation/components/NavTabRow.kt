@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
@@ -39,7 +38,7 @@ fun NavTabRow(
     Modifier
       .height(TabHeight)
       .fillMaxWidth(),
-    color = AthleticsRankingPointsTheme.colors.elevatedSurface
+    color = AthleticsRankingPointsTheme.colors.selectedGrey
   ) {
     Row(Modifier.selectableGroup()) {
       allScreens.forEach { screen ->
@@ -64,7 +63,7 @@ fun CustomTab(
   onSelected: () -> Unit,
   selected: Boolean
 ) {
-  val color = AthleticsRankingPointsTheme.colors.color4
+  val color = AthleticsRankingPointsTheme.colors.textBlack
   val durationMillis = if (selected) TabFadeInAnimationDuration else TabFadeOutAnimationDuration
   val animSpec = remember {
     tween<Color>(

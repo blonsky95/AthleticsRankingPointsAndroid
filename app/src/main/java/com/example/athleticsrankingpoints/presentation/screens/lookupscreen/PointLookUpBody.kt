@@ -11,9 +11,9 @@ import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsDoor
-import com.example.athleticsrankingpoints.domain.models.AthleticsEventType
 import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.presentation.components.*
@@ -35,9 +35,8 @@ fun PointLookUpBody() {
   val performanceUnitsAware by viewModel.getPerformanceUnitsAware().observeAsState(PerformanceUnitsAware.getDefault())
 
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
-
+  CustomBackground(image = R.drawable.ic_baseline_baby_changing_station_big)
   Column(Modifier
-    .background(color = AthleticsRankingPointsTheme.colors.backgroundSecondary)
     .padding(16.dp)
   ) {
 
@@ -47,18 +46,20 @@ fun PointLookUpBody() {
       modifier = Modifier
         .align(Start)
     )
-
+//    Spacer(modifier = Modifier.height(8.dp))
+    PointsDisplay(performancePoints)
     Spacer(modifier = Modifier.height(8.dp))
-
     PerformanceInput(
-      modifier = Modifier.fillMaxWidth(),
+      modifier = Modifier
+        .fillMaxWidth()
+        .background(AthleticsRankingPointsTheme.colors.backgroundGrey)
+        .padding(vertical = 4.dp)
+        .padding(start = 4.dp),
       modifierForInputUnit = Modifier.width(80.dp),
       performanceUnitsAware = performanceUnitsAware) {newPerformance ->
       viewModel.updatePerformanceUnitsAware(newPerformance)
     }
     Spacer(modifier = Modifier.height(8.dp))
-    PointsDisplay(performancePoints)
-
     CategorySelector(
       selectedSex,
       selectedDoor,
@@ -69,9 +70,7 @@ fun PointLookUpBody() {
         viewModel.updateUIWithNewDoorCategory(findById(it.id))
       }
     )
-
-    CustomDivider()
-
+    Spacer(modifier = Modifier.height(6.dp))
     EventListDisplayer(listOfEvents = listOfEvents, selectedEvent= selectedEvent) {
       viewModel.newEventSelected(it)
     }

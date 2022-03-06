@@ -1,6 +1,5 @@
 package com.example.athleticsrankingpoints.presentation.components
 
-import androidx.compose.animation.Animatable
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.border
@@ -12,9 +11,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
@@ -48,8 +45,8 @@ fun CustomTwoRadioButtonGroup(modifier: Modifier, selectedOption: SelectableIden
 //        )
 //      }
 
-      val borderColor2:Color by animateColorAsState(
-        targetValue = if (selectedOption==it) AthleticsRankingPointsTheme.colors.backgroundPrimary else Transparent,
+      val buttonBorderColor:Color by animateColorAsState(
+        targetValue = if (selectedOption==it) AthleticsRankingPointsTheme.colors.textBlack else Transparent,
         animationSpec =  tween(
           durationMillis = 500,
           easing = LinearOutSlowInEasing
@@ -68,11 +65,12 @@ fun CustomTwoRadioButtonGroup(modifier: Modifier, selectedOption: SelectableIden
 //          borderColor = AthleticsRankingPointsTheme.colors.backgroundPrimary
 //        }
         Text(modifier = Modifier
-          .border(width = 2.dp, color = borderColor2, shape = RoundedCornerShape(4.dp))
+          .border(width = 2.dp, color = buttonBorderColor)
           .padding(top = 4.dp, bottom = 4.dp)
           .fillMaxWidth(),
+          style = AthleticsRankingPointsTheme.typography.text1,
           textAlign = TextAlign.Center,
-          text = it.getReadableText())
+          text = it.getReadableText().uppercase())
       }
     }
   }

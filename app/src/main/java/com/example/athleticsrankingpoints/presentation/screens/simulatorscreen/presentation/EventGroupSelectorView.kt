@@ -33,7 +33,7 @@ fun EventGroupSelectorView(
   val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsSex.Male)
 
   Column(Modifier
-    .background(color = AthleticsRankingPointsTheme.colors.backgroundSecondary)
+    .background(color = AthleticsRankingPointsTheme.colors.backgroundGrey)
     .padding(16.dp)) {
     Text(
       text = "Select your Event Group",

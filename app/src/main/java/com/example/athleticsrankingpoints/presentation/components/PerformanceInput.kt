@@ -2,10 +2,7 @@ package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 //import androidx.compose.runtime.mutableStateOf
@@ -18,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.domain.models.isValid
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -62,10 +60,12 @@ fun PerformanceInputUnit(
   OutlinedTextField(
     modifier = modifier,
     value = unitValue,
+    textStyle = AthleticsRankingPointsTheme.typography.text1,
     label = {
       Text(
         modifier = Modifier.padding(bottom = 2.dp),
-        text = unit.unitTextString
+        style = AthleticsRankingPointsTheme.typography.smalltext1,
+        text = unit.unitTextString.uppercase()
       )
     },
     isError = !isUnitValueValid,
@@ -73,7 +73,16 @@ fun PerformanceInputUnit(
       onValueChange(it)
     },
     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-//    colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.Red)
+    colors = TextFieldDefaults.outlinedTextFieldColors(
+      cursorColor = AthleticsRankingPointsTheme.colors.selectedGrey,
+      unfocusedBorderColor = AthleticsRankingPointsTheme.colors.selectedGrey,
+      focusedBorderColor = AthleticsRankingPointsTheme.colors.textBlack.copy(alpha = ContentAlpha.medium),
+      errorBorderColor = AthleticsRankingPointsTheme.colors.errorRed,
+      focusedLabelColor = AthleticsRankingPointsTheme.colors.textBlack.copy(alpha = ContentAlpha.high),
+      unfocusedLabelColor = AthleticsRankingPointsTheme.colors.textBlack.copy(alpha = ContentAlpha.medium),
+      disabledLabelColor = AthleticsRankingPointsTheme.colors.selectedGrey.copy(ContentAlpha.disabled),
+      errorLabelColor = AthleticsRankingPointsTheme.colors.errorRed,
+    )
   )
 }
 

@@ -20,6 +20,16 @@ private val RobotoCondensed = FontFamily(
   Font(R.font.robotocondensed_bold, FontWeight.Bold)
 )
 
+private val InconsolataFontFamily = FontFamily(
+  Font(R.font.inconsolata_medium),
+  Font(R.font.inconsolata_bold, FontWeight.Bold)
+)
+
+private val CousineFontFamily = FontFamily(
+  Font(R.font.cousine_regular),
+  Font(R.font.cousine_bold, FontWeight.Bold)
+)
+
 data class AppTypography(
   val title1 :TextStyle= TextStyle(
     fontWeight = FontWeight.Light,
@@ -27,19 +37,31 @@ data class AppTypography(
     letterSpacing = (-0.5).sp,
   ),
   val title2:TextStyle = TextStyle(
-    fontWeight = FontWeight.SemiBold,
-    fontSize = 30.sp,
-    fontFamily = RobotoCondensed,
-    letterSpacing = 1.5.sp,
+    fontWeight = FontWeight.Bold,
+    fontSize = 36.sp,
+    fontFamily = CousineFontFamily,
+    letterSpacing = 0.5.sp,
+  ),
+  val subtitle2:TextStyle = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 18.sp,
+    fontFamily = InconsolataFontFamily
   ),
   val text1:TextStyle = TextStyle(
-    fontWeight = FontWeight.W400,
-    fontSize = 14.sp
-  ),
+    fontFamily = InconsolataFontFamily,
+    fontWeight = FontWeight.Medium,
+    fontSize = 16.sp,
+    letterSpacing = 0.2.sp,
+    ),
   val text2:TextStyle = TextStyle(
     fontWeight = FontWeight.W700,
     fontSize = 34.sp
-  )
+  ),
+  val smalltext1:TextStyle = TextStyle(
+    fontFamily = InconsolataFontFamily,
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp,
+  ),
 )
 
 internal val LocalTypography = staticCompositionLocalOf { AppTypography() }

@@ -7,11 +7,14 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val normalBlue = Color(0xFF5780E3)
-val lightGrey = Color(0xFFF6F8FA)
+val almostWhiteGrey = Color(0xFFFFFFFF)
+val lightGrey = Color(0xFFF4F4F4)
+val darkGrey = Color(0xFFD4D6D8)
+val black = Color(0xFF000000)
 val lightBlue = Color(0xFF5D86EA)
 val darkBlue = Color(0xFF456CC9)
 val white = Color(0xFFFFFFFF)
-val grey = Color(0xFFE4E6EB)
+
 val lightColor6 = Color(0xFF3700B3)
 
 val darkColor1 = Color(0xFFBB86FC)
@@ -22,19 +25,19 @@ val darkColor5 = Color(0xFF6200EE)
 val darkColor6 = Color(0xFF3700B3)
 
 fun lightColors(
-  backgroundPrimary: Color = normalBlue,
-  backgroundSecondary: Color = lightGrey,
-  elevatedSurface: Color = darkBlue,
-  color4: Color = white,
-  color5: Color = grey,
-  color6: Color = lightColor6,
+  background: Color = white,
+  backgroundGrey: Color = lightGrey,
+  selectedGrey: Color = darkGrey,
+  textBlack: Color = black,
+  textWhite: Color = white,
+  errorRed: Color = Color.Red,
 ) : AppColors = AppColors(
-  backgroundPrimary,
-  backgroundSecondary,
-  elevatedSurface,
-  color4,
-  color5,
-  color6,
+  background,
+  backgroundGrey,
+  selectedGrey,
+  textBlack,
+  textWhite,
+  errorRed,
   isLightTheme = true
 )
 
@@ -58,41 +61,41 @@ fun darkColors(
 internal val LocalColors = staticCompositionLocalOf { lightColors() }
 
 class AppColors(
-  backgroundPrimary: Color,
-  backgroundSecondary: Color,
-  elevatedSurface: Color,
+  color1: Color,
+  color2: Color,
+  color3: Color,
   color4: Color,
   color5: Color,
   color6: Color,
   isLightTheme: Boolean
 ) {
-  var backgroundPrimary by mutableStateOf(backgroundPrimary)
+  var background by mutableStateOf(color1)
     private set
-  var backgroundSecondary by mutableStateOf(backgroundSecondary)
+  var backgroundGrey by mutableStateOf(color2)
     private set
-  var elevatedSurface by mutableStateOf(elevatedSurface)
+  var selectedGrey by mutableStateOf(color3)
     private set
-  var color4 by mutableStateOf(color4)
+  var textBlack by mutableStateOf(color4)
     private set
-  var color5 by mutableStateOf(color5)
+  var textWhite by mutableStateOf(color5)
     private set
-  var color6 by mutableStateOf(color6)
+  var errorRed by mutableStateOf(color6)
     private set
   var isLightTheme by mutableStateOf(isLightTheme)
     private set
 
 
   fun copy(
-    background: Color = this.backgroundPrimary,
-    surface: Color = this.backgroundSecondary,
-    color3: Color = this.elevatedSurface,
-    color4: Color = this.color4,
-    color5: Color = this.color5,
-    color6: Color = this.color6,
+    color1: Color = this.background,
+    color2: Color = this.backgroundGrey,
+    color3: Color = this.selectedGrey,
+    color4: Color = this.textBlack,
+    color5: Color = this.textWhite,
+    color6: Color = this.errorRed,
     isLightTheme: Boolean = this.isLightTheme
   ) : AppColors = AppColors(
-    background,
-    surface,
+    color1,
+    color2,
     color3,
     color4,
     color5,
@@ -101,12 +104,12 @@ class AppColors(
   )
 
   fun updateColorsFrom(newAppColors: AppColors) {
-    backgroundPrimary = newAppColors.backgroundPrimary
-    backgroundSecondary = newAppColors.backgroundSecondary
-    elevatedSurface = newAppColors.elevatedSurface
-    color4 = newAppColors.color4
-    color5 = newAppColors.color5
-    color6 = newAppColors.color6
+    background = newAppColors.background
+    backgroundGrey = newAppColors.backgroundGrey
+    selectedGrey = newAppColors.selectedGrey
+    textBlack = newAppColors.textBlack
+    textWhite = newAppColors.textWhite
+    errorRed = newAppColors.errorRed
     isLightTheme = newAppColors.isLightTheme
   }
 }

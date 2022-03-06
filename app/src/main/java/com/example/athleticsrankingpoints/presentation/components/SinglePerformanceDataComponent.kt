@@ -122,7 +122,7 @@ fun PerformanceWithPoints(performance: PerformanceUnitsAware, points: String, on
   MyCustomTwoComposableRow {
     PerformanceInput(
       modifier = Modifier
-        .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
+        .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
         .padding(4.dp),
       modifierForInputUnit = Modifier.width(80.dp),
       performanceUnitsAware = performance,
@@ -172,7 +172,7 @@ fun TextAndSpinner(
     AthleticEventsDropDownList(
       modifier = Modifier
         .padding(horizontal = 8.dp, vertical = 4.dp)
-        .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
+        .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
         .padding(4.dp),
       expanded = expanded,
       events = spinnerList,
@@ -211,7 +211,7 @@ fun MyCustomTextField(performance: String = "", hint: String, onPerformanceChang
       onPerformanceChange(it)
     },
     modifier = Modifier
-      .background(AthleticsRankingPointsTheme.colors.color5, shape = RoundedCornerShape(4.dp))
+      .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
       .padding(8.dp)
       .widthIn(1.dp, Dp.Infinity)
       .heightIn(1.dp, Dp.Infinity),

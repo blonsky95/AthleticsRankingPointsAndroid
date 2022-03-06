@@ -39,7 +39,7 @@ fun PerformancesSimulatorList(
         onPlacementChange = onPlacementChange,
         onWindChange = onWindChange,
       )
-      CustomDivider(color = AthleticsRankingPointsTheme.colors.color4)
+      CustomDivider(color = AthleticsRankingPointsTheme.colors.textBlack)
     }
   }
 }

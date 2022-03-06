@@ -24,7 +24,7 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 fun EventGroupListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<EventGroup>, selectedEvent: EventGroup, onEventChange: (EventGroup) -> Unit) {
   LazyColumn(modifier = modifier.padding(top = 8.dp, bottom = 8.dp)
     .background(
-      color = AthleticsRankingPointsTheme.colors.color5,
+      color = AthleticsRankingPointsTheme.colors.textWhite,
       shape = RoundedCornerShape(6.dp)
     )
   ) {
@@ -35,7 +35,7 @@ fun EventGroupListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<Event
       )) {
         var textColor = Color.Black
         val backgroundColor2:Color by animateColorAsState(
-          targetValue = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.backgroundPrimary else Color.Transparent,
+          targetValue = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.background else Color.Transparent,
           animationSpec =  tween(
             durationMillis = 300,
             easing = LinearOutSlowInEasing
@@ -43,7 +43,7 @@ fun EventGroupListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<Event
         )
 
         if (selectedEvent == it) {
-          textColor = AthleticsRankingPointsTheme.colors.color4
+          textColor = AthleticsRankingPointsTheme.colors.textBlack
         }
         Text(modifier = Modifier
           .fillMaxWidth()
