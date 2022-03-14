@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 
 val normalBlue = Color(0xFF5780E3)
 val almostWhiteGrey = Color(0xFFFFFFFF)
-val lightGrey = Color(0xFFF4F4F4)
+val lightGrey = Color(0xCCF4F4F4)
 val darkGrey = Color(0xFFD4D6D8)
 val black = Color(0xFF000000)
 val lightBlue = Color(0xFF5D86EA)

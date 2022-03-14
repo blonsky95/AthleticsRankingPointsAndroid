@@ -11,8 +11,14 @@ class RankingScorePerformanceRepositoryImpl (
   private val rankingScoreDatabaseDao: RankingScoreDatabaseDao,
   private val cache: Cache<RankingScorePerformanceData>
 ) : RankingScorePerformanceRepository {
-  override suspend fun getAllRankingScorePerformances(): LiveData<List<RankingScorePerformanceData>> {
-   return rankingScoreDatabaseDao.getAllPerformances()
+
+  override suspend fun getAllRankingScorePerformances(): List<RankingScorePerformanceData> {
+   return cache.getAll().takeIf { cache.isLoaded } ?: (rankingScoreDatabaseDao.getAllPerformances().also { cache.saveAll(it) })
+  }
+
+  override suspend fun getSearchedRankingScorePerformances(searchText: String): List<RankingScorePerformanceData> {
+    return cache.getAll()
+      .filter { it.name.contains(searchText, ignoreCase = true) || it.eventGroup.sName.contains(searchText, ignoreCase = true)}
   }
 
   override suspend fun getRankingScorePerformanceByName(name: String): RankingScorePerformanceData? {

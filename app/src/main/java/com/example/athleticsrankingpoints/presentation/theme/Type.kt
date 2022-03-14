@@ -57,12 +57,22 @@ data class AppTypography(
     fontWeight = FontWeight.W700,
     fontSize = 34.sp
   ),
+  val text3:TextStyle = TextStyle(
+    fontSize = 14.sp,
+    fontFamily = CousineFontFamily,
+    ),
   val smalltext1:TextStyle = TextStyle(
     fontFamily = InconsolataFontFamily,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
   ),
 )
+
+val TextStyle.bold: TextStyle
+  get() = this.copy(fontWeight = FontWeight.Bold)
+
+val TextStyle.grey: TextStyle
+  get() = this.copy(color = darkGrey)
 
 internal val LocalTypography = staticCompositionLocalOf { AppTypography() }
 

@@ -5,7 +5,9 @@ import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceD
 
 interface RankingScorePerformanceRepository {
 
-  suspend fun getAllRankingScorePerformances(): LiveData<List<RankingScorePerformanceData>>
+  suspend fun getAllRankingScorePerformances(): List<RankingScorePerformanceData>
+
+  suspend fun getSearchedRankingScorePerformances(searchText: String): List<RankingScorePerformanceData>
 
   suspend fun getRankingScorePerformanceByName(name: String): RankingScorePerformanceData?
 

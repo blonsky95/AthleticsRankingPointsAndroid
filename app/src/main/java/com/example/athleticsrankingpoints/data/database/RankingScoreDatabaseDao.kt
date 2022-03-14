@@ -56,7 +56,10 @@ interface RankingScoreDatabaseDao {
   RANKING SCORE PERFORMANCE DATA
    */
   @Query("SELECT * from $PERFORMANCES_TABLE_NAME ORDER BY date DESC")
-  fun getAllPerformances(): LiveData<List<RankingScorePerformanceData>>
+  suspend fun getAllPerformances(): List<RankingScorePerformanceData>
+
+//  @Query("SELECT * from $PERFORMANCES_TABLE_NAME where name LIKE '%:text%' OR eventGroup LIKE '%:text%'")
+//  fun getPerformancesContainingText(text: String): LiveData<List<RankingScorePerformanceData>>
 
   @Query("SELECT * from $PERFORMANCES_TABLE_NAME where name = :name")
   suspend fun getPerformanceByName(name: String) : RankingScorePerformanceData?

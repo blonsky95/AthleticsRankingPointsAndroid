@@ -35,7 +35,8 @@ fun PointLookUpBody() {
   val performanceUnitsAware by viewModel.getPerformanceUnitsAware().observeAsState(PerformanceUnitsAware.getDefault())
 
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
-  CustomBackground(image = R.drawable.ic_baseline_baby_changing_station_big)
+  CustomBackground(image = R.drawable.track_clipart) //TODO Add the right svg
+  //todo make the backgroundgrey transparent or copy and change transparency with .copy(alpha = 12)
   Column(Modifier
     .padding(16.dp)
   ) {
@@ -51,10 +52,8 @@ fun PointLookUpBody() {
     Spacer(modifier = Modifier.height(8.dp))
     PerformanceInput(
       modifier = Modifier
-        .fillMaxWidth()
         .background(AthleticsRankingPointsTheme.colors.backgroundGrey)
-        .padding(vertical = 4.dp)
-        .padding(start = 4.dp),
+        .padding(vertical = 4.dp, horizontal = 4.dp),
       modifierForInputUnit = Modifier.width(80.dp),
       performanceUnitsAware = performanceUnitsAware) {newPerformance ->
       viewModel.updatePerformanceUnitsAware(newPerformance)

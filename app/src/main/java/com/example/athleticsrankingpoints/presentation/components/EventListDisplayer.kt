@@ -24,7 +24,7 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 fun EventListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<AthleticsEvent>, selectedEvent: AthleticsEvent, onEventChange: (AthleticsEvent) -> Unit) {
   LazyColumn(modifier = modifier.padding(top = 8.dp, bottom = 8.dp)
     .background(
-      color = AthleticsRankingPointsTheme.colors.backgroundGrey,
+      color = AthleticsRankingPointsTheme.colors.backgroundGrey.copy(alpha = 0.6f),
       shape = RoundedCornerShape(6.dp))
   ) {
     items(listOfEvents) {
@@ -33,13 +33,12 @@ fun EventListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<AthleticsE
         onClick = { onEventChange(it) }
       )) {
         var textColor = Color.Black
-        val rowItemColor:Color by animateColorAsState(
-          targetValue = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.selectedGrey else Color.Transparent,
-          animationSpec =  tween(
-            durationMillis = 300,
-            easing = LinearOutSlowInEasing
-          )
-        )
+//        val rowItemColor:Color by animateColorAsState(
+//          targetValue = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.selectedGrey.copy(alpha = 0.6f) else Color.Transparent
+//        )
+
+        val rowItemColor = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.selectedGrey.copy(alpha = 0.6f) else Color.Transparent
+
 
         if (selectedEvent == it) {
           textColor = AthleticsRankingPointsTheme.colors.textWhite
