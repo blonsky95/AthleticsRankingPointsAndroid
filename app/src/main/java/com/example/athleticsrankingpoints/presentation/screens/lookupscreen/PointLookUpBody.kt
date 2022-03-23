@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsDoor
@@ -18,6 +19,7 @@ import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.beige
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -35,24 +37,21 @@ fun PointLookUpBody() {
   val performanceUnitsAware by viewModel.getPerformanceUnitsAware().observeAsState(PerformanceUnitsAware.getDefault())
 
   val performancePoints by viewModel.getPerformancePoints().observeAsState("0")
-  CustomBackground(image = R.drawable.track_clipart) //TODO Add the right svg
-  //todo make the backgroundgrey transparent or copy and change transparency with .copy(alpha = 12)
+  CustomBackground(image = R.drawable.track_clipart, modifier = Modifier.zIndex(1f))
   Column(Modifier
     .padding(16.dp)
   ) {
-
     Text(
       text = selectedEvent.sName,
-      style = AthleticsRankingPointsTheme.typography.title2,
+      style = AthleticsRankingPointsTheme.typography.title2.beige,
       modifier = Modifier
         .align(Start)
     )
-//    Spacer(modifier = Modifier.height(8.dp))
     PointsDisplay(performancePoints)
     Spacer(modifier = Modifier.height(8.dp))
     PerformanceInput(
       modifier = Modifier
-        .background(AthleticsRankingPointsTheme.colors.backgroundGrey)
+        .background(AthleticsRankingPointsTheme.colors.backgroundComponent)
         .padding(vertical = 4.dp, horizontal = 4.dp),
       modifierForInputUnit = Modifier.width(80.dp),
       performanceUnitsAware = performanceUnitsAware) {newPerformance ->

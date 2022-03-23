@@ -5,18 +5,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.beige
 
 @Composable
 fun PointsDisplay(performancePoints: String) {
   Row {
+      Text(
+        style = AthleticsRankingPointsTheme.typography.subtitle2.beige,
+        text = "POINTS: "
+      )
 
-      Text(modifier = Modifier,
-        style = AthleticsRankingPointsTheme.typography.subtitle2,
-        text = "POINTS: ")
-
-      Text(modifier = Modifier,
-        style = AthleticsRankingPointsTheme.typography.subtitle2,
-        text = "$performancePoints pts")
-
+      Text(
+        style = AthleticsRankingPointsTheme.typography.subtitle2.beige,
+        text = "$performancePoints pts"
+      )
   }
 }

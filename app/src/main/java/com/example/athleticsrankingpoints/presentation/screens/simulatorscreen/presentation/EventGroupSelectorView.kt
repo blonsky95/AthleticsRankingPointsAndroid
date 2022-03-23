@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
 import com.example.athleticsrankingpoints.domain.interfaces.findById
@@ -19,6 +20,7 @@ import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.beige
 import org.koin.androidx.compose.getViewModel
 
 @ExperimentalAnimationApi
@@ -33,11 +35,11 @@ fun EventGroupSelectorView(
   val selectedSex by viewModel.getSelectedSex().observeAsState(AthleticsSex.Male)
 
   Column(Modifier
-    .background(color = AthleticsRankingPointsTheme.colors.backgroundGrey)
+    .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen)
     .padding(16.dp)) {
     Text(
-      text = "Select your Event Group",
-      style = AthleticsRankingPointsTheme.typography.title2,
+      text = "Select your Event Group".uppercase(),
+      style = AthleticsRankingPointsTheme.typography.title3.beige,
       modifier = Modifier
         .align(Alignment.Start)
     )
@@ -58,6 +60,8 @@ fun EventGroupSelectorView(
       listOfEventGroups, selectedEventGroup) {
       viewModel.newEventSelected(it)
     }
+
+    Spacer(modifier = Modifier.height(4.dp))
 
     Box(modifier = Modifier.align(Alignment.End) ){
       CustomButton(text = "NEXT", onButtonTap = {

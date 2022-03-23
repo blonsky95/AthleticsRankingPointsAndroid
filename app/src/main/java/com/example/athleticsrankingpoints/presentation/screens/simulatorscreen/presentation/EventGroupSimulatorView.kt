@@ -90,7 +90,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
     Column(
       modifier = Modifier
-        .background(color = AthleticsRankingPointsTheme.colors.backgroundGrey)
+        .background(color = AthleticsRankingPointsTheme.colors.backgroundComponent)
         .padding(16.dp)
         .semantics { contentDescription = "Simulator Screen" }
 
@@ -102,7 +102,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
       PerformancesSimulatorList(
         modifier = Modifier
           .weight(1f)
-          .background(color = AthleticsRankingPointsTheme.colors.background, shape = RoundedCornerShape(4.dp)),
+          .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen, shape = RoundedCornerShape(4.dp)),
         perfList = performanceList,
         perfPointsList = performancePointsList,
         windsList = windsList,

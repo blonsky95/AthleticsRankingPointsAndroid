@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,20 +23,21 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 
 @Composable
 fun EventGroupListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<EventGroup>, selectedEvent: EventGroup, onEventChange: (EventGroup) -> Unit) {
-  LazyColumn(modifier = modifier.padding(top = 8.dp, bottom = 8.dp)
+  LazyColumn(modifier = modifier
     .background(
-      color = AthleticsRankingPointsTheme.colors.textWhite,
-      shape = RoundedCornerShape(6.dp)
+      color = AthleticsRankingPointsTheme.colors.backgroundScreen,
     )
   ) {
     items(listOfEvents) {
-      Row(modifier = Modifier.selectable(
-        selected = selectedEvent == it,
-        onClick = { onEventChange(it) }
-      )) {
-        var textColor = Color.Black
+      Row(modifier = Modifier
+        .selectable(
+          selected = selectedEvent == it,
+          onClick = { onEventChange(it) }
+        )
+      ) {
+        var textColor = AthleticsRankingPointsTheme.colors.textWhite
         val backgroundColor2:Color by animateColorAsState(
-          targetValue = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.background else Color.Transparent,
+          targetValue = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.backgroundComponent else Color.Transparent,
           animationSpec =  tween(
             durationMillis = 300,
             easing = LinearOutSlowInEasing
@@ -47,12 +49,14 @@ fun EventGroupListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<Event
         }
         Text(modifier = Modifier
           .fillMaxWidth()
-          .background(backgroundColor2, shape = RoundedCornerShape(6.dp))
-          .padding(start = 4.dp, bottom = 8.dp, top = 8.dp),
+          .background(backgroundColor2)
+          .padding(start = 4.dp, bottom = 4.dp, top = 4.dp),
           text = it.sName,
+          style = AthleticsRankingPointsTheme.typography.text1,
           color = textColor
         )
       }
+      Divider(color = AthleticsRankingPointsTheme.colors.textWhite.copy(alpha = 0.5f), thickness = 1.dp)
     }
   }
 }

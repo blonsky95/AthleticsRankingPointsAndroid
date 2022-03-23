@@ -4,20 +4,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 //import androidx.compose.runtime.mutableStateOf
 //import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
-import com.example.athleticsrankingpoints.domain.models.isValid
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
-import kotlin.math.ceil
-import kotlin.math.floor
 
 @Composable
 fun PerformanceInput(modifier: Modifier = Modifier, modifierForInputUnit: Modifier = Modifier, performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
@@ -74,13 +69,13 @@ fun PerformanceInputUnit(
     },
     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
     colors = TextFieldDefaults.outlinedTextFieldColors(
-      cursorColor = AthleticsRankingPointsTheme.colors.selectedGrey,
-      unfocusedBorderColor = AthleticsRankingPointsTheme.colors.selectedGrey,
+      cursorColor = AthleticsRankingPointsTheme.colors.selectedComponent,
+      unfocusedBorderColor = AthleticsRankingPointsTheme.colors.selectedComponent,
       focusedBorderColor = AthleticsRankingPointsTheme.colors.textBlack.copy(alpha = ContentAlpha.medium),
       errorBorderColor = AthleticsRankingPointsTheme.colors.errorRed,
       focusedLabelColor = AthleticsRankingPointsTheme.colors.textBlack.copy(alpha = ContentAlpha.high),
       unfocusedLabelColor = AthleticsRankingPointsTheme.colors.textBlack.copy(alpha = ContentAlpha.medium),
-      disabledLabelColor = AthleticsRankingPointsTheme.colors.selectedGrey.copy(ContentAlpha.disabled),
+      disabledLabelColor = AthleticsRankingPointsTheme.colors.selectedComponent.copy(ContentAlpha.disabled),
       errorLabelColor = AthleticsRankingPointsTheme.colors.errorRed,
     )
   )

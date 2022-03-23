@@ -38,7 +38,7 @@ fun NavTabRow(
     Modifier
       .height(TabHeight)
       .fillMaxWidth(),
-    color = AthleticsRankingPointsTheme.colors.selectedGrey
+    color = AthleticsRankingPointsTheme.colors.selectedComponent
   ) {
     Row(Modifier.selectableGroup()) {
       allScreens.forEach { screen ->

@@ -2,6 +2,7 @@ package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -27,25 +28,6 @@ import com.example.athleticsrankingpoints.presentation.theme.bold
 fun CustomTwoRadioButtonGroup(modifier: Modifier, selectedOption: SelectableIdentifiable, buttonOptions: List<SelectableIdentifiable>, onSelectionChange: (SelectableIdentifiable) -> Unit) {
   Row (modifier){
     buttonOptions.forEach {
-
-//      val initialColor = Color(0xFF302522)
-//      val targetColor = Color(0xFFede0dc)
-//      val animateColor = remember { Animatable(initialColor) }
-//      LaunchedEffect(animateColor) {
-//        animateColor.animateTo(
-//          targetValue = targetColor,
-//          animationSpec = repeatable(
-//            animation = tween(
-//              durationMillis = 2000,
-//              easing = LinearEasing,
-//              delayMillis = 500
-//            ),
-//            repeatMode = RepeatMode.Restart,
-//            iterations = 3
-//          )
-//        )
-//      }
-
       val buttonBorderColor:Color by animateColorAsState(
         targetValue = if (selectedOption==it) AthleticsRankingPointsTheme.colors.textBlack else Transparent,
         animationSpec =  tween(
@@ -63,9 +45,11 @@ fun CustomTwoRadioButtonGroup(modifier: Modifier, selectedOption: SelectableIden
         )) {
         Text(modifier = Modifier
           .border(width = 2.dp, color = buttonBorderColor)
+          .background(color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.backgroundComponent else Transparent)
           .padding(top = 4.dp, bottom = 4.dp)
           .fillMaxWidth(),
           style = AthleticsRankingPointsTheme.typography.text1.bold,
+          color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.textBlack else AthleticsRankingPointsTheme.colors.textWhite,
           textAlign = TextAlign.Center,
           text = it.getReadableText().uppercase())
       }

@@ -42,6 +42,12 @@ data class AppTypography(
     fontFamily = CousineFontFamily,
     letterSpacing = 0.5.sp,
   ),
+  val title3:TextStyle = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 24.sp,
+    fontFamily = CousineFontFamily,
+    letterSpacing = 0.4.sp,
+  ),
   val subtitle2:TextStyle = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 18.sp,
@@ -73,6 +79,8 @@ val TextStyle.bold: TextStyle
 
 val TextStyle.grey: TextStyle
   get() = this.copy(color = darkGrey)
+val TextStyle.beige: TextStyle
+  get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.beige)
 
 internal val LocalTypography = staticCompositionLocalOf { AppTypography() }
 

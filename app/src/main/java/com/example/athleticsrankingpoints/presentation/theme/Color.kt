@@ -14,6 +14,9 @@ val black = Color(0xFF000000)
 val lightBlue = Color(0xFF5D86EA)
 val darkBlue = Color(0xFF456CC9)
 val white = Color(0xFFFFFFFF)
+val navyBlue = Color(0xFF25273C)
+val beige = Color(0xFFFFDCBE)
+val lilac = Color(0xFFC492EC)
 
 val lightColor6 = Color(0xFF3700B3)
 
@@ -25,40 +28,44 @@ val darkColor5 = Color(0xFF6200EE)
 val darkColor6 = Color(0xFF3700B3)
 
 fun lightColors(
-  background: Color = white,
-  backgroundGrey: Color = lightGrey,
-  selectedGrey: Color = darkGrey,
+  backgroundScreen: Color = white,
+  backgroundComponent: Color = lightGrey,
+  selectedComponent: Color = darkGrey,
   textBlack: Color = black,
   textWhite: Color = white,
+  textTheme: Color = white,
   errorRed: Color = Color.Red,
 ) : AppColors = AppColors(
-  background,
-  backgroundGrey,
-  selectedGrey,
+  backgroundScreen,
+  backgroundComponent,
+  selectedComponent,
   textBlack,
   textWhite,
+  textTheme,
   errorRed,
   isLightTheme = true
 )
 
 fun darkColors(
-  color1: Color = darkColor1,
-  color2: Color = darkColor2,
-  color3: Color = darkColor3,
-  color4: Color = darkColor4,
-  color5: Color = darkColor5,
-  color6: Color = darkColor6,
+  backgroundScreen: Color = navyBlue,
+  backgroundComponent: Color = beige,
+  selectedComponent: Color = white,
+  textBlack: Color = black,
+  textWhite: Color = white,
+  textTheme: Color = beige,
+  errorRed: Color = Color.Red,
 ) : AppColors = AppColors(
-  color1,
-  color2,
-  color3,
-  color4,
-  color5,
-  color6,
+  backgroundScreen,
+  backgroundComponent,
+  selectedComponent,
+  textBlack,
+  textWhite,
+  textTheme,
+  errorRed,
   isLightTheme = false
 )
 
-internal val LocalColors = staticCompositionLocalOf { lightColors() }
+internal val LocalColors = staticCompositionLocalOf { darkColors() }
 
 class AppColors(
   color1: Color,
@@ -67,17 +74,20 @@ class AppColors(
   color4: Color,
   color5: Color,
   color6: Color,
+  color7: Color,
   isLightTheme: Boolean
 ) {
-  var background by mutableStateOf(color1)
+  var backgroundScreen by mutableStateOf(color1)
     private set
-  var backgroundGrey by mutableStateOf(color2)
+  var backgroundComponent by mutableStateOf(color2)
     private set
-  var selectedGrey by mutableStateOf(color3)
+  var selectedComponent by mutableStateOf(color3)
     private set
   var textBlack by mutableStateOf(color4)
     private set
   var textWhite by mutableStateOf(color5)
+    private set
+  var textTheme by mutableStateOf(color7)
     private set
   var errorRed by mutableStateOf(color6)
     private set
@@ -86,12 +96,13 @@ class AppColors(
 
 
   fun copy(
-    color1: Color = this.background,
-    color2: Color = this.backgroundGrey,
-    color3: Color = this.selectedGrey,
+    color1: Color = this.backgroundScreen,
+    color2: Color = this.backgroundComponent,
+    color3: Color = this.selectedComponent,
     color4: Color = this.textBlack,
     color5: Color = this.textWhite,
     color6: Color = this.errorRed,
+    color7: Color = this.textTheme,
     isLightTheme: Boolean = this.isLightTheme
   ) : AppColors = AppColors(
     color1,
@@ -100,15 +111,17 @@ class AppColors(
     color4,
     color5,
     color6,
+    color7,
     isLightTheme
   )
 
   fun updateColorsFrom(newAppColors: AppColors) {
-    background = newAppColors.background
-    backgroundGrey = newAppColors.backgroundGrey
-    selectedGrey = newAppColors.selectedGrey
+    backgroundScreen = newAppColors.backgroundScreen
+    backgroundComponent = newAppColors.backgroundComponent
+    selectedComponent = newAppColors.selectedComponent
     textBlack = newAppColors.textBlack
     textWhite = newAppColors.textWhite
+    textTheme = newAppColors.textTheme
     errorRed = newAppColors.errorRed
     isLightTheme = newAppColors.isLightTheme
   }
