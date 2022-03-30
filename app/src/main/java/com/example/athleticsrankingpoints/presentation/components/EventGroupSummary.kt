@@ -2,6 +2,7 @@ package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -15,10 +16,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.bold
+import com.example.athleticsrankingpoints.presentation.theme.white
 import kotlin.math.exp
 
 //Stateless composable to display info about an eventGroup
@@ -28,75 +33,67 @@ import kotlin.math.exp
 fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
 
   var expanded by rememberSaveable {
-    mutableStateOf(false)
+    mutableStateOf(true)
   }
-
-  val icon = if (expanded)
-    Icons.Filled.ArrowDropUp
-  else
-    Icons.Filled.ArrowDropDown
 
   Column (modifier = modifier){
     Row(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(bottom = 8.dp),
+        .padding(bottom = 4.dp),
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically
     ) {
       Text(
         text = eventGroup.sName,
-        style = MaterialTheme.typography.body1,
+        style = AthleticsRankingPointsTheme.typography.text1.white.bold,
         modifier = Modifier
       )
       Icon(
+        painter = painterResource(id = if (expanded) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down),
         modifier = Modifier
           .padding(end = 12.dp)
           .clickable {
             expanded = !expanded
           },
-        imageVector = icon, contentDescription = "")
+        tint = AthleticsRankingPointsTheme.colors.backgroundComponent,
+        contentDescription = ""
+      )
     }
 
     AnimatedVisibility(visible = expanded) {
       Column {
-        Row{
-          Box(modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)) {
+        Row(modifier = Modifier
+          .fillMaxWidth()
+        ) {
             Text(
-              text = "Minimum number of performances:",
-              style = MaterialTheme.typography.body1,
+              text = "Minimum number of performances: ",
+              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
               modifier = Modifier
-                .align(Alignment.CenterStart)
             )
             Text(
               text = "${eventGroup.sMinNumberPerformancesGroup}",
-              style = MaterialTheme.typography.body1,
+              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
               modifier = Modifier
-                .align(Alignment.CenterEnd)
             )
           }
-        }
 
-        Row{
-          Box(modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)) {
+
+        Row(modifier = Modifier
+          .fillMaxWidth()
+        ){
             Text(
-              text = "Minimum number of performances for main event:",
-              style = MaterialTheme.typography.body1,
+              text = "Minimum number of performances for main event: ",
+              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
               modifier = Modifier
-                .align(Alignment.CenterStart)
             )
             Text(
               text = "${eventGroup.sMinNumberPerformancesMainEvent}",
-              style = MaterialTheme.typography.body1,
+              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
               modifier = Modifier
-                .align(Alignment.CenterEnd)
             )
           }
-        }
+
 
         var listOfEventNamesInGroup = ""
         val numberEvents = eventGroup.getAllEventsInGroup().size
@@ -109,7 +106,7 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
 
         Text(
           text = "Events in group: $listOfEventNamesInGroup",
-          style = MaterialTheme.typography.body1,
+          style = AthleticsRankingPointsTheme.typography.smalltext1.white,
           modifier = Modifier
             .align(Alignment.Start)
             .padding(bottom = 0.dp)

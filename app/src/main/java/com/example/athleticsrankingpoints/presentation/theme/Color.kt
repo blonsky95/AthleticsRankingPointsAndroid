@@ -35,6 +35,7 @@ fun lightColors(
   textWhite: Color = white,
   textTheme: Color = white,
   errorRed: Color = Color.Red,
+  buttonBorder: Color = lilac
 ) : AppColors = AppColors(
   backgroundScreen,
   backgroundComponent,
@@ -43,6 +44,7 @@ fun lightColors(
   textWhite,
   textTheme,
   errorRed,
+  buttonBorder,
   isLightTheme = true
 )
 
@@ -54,6 +56,7 @@ fun darkColors(
   textWhite: Color = white,
   textTheme: Color = beige,
   errorRed: Color = Color.Red,
+  buttonBorder: Color = lilac
 ) : AppColors = AppColors(
   backgroundScreen,
   backgroundComponent,
@@ -62,6 +65,7 @@ fun darkColors(
   textWhite,
   textTheme,
   errorRed,
+  buttonBorder,
   isLightTheme = false
 )
 
@@ -75,6 +79,7 @@ class AppColors(
   color5: Color,
   color6: Color,
   color7: Color,
+  color8: Color,
   isLightTheme: Boolean
 ) {
   var backgroundScreen by mutableStateOf(color1)
@@ -91,6 +96,8 @@ class AppColors(
     private set
   var errorRed by mutableStateOf(color6)
     private set
+  var buttonBorder by mutableStateOf(color8)
+    private set
   var isLightTheme by mutableStateOf(isLightTheme)
     private set
 
@@ -103,6 +110,7 @@ class AppColors(
     color5: Color = this.textWhite,
     color6: Color = this.errorRed,
     color7: Color = this.textTheme,
+    color8: Color = this.buttonBorder,
     isLightTheme: Boolean = this.isLightTheme
   ) : AppColors = AppColors(
     color1,
@@ -112,6 +120,7 @@ class AppColors(
     color5,
     color6,
     color7,
+    color8,
     isLightTheme
   )
 
@@ -123,6 +132,7 @@ class AppColors(
     textWhite = newAppColors.textWhite
     textTheme = newAppColors.textTheme
     errorRed = newAppColors.errorRed
+    buttonBorder = newAppColors.buttonBorder
     isLightTheme = newAppColors.isLightTheme
   }
 }

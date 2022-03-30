@@ -61,11 +61,10 @@ fun EventGroupSelectorView(
       viewModel.newEventSelected(it)
     }
 
-    Spacer(modifier = Modifier.height(4.dp))
+    Spacer(modifier = Modifier.height(16.dp))
 
     Box(modifier = Modifier.align(Alignment.End) ){
-      CustomButton(text = "NEXT", onButtonTap = {
-        Log.d("NAVIGATION SIM", "GO TO NEXT")
+      CustomButton(text = "Continue", onButtonTap = {
         onNextClick(selectedEventGroup)
       })
     }
@@ -78,7 +77,9 @@ fun SexRadioButtonSet(selectedSex: AthleticsSex, onSexSelectionChange: (Selectab
   CustomTwoRadioButtonGroup(
     modifier = Modifier.fillMaxWidth(),
     selectedOption = selectedSex,
-    buttonOptions = AthleticsEvent.listSexOptions
+    buttonOptions = AthleticsEvent.listSexOptions,
+    borderColorDisabled = AthleticsRankingPointsTheme.colors.textWhite.copy(alpha = 0.5f),
+    verticalPadding = 12.dp
   ) {
     onSexSelectionChange(it)
   }

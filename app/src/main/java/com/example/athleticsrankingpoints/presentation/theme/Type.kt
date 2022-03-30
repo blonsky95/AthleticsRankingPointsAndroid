@@ -79,6 +79,8 @@ val TextStyle.bold: TextStyle
 
 val TextStyle.grey: TextStyle
   get() = this.copy(color = darkGrey)
+val TextStyle.white: TextStyle
+  get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.white)
 val TextStyle.beige: TextStyle
   get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.beige)
 
