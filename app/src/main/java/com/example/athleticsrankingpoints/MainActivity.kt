@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
     val splashScreen = installSplashScreen()
 
     splashScreen.apply {
-      setKeepVisibleCondition{
+      setKeepOnScreenCondition{
         splashViewModel.getIsAthleticsEventsRepoLoading().value!=true && splashViewModel.getIsEventGroupsRepoLoading().value!=true
       }
     }

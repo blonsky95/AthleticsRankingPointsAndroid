@@ -1,6 +1,10 @@
 package com.example.athleticsrankingpoints.presentation.screens.performancesscreen
 
 import android.util.Log
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,8 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.EventGroup
-import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
-import com.example.athleticsrankingpoints.presentation.theme.grey
+import com.example.athleticsrankingpoints.presentation.theme.*
 import com.example.athleticsrankingpoints.upperCaseFirstLetter
 import org.koin.androidx.compose.getViewModel
 
@@ -32,19 +35,17 @@ fun PerformancesBody(
   val viewModel: PerformancesViewModel = getViewModel()
   val listOfPerformances by viewModel.getListOfPerformances().observeAsState(listOf())
   val searchText by viewModel.getSearchText().observeAsState(initial = "")
-//  val stubPerformancesData = RankingScorePerformanceData.getSampleDataList(10)
 
   Column (
     modifier = Modifier.padding(16.dp)
   ){
     Text(
-      text = "Performances",
-      style = MaterialTheme.typography.h2,
+      text = "Performances".uppercase(),
+      style = AthleticsRankingPointsTheme.typography.title3.beige,
       modifier = Modifier
         .align(Alignment.Start)
-        .padding(bottom = 8.dp)
     )
-
+    Spacer(modifier = Modifier.height(8.dp))
     TextField(
       modifier = Modifier
         .fillMaxWidth(),
@@ -54,13 +55,7 @@ fun PerformancesBody(
       }
     )
     Spacer(modifier = Modifier.height(8.dp))
-    Divider(
-      modifier = Modifier
-        .fillMaxWidth()
-        .height(1.dp),
-      color = Color.White
-    )
-
+    Divider(color = AthleticsRankingPointsTheme.colors.textWhite.copy(alpha = 0.5f), thickness = 1.dp)
     if (!listOfPerformances.isNullOrEmpty()) {
       LazyColumn(
         modifier = Modifier
@@ -80,13 +75,8 @@ fun PerformancesBody(
           style = AthleticsRankingPointsTheme.typography.text3.grey
         )
       }
-
     }
-
-
-
   }
-
 }
 
 @Composable
@@ -103,39 +93,29 @@ fun PerformancesListItem(
       Column() {
         Text(
           text = performanceData.name,
-          style = MaterialTheme.typography.body1,
-          color = Color.Black,
+          style = AthleticsRankingPointsTheme.typography.text1.white,
           modifier = Modifier.align(Alignment.Start)
         )
         Text(
           text = performanceData.eventGroup.sName,
-          style = MaterialTheme.typography.body1,
-          color = Color.Black,
+          style = AthleticsRankingPointsTheme.typography.text1.white,
           modifier = Modifier.align(Alignment.Start)
         )
         Text(
           text = performanceData.eventGroup.sSex.name,
-          style = MaterialTheme.typography.body1,
-          color = Color.Black,
+          style = AthleticsRankingPointsTheme.typography.text1.white,
           modifier = Modifier.align(Alignment.Start)
         )
       }
       Text(
         text = performanceData.rankingScore,
-        style = MaterialTheme.typography.h5,
-        color = Color.Black,
+        style = AthleticsRankingPointsTheme.typography.text1.white.bold,
         modifier = Modifier.align(Alignment.CenterVertically)
       )
     }
     Spacer(modifier = Modifier.height(8.dp))
-    Divider(
-      modifier = Modifier
-        .fillMaxWidth()
-        .height(1.dp),
-      color = Color.Black,
-    )
+    Divider(color = AthleticsRankingPointsTheme.colors.textWhite.copy(alpha = 0.5f), thickness = 1.dp)
   }
-
 }
 
 @Preview
