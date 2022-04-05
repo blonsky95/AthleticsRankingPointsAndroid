@@ -1,7 +1,5 @@
 package com.example.athleticsrankingpoints.data.repositories
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.athleticsrankingpoints.data.cache.Cache
 import com.example.athleticsrankingpoints.data.database.RankingScoreDatabaseDao
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
@@ -12,8 +10,22 @@ class RankingScorePerformanceRepositoryImpl (
   private val cache: Cache<RankingScorePerformanceData>
 ) : RankingScorePerformanceRepository {
 
+
+  //todo move these variables to Cache class so no variables in this Impl
+  var needsCaching = false
+
+  private fun needsCaching() {
+    needsCaching=true
+  }
+  private fun finishedCaching() {
+    needsCaching=false
+  }
+
   override suspend fun getAllRankingScorePerformances(): List<RankingScorePerformanceData> {
-   return cache.getAll().takeIf { cache.isLoaded } ?: (rankingScoreDatabaseDao.getAllPerformances().also { cache.saveAll(it) })
+   return cache.getAll().takeIf { cache.isLoaded && !needsCaching } ?: (rankingScoreDatabaseDao.getAllPerformances().also {
+     cache.saveAll(it)
+     finishedCaching()
+   })
   }
 
   override suspend fun getSearchedRankingScorePerformances(searchText: String): List<RankingScorePerformanceData> {
@@ -38,14 +50,17 @@ class RankingScorePerformanceRepositoryImpl (
   override suspend fun saveRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData) {
     rankingScorePerformanceData.refreshDate()
     rankingScoreDatabaseDao.insertPerformance(rankingScorePerformanceData)
+    needsCaching()
   }
 
   override suspend fun updateRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData) {
     rankingScorePerformanceData.refreshDate()
     rankingScoreDatabaseDao.updatePerformance(rankingScorePerformanceData)
+    needsCaching()
   }
 
   override suspend fun deleteRankingScorePerformance(rankingScorePerformanceData: RankingScorePerformanceData) {
     rankingScoreDatabaseDao.deletePerformance(rankingScorePerformanceData)
+    needsCaching()
   }
 }
