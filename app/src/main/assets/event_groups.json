@@ -708,7 +708,7 @@
         "sName": "Men´s Decathlon",
         "sMainEvent": {
             "sName": "Decathlon",
-            "sType": "type_run",
+            "sType": "type_combined_events",
             "sCategory": "category_outdoor_male",
             "sKey": "decathlon_m_o",
             "sCoefficients": {
@@ -720,7 +720,7 @@
         "sSimilarEvents": [
             {
                 "sName": "Heptathlon",
-                "sType": "type_run",
+                "sType": "type_combined_events",
                 "sCategory": "category_indoor_male",
                 "sKey": "heptathlon_m_i",
                 "sCoefficients": {
@@ -1558,7 +1558,7 @@
         "sName": "Women’s Heptathlon",
         "sMainEvent": {
             "sName": "Heptathlon",
-            "sType": "type_run",
+            "sType": "type_combined_events",
             "sCategory": "category_outdoor_female",
             "sKey": "heptathlon_f_o",
             "sCoefficients": {
@@ -1570,7 +1570,7 @@
         "sSimilarEvents": [
             {
                 "sName": "Pentathlon",
-                "sType": "type_run",
+                "sType": "type_combined_events",
                 "sCategory": "category_indoor_female",
                 "sKey": "pentathlon_f_i",
                 "sCoefficients": {

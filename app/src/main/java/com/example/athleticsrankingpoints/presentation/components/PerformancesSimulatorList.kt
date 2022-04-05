@@ -11,7 +11,7 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 @Composable
 fun PerformancesSimulatorList(
   modifier: Modifier,
-  perfList: List<PerformanceUnitsAware>,
+  performanceUnitAwareList: List<PerformanceUnitsAware>,
   perfPointsList : List<String>,
   windsList: List<String>,
   windPointsList : List<String>,
@@ -28,7 +28,7 @@ fun PerformancesSimulatorList(
       SinglePerformanceDataComponent(
         index =index,
         event =selectedEventsList[index],
-        performance = perfList[index],
+        performanceUnitsAware = performanceUnitAwareList[index],
         performancePoints = perfPointsList[index],
         wind = windsList[index],
         windPoints = windPointsList[index],

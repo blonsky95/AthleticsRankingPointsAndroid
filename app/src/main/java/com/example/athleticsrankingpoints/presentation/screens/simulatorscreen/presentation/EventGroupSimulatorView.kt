@@ -103,7 +103,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
         modifier = Modifier
           .weight(1f)
           .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen, shape = RoundedCornerShape(4.dp)),
-        perfList = performanceList,
+        performanceUnitAwareList = performanceList,
         perfPointsList = performancePointsList,
         windsList = windsList,
         windPointsList = windsPointsList,

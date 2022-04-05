@@ -141,6 +141,7 @@ class EventGroupSimulatorViewModel(
   }
 
   private fun initListOfEvents(athleticsEvent: AthleticsEvent, size: Int): List<AthleticsEvent> {
+    //todo fix the init here it inits with 100m
     val array1 = arrayListOf<AthleticsEvent>()
     for (index in 1..size) {
       array1.add(athleticsEvent)

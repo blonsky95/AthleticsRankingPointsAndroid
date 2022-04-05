@@ -33,7 +33,7 @@ import com.example.athleticsrankingpoints.toIntOrZero
 fun SinglePerformanceDataComponent(
   index: Int,
   event: AthleticsEvent,
-  performance: PerformanceUnitsAware,
+  performanceUnitsAware: PerformanceUnitsAware,
   performancePoints: String,
   wind: String,
   windPoints: String,
@@ -66,7 +66,7 @@ fun SinglePerformanceDataComponent(
       }
     )
 
-    PerformanceWithPoints(performance = performance, points = performancePoints, onPerformanceChange = {onPerformanceChange(index, it)})
+    PerformanceWithPoints(performanceUnitsAware = performanceUnitsAware, points = performancePoints, onPerformanceChange = {onPerformanceChange(index, it)})
     if (event.hasWind()){
       WindWithPoints(wind = wind, points = windPoints, onWindChange = {onWindChange(index, it)})
     }
@@ -118,14 +118,14 @@ private fun TitleAndEventAndPoints(
 }
 
 @Composable
-fun PerformanceWithPoints(performance: PerformanceUnitsAware, points: String, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
+fun PerformanceWithPoints(performanceUnitsAware: PerformanceUnitsAware, points: String, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
   MyCustomTwoComposableRow {
     PerformanceInput(
       modifier = Modifier
         .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
         .padding(4.dp),
       modifierForInputUnit = Modifier.width(80.dp),
-      performanceUnitsAware = performance,
+      performanceUnitsAware = performanceUnitsAware,
       onPerformanceChange = onPerformanceChange
     )
     MyCustomText(text = points.makeZeroIfEmpty())
@@ -308,7 +308,7 @@ fun PreviewSinglePerformanceDataComponent() {
     },
       index = 0,
       event = AthleticsEvent.getSampleEvent(),
-      performance = PerformanceUnitsAware.getDefault(perfValue = "10.55"),
+      performanceUnitsAware = PerformanceUnitsAware.getDefault(perfValue = "10.55"),
       performancePoints = "502",
       wind = "1.2",
       windPoints = "0",
