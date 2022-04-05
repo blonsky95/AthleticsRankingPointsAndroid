@@ -53,7 +53,7 @@ data class AthleticsEvent (
   //Use this function if you want the event name to display "(i)" for indoor.
   fun getDoorInclusiveName():String {
     var string = sName
-    if (sCategory== AthleticsEventCategory.category_outdoor_male || sCategory== AthleticsEventCategory.category_outdoor_female) {
+    if (sCategory.isIndoor()) {
       string+=" (i)"
     }
     return string
