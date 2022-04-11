@@ -83,6 +83,10 @@ val TextStyle.white: TextStyle
   get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.white)
 val TextStyle.beige: TextStyle
   get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.beige)
+val TextStyle.navyBlue: TextStyle
+  get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.navyBlue)
+val TextStyle.textBlue: TextStyle
+  get() = this.copy(color = com.example.athleticsrankingpoints.presentation.theme.textBlue)
 
 internal val LocalTypography = staticCompositionLocalOf { AppTypography() }
 

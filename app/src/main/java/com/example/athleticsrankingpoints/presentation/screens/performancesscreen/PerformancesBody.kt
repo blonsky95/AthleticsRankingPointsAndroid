@@ -37,30 +37,29 @@ fun PerformancesBody(
   val searchText by viewModel.getSearchText().observeAsState(initial = "")
 
   Column (
-    modifier = Modifier.padding(16.dp)
+    modifier = Modifier
+      .background(
+        color = AthleticsRankingPointsTheme.colors.backgroundComponent,
+      )
+      .padding(16.dp)
   ){
     Text(
       text = "Performances".uppercase(),
-      style = AthleticsRankingPointsTheme.typography.title3.beige,
+      style = AthleticsRankingPointsTheme.typography.title3.navyBlue,
       modifier = Modifier
         .align(Alignment.Start)
     )
     Spacer(modifier = Modifier.height(8.dp))
-    TextField(
-      modifier = Modifier
-        .fillMaxWidth(),
-      value = searchText,
-      onValueChange = {
-        viewModel.updateSearchText(it)
-      }
-    )
+    PerformancesSearchBar(searchText) {
+      viewModel.updateSearchText(it)
+    }
     Spacer(modifier = Modifier.height(8.dp))
-    Divider(color = AthleticsRankingPointsTheme.colors.textWhite.copy(alpha = 0.5f), thickness = 1.dp)
+    Divider(color = AthleticsRankingPointsTheme.colors.backgroundScreen, thickness = 1.dp)
     if (!listOfPerformances.isNullOrEmpty()) {
       LazyColumn(
         modifier = Modifier
+          .fillMaxSize()
           .padding(4.dp)
-
       ) {
         items(listOfPerformances) { performance ->
           PerformancesListItem(performanceData = performance, onPerformanceClick = onPerformanceClick)
@@ -72,11 +71,23 @@ fun PerformancesBody(
           modifier = Modifier.align(Alignment.Center),
           textAlign = TextAlign.Center,
           text = "No performances found",
-          style = AthleticsRankingPointsTheme.typography.text3.grey
+          style = AthleticsRankingPointsTheme.typography.text3.navyBlue
         )
       }
     }
   }
+}
+
+@Composable
+private fun PerformancesSearchBar(searchText: String, onSearchChange: (String) -> Unit) {
+  TextField(
+    modifier = Modifier
+      .fillMaxWidth(),
+    value = searchText,
+    onValueChange = {
+      onSearchChange(it)
+    }
+  )
 }
 
 @Composable
@@ -92,29 +103,29 @@ fun PerformancesListItem(
       horizontalArrangement = Arrangement.SpaceBetween) {
       Column() {
         Text(
-          text = performanceData.name,
-          style = AthleticsRankingPointsTheme.typography.text1.white,
+          text = performanceData.name.uppercase(),
+          style = AthleticsRankingPointsTheme.typography.title3.navyBlue,
           modifier = Modifier.align(Alignment.Start)
         )
         Text(
           text = performanceData.eventGroup.sName,
-          style = AthleticsRankingPointsTheme.typography.text1.white,
+          style = AthleticsRankingPointsTheme.typography.text1.navyBlue,
           modifier = Modifier.align(Alignment.Start)
         )
         Text(
           text = performanceData.eventGroup.sSex.name,
-          style = AthleticsRankingPointsTheme.typography.text1.white,
+          style = AthleticsRankingPointsTheme.typography.text1.navyBlue,
           modifier = Modifier.align(Alignment.Start)
         )
       }
       Text(
         text = performanceData.rankingScore,
-        style = AthleticsRankingPointsTheme.typography.text1.white.bold,
+        style = AthleticsRankingPointsTheme.typography.title3.textBlue.bold,
         modifier = Modifier.align(Alignment.CenterVertically)
       )
     }
     Spacer(modifier = Modifier.height(8.dp))
-    Divider(color = AthleticsRankingPointsTheme.colors.textWhite.copy(alpha = 0.5f), thickness = 1.dp)
+    Divider(color = AthleticsRankingPointsTheme.colors.backgroundScreen, thickness = 1.dp)
   }
 }
 

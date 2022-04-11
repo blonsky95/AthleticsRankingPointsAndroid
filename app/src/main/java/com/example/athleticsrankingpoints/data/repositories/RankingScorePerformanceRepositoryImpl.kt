@@ -11,7 +11,7 @@ class RankingScorePerformanceRepositoryImpl (
 ) : RankingScorePerformanceRepository {
 
 
-  //todo move these variables to Cache class so no variables in this Impl
+  //TODO move these variables to Cache class so no variables in this Impl
   var needsCaching = false
 
   private fun needsCaching() {
