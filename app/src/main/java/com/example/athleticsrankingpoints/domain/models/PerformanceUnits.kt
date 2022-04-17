@@ -3,12 +3,12 @@ package com.example.athleticsrankingpoints.domain.models
 import kotlin.math.ceil
 import kotlin.math.floor
 
-enum class PerformanceUnits(val unitTextString: String, val unitDefaultValue:String) {
-  UNIT_SECONDS("seconds","0.0"),
-  UNIT_MINUTES("minutes","0"),
-  UNIT_HOURS("hours","0"),
-  UNIT_METERS("metres","0.0"),
-  UNIT_POINTS("points","0");
+enum class PerformanceUnits(val unitText: String, val unitTextShort: String, val unitDefaultValue:String) {
+  UNIT_SECONDS("Seconds","s","0.0"),
+  UNIT_MINUTES("Minutes","m","0"),
+  UNIT_HOURS("Hours","h","0"),
+  UNIT_METERS("Metres","m","0.0"),
+  UNIT_POINTS("Points","pts","0");
 
   companion object {
     private val listOfDecimalUnits = listOf(UNIT_SECONDS,UNIT_METERS)

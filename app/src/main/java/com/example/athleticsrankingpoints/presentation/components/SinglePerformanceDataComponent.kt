@@ -124,7 +124,6 @@ fun PerformanceWithPoints(performanceUnitsAware: PerformanceUnitsAware, points: 
       modifier = Modifier
         .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
         .padding(4.dp),
-      modifierForInputUnit = Modifier.width(80.dp),
       performanceUnitsAware = performanceUnitsAware,
       onPerformanceChange = onPerformanceChange
     )

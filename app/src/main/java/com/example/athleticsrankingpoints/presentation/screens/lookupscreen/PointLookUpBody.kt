@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -20,6 +21,8 @@ import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.presentation.theme.beige
+import com.example.athleticsrankingpoints.presentation.theme.lilac
+import com.example.athleticsrankingpoints.presentation.theme.white
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -51,9 +54,16 @@ fun PointLookUpBody() {
     Spacer(modifier = Modifier.height(8.dp))
     PerformanceInput(
       modifier = Modifier
-        .background(AthleticsRankingPointsTheme.colors.backgroundComponent)
         .padding(vertical = 4.dp, horizontal = 4.dp),
-      modifierForInputUnit = Modifier.width(80.dp),
+      performanceInputColors =
+      PerformanceInputColors(
+        unitText = white,
+        valueText = white,
+        valueTextBackground = Color.Transparent,
+        unitTextBackground = lilac,
+        borderColor = lilac.copy(alpha = 0.5f),
+        brushColor = white.copy(alpha = 0.8f)
+      ),
       performanceUnitsAware = performanceUnitsAware) {newPerformance ->
       viewModel.updatePerformanceUnitsAware(newPerformance)
     }
