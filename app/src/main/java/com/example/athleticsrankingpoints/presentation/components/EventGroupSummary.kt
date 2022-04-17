@@ -2,20 +2,15 @@ package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,13 +19,12 @@ import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.presentation.theme.bold
 import com.example.athleticsrankingpoints.presentation.theme.white
-import kotlin.math.exp
 
 //Stateless composable to display info about an eventGroup
 
 @ExperimentalAnimationApi
 @Composable
-fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
+fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGroup: EventGroup) {
 
   var expanded by rememberSaveable {
     mutableStateOf(true)
@@ -46,7 +40,8 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
     ) {
       Text(
         text = eventGroup.sName,
-        style = AthleticsRankingPointsTheme.typography.text1.white.bold,
+        style = AthleticsRankingPointsTheme.typography.text1.bold,
+        color = contentColor,
         modifier = Modifier
       )
       Icon(
@@ -56,7 +51,7 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
           .clickable {
             expanded = !expanded
           },
-        tint = AthleticsRankingPointsTheme.colors.backgroundComponent,
+        tint = contentColor,
         contentDescription = ""
       )
     }
@@ -68,12 +63,14 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
         ) {
             Text(
               text = "Minimum number of performances: ",
-              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
+              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              color = contentColor,
               modifier = Modifier
             )
             Text(
               text = "${eventGroup.sMinNumberPerformancesGroup}",
-              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
+              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              color = contentColor,
               modifier = Modifier
             )
           }
@@ -84,12 +81,14 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
         ){
             Text(
               text = "Minimum number of performances for main event: ",
-              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
+              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              color = contentColor,
               modifier = Modifier
             )
             Text(
               text = "${eventGroup.sMinNumberPerformancesMainEvent}",
-              style = AthleticsRankingPointsTheme.typography.smalltext1.white,
+              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              color = contentColor,
               modifier = Modifier
             )
           }
@@ -106,7 +105,8 @@ fun EventGroupSummary(modifier: Modifier, eventGroup: EventGroup) {
 
         Text(
           text = "Events in group: $listOfEventNamesInGroup",
-          style = AthleticsRankingPointsTheme.typography.smalltext1.white,
+          style = AthleticsRankingPointsTheme.typography.smalltext1,
+          color = contentColor,
           modifier = Modifier
             .align(Alignment.Start)
             .padding(bottom = 0.dp)

@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
@@ -22,7 +21,7 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 import com.example.athleticsrankingpoints.presentation.theme.black
 import com.example.athleticsrankingpoints.presentation.theme.lilac
 
-data class PerformanceInputColors(
+data class CustomInputColors(
   val unitTextBackground:Color = lilac,
   val unitText:Color = black,
   val valueTextBackground:Color = lilac.copy(alpha = 0.5f),
@@ -32,7 +31,7 @@ data class PerformanceInputColors(
 )
 
 @Composable
-fun PerformanceInput(modifier: Modifier = Modifier, performanceInputColors:PerformanceInputColors = PerformanceInputColors(), performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
+fun PerformanceInput(modifier: Modifier = Modifier, customInputColors:CustomInputColors = CustomInputColors(), performanceUnitsAware: PerformanceUnitsAware, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
 
   val listOfValues = performanceUnitsAware.listOfPerformanceUnitValues.toMutableList()
   val listOfUnits = performanceUnitsAware.listOfPerformanceUnits
@@ -49,7 +48,7 @@ fun PerformanceInput(modifier: Modifier = Modifier, performanceInputColors:Perfo
           unit = performanceUnitsAware.listOfPerformanceUnits[index],
           isUnitValueValid = performanceUnitsAware.getListOfValidUnits()[index],
           showShortUnitText = showShortenedUnitText,
-          performanceInputColors = performanceInputColors,
+          customInputColors = customInputColors,
           onValueChange = {newValue ->
             listOfValues[index]=newValue
             onPerformanceChange(PerformanceUnitsAware(listOfValues,listOfUnits))
@@ -69,40 +68,39 @@ fun ReworkedPerformanceInputUnit(
   unit: PerformanceUnits,
   isUnitValueValid: Boolean,
   showShortUnitText: Boolean = true,
-  performanceInputColors: PerformanceInputColors,
+  customInputColors: CustomInputColors,
   onValueChange: (String) -> Unit,
 ) {
   Row (
     modifier = modifier
       .height(IntrinsicSize.Max)
   ){
-    BasicTextField(
-      modifier = Modifier
-        .widthIn(min = 64.dp, max = 96.dp)
-        .width(IntrinsicSize.Min)
-        .fillMaxHeight()
-        .background( performanceInputColors.valueTextBackground )
-        .border(width = 1.dp, color = if (isUnitValueValid) performanceInputColors.borderColor else Color.Red)
-        .padding(start = 4.dp, end = 8.dp)
-        .padding(vertical = 4.dp),
+    CustomInputField(
+      customInputColors = customInputColors,
+      isUnitValueValid = isUnitValueValid,
       value = unitValue,
-      onValueChange = onValueChange,
-      textStyle = AthleticsRankingPointsTheme.typography.text1.copy(color = performanceInputColors.valueText),
-      keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-      cursorBrush = SolidColor(performanceInputColors.brushColor)
-      )
-    Box(modifier = Modifier
-      .fillMaxHeight()
-      .background(performanceInputColors.unitTextBackground)
-      .padding(horizontal = 16.dp),
-      contentAlignment = Alignment.Center
-    ) {
-      Text(
-        text = if (showShortUnitText) unit.unitTextShort else unit.unitText,
-//        textAlign = TextAlign.End,
-        style = AthleticsRankingPointsTheme.typography.smalltext1,
-        color = performanceInputColors.valueText
-      )
-    }
+      setMaxWidth = false,
+      keyboardType = KeyboardType.Text,
+      onValueChange
+    )
+    PerformanceUnit(customInputColors, showShortUnitText, unit)
   }
 }
+
+@Composable
+private fun PerformanceUnit(customInputColors: CustomInputColors, showShortUnitText: Boolean, unit: PerformanceUnits) {
+  Box(modifier = Modifier
+    .fillMaxHeight()
+    .background(customInputColors.unitTextBackground)
+    .padding(horizontal = 16.dp),
+    contentAlignment = Alignment.Center
+  ) {
+    Text(
+      text = if (showShortUnitText) unit.unitTextShort else unit.unitText,
+      style = AthleticsRankingPointsTheme.typography.smalltext1,
+      color = customInputColors.valueText
+    )
+  }
+}
+
+

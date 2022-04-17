@@ -46,6 +46,8 @@ class EventGroupSimulatorViewModel(
   )
   fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
 
+  private var isNewEntry = simulatorDataModel.loadPerformanceName==RankingScorePerformanceData.NEW_ENTRY
+
   init {
     viewModelScope.launch {
       eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)?.let {
@@ -53,7 +55,7 @@ class EventGroupSimulatorViewModel(
         listOfSelectedEvents.value = initListOfEvents(it.sMainEvent, it.sMinNumberPerformancesGroup)
         listOfPerformances.value=initListOfPerformances(it.getAllEventsInGroup().first())
       }
-      if (simulatorDataModel.loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY) {
+      if (!isNewEntry) {
         rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDataModel.loadPerformanceName)?.let {
           loadedRankingScorePerformanceData=it
           loadAllLoadedValues(it)
@@ -92,6 +94,12 @@ class EventGroupSimulatorViewModel(
 
   private var scoreTitle = MutableLiveData("")
   fun getTitle(): LiveData<String> = scoreTitle
+
+  private var titleValid = MutableLiveData(true)
+  fun getIsTitleValid(): LiveData<Boolean> = titleValid
+
+  private var isTitleInEditMode = MutableLiveData(isNewEntry)
+  fun getIsTitleInEditMode(): LiveData<Boolean> = isTitleInEditMode
 
   private var listOfPerformances = MutableLiveData(
         initListOfPerformances()
@@ -218,6 +226,10 @@ class EventGroupSimulatorViewModel(
 
   //USER ACTIONS
 
+  fun editTitlePressed(){
+    isTitleInEditMode.postValue(!(isTitleInEditMode.value ?:true))
+  }
+
   fun saveButtonPressed() =
     getFieldValidation().takeIf { !it.isNullOrEmpty() }?.let { showDialogWithError(it) } ?: savePerformance()
 
@@ -245,7 +257,7 @@ class EventGroupSimulatorViewModel(
     showErrorValidatingDialog.postValue(s)
   }
 
-  private fun getFieldValidation():String? {
+  private fun getFieldValidation(): String {
     var errorMessage = ""
     if (scoreTitle.value?.length?:0 <= 2)  {
       errorMessage = "Name of ranking score must be longer than 2 characters"

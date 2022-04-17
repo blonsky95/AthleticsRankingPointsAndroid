@@ -1,10 +1,11 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -14,13 +15,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.Strings.AttentionText
 import com.example.athleticsrankingpoints.Strings.CancelText
 import com.example.athleticsrankingpoints.Strings.DeletePerformanceDialogText
@@ -32,6 +29,7 @@ import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.SimulatorDataModel
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.navyBlue
 import org.koin.core.parameter.parametersOf
 
 
@@ -42,6 +40,8 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
   val viewModel: EventGroupSimulatorViewModel = getViewModel(parameters = {parametersOf(SimulatorDataModel(eventGroupName, loadPerformanceName))})//INJECTED
 
   val title by viewModel.getTitle().observeAsState("")
+  val isTitleValid by viewModel.getIsTitleValid().observeAsState(true)
+  val isTitleInEditMode by viewModel.getIsTitleInEditMode().observeAsState(true)
 
   val eventGroup by viewModel.getSelectedEventGroup().observeAsState()
 
@@ -96,9 +96,20 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
     ) {
       Spacer(modifier = Modifier.height(4.dp))
-      MyPerformanceTitleTextField(title = title, onValueChange = {viewModel.updateTitle(it)}, hint = "Title")
+      Row(modifier = Modifier.height(IntrinsicSize.Max), verticalAlignment = Alignment.CenterVertically) {
+        MyPerformanceTitle(title = title, isEditMode = isTitleInEditMode, isNameValid = isTitleValid, onValueChange = {viewModel.updateTitle(it)})
+        Spacer(modifier = Modifier.width(24.dp))
+        Image(painter = painterResource(id = R.drawable.ic_edit), contentDescription = "", modifier = Modifier.clickable {
+          viewModel.editTitlePressed()
+        })
+      }
+
       Spacer(modifier = Modifier.height(4.dp))
-      EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = eventGroup?: EventGroup.getSampleEventGroup())
+      EventGroupSummary(
+        modifier = Modifier.padding(bottom = 16.dp),
+        contentColor = navyBlue,
+        eventGroup = eventGroup?: EventGroup.getSampleEventGroup()
+      )
       PerformancesSimulatorList(
         modifier = Modifier
           .weight(1f)
@@ -162,29 +173,22 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 }
 
 @Composable
-fun MyPerformanceTitleTextField(title:String, onValueChange : (String) -> Unit, hint:String) {
-  BasicTextField(
-    value = title,
-    onValueChange = {
-      onValueChange(it)
-    },
-    modifier = Modifier
-      .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
-      .padding(8.dp)
-      .widthIn(1.dp, Dp.Infinity)
-      .heightIn(1.dp, Dp.Infinity),
-    textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
-    cursorBrush = SolidColor(Color.Black),
-    decorationBox = { innerTextField ->
-      if (title.isEmpty()) {
-        Text(
-          text = hint,
-          style = TextStyle(color = Color.LightGray, fontWeight = FontWeight.Light, fontSize = 18.sp)
-        )
-      }
-      innerTextField()
-    },
-  )
+fun MyPerformanceTitle(title:String = "TitleHere", isEditMode: Boolean, isNameValid: Boolean, onValueChange : (String) -> Unit) {
+
+  if (isEditMode) {
+    CustomInputField(
+      customInputColors = CustomInputColors(),
+      isUnitValueValid = isNameValid,
+      value = title,
+      setMaxWidth = true,
+      onValueChange = onValueChange
+    )
+  } else {
+    Text(
+      text = title,
+      style = AthleticsRankingPointsTheme.typography.title3.navyBlue,
+    )
+  }
 }
 
 @Composable

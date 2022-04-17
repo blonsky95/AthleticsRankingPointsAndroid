@@ -1,6 +1,5 @@
 package com.example.athleticsrankingpoints.presentation.screens.lookupscreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -55,8 +54,8 @@ fun PointLookUpBody() {
     PerformanceInput(
       modifier = Modifier
         .padding(vertical = 4.dp, horizontal = 4.dp),
-      performanceInputColors =
-      PerformanceInputColors(
+      customInputColors =
+      CustomInputColors(
         unitText = white,
         valueText = white,
         valueTextBackground = Color.Transparent,

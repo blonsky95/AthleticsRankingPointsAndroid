@@ -46,7 +46,7 @@ fun EventGroupSelectorView(
 
     Spacer(modifier = Modifier.height(8.dp))
 
-    EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp),eventGroup = selectedEventGroup)
+    EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp), eventGroup = selectedEventGroup)
 
     SexRadioButtonSet(selectedSex = selectedSex, onSexSelectionChange = {
       viewModel.updateUIWithNewSexCategory(findById(it.id))
