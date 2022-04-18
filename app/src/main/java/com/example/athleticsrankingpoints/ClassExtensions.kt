@@ -5,10 +5,8 @@ fun String.toIntOrZero():Int {
 }
 
 fun String.makeZeroIfEmpty():String {
-  return if (this.isEmpty()) {
+  return this.ifEmpty {
     "0"
-  } else {
-    this
   }
 }
 

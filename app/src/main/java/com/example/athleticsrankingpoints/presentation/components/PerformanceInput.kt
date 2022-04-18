@@ -1,10 +1,7 @@
 package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 //import androidx.compose.runtime.mutableStateOf
@@ -12,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnits
@@ -98,7 +94,7 @@ private fun PerformanceUnit(customInputColors: CustomInputColors, showShortUnitT
   ) {
     Text(
       text = if (showShortUnitText) unit.unitTextShort else unit.unitText,
-      style = AthleticsRankingPointsTheme.typography.smalltext1,
+      style = AthleticsRankingPointsTheme.typography.text5,
       color = customInputColors.valueText
     )
   }

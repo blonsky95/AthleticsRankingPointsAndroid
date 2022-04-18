@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
-import com.example.athleticsrankingpoints.presentation.theme.lilac
 
 @Composable
 fun EventListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<AthleticsEvent>, selectedEvent: AthleticsEvent, onEventChange: (AthleticsEvent) -> Unit) {
@@ -40,7 +39,7 @@ fun EventListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<AthleticsE
           .background(rowItemColor)
           .padding(start = 4.dp, bottom = 4.dp, top = 4.dp),
           text = it.sName,
-          style = AthleticsRankingPointsTheme.typography.text1,
+          style = AthleticsRankingPointsTheme.typography.text3,
           color = AthleticsRankingPointsTheme.colors.textBlack
         )
       }

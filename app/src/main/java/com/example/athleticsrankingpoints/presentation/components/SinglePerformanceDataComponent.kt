@@ -1,6 +1,8 @@
 package com.example.athleticsrankingpoints.presentation.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,17 +18,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.makeZeroIfEmpty
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.navyBlue
+import com.example.athleticsrankingpoints.presentation.theme.white
 import com.example.athleticsrankingpoints.toIntOrZero
 
 @Composable
@@ -47,17 +52,19 @@ fun SinglePerformanceDataComponent(
 
   var expanded by remember { mutableStateOf(false) }
 
-  val icon = if (expanded)
-    Icons.Filled.ArrowDropUp
+  val dropdownDrawable  = if (expanded)
+    R.drawable.ic_arrow_up
   else
-    Icons.Filled.ArrowDropDown
+    R.drawable.ic_arrow_down
 
   Column(modifier = Modifier
     .fillMaxWidth()
+    .background(Color.Transparent)
+    .border(1.dp, color = AthleticsRankingPointsTheme.colors.backgroundScreen)
   ) {
-    Spacer(modifier = Modifier.height(4.dp))
-
-    TitleAndEventAndPoints(expanded, spinnerList, onEventChange, event, index, icon, performancePoints, windPoints, placementPoints,
+    TitleAndEventAndPoints(
+      modifier = Modifier.background(color = AthleticsRankingPointsTheme.colors.backgroundScreen).padding(8.dp),
+      expanded, spinnerList, onEventChange, event, index, dropdownDrawable, performancePoints, windPoints, placementPoints,
       onSpinnerClick = {
         expanded=!expanded
       },
@@ -65,54 +72,84 @@ fun SinglePerformanceDataComponent(
         expanded=false
       }
     )
-
-    PerformanceWithPoints(performanceUnitsAware = performanceUnitsAware, points = performancePoints, onPerformanceChange = {onPerformanceChange(index, it)})
-    if (event.hasWind()){
-      WindWithPoints(wind = wind, points = windPoints, onWindChange = {onWindChange(index, it)})
-    }
-    PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = {onPlacementChange(index, it)})
+    Spacer(Modifier.height(2.dp))
+    PerformanceDetails(
+      Modifier.padding(8.dp),
+      performanceUnitsAware, performancePoints, onPerformanceChange, index, event, wind, windPoints, onWindChange, placementPoints, onPlacementChange
+    )
   }
 
-  Divider(
-      modifier = Modifier
-        .width(1.dp),
-      color = Color.White
+}
+
+@Composable
+private fun PerformanceDetails(
+  modifier: Modifier = Modifier,
+  performanceUnitsAware: PerformanceUnitsAware,
+  performancePoints: String,
+  onPerformanceChange: (Int, PerformanceUnitsAware) -> Unit,
+  index: Int,
+  event: AthleticsEvent,
+  wind: String,
+  windPoints: String,
+  onWindChange: (Int, String) -> Unit,
+  placementPoints: String,
+  onPlacementChange: (Int, String) -> Unit,
+) {
+  Column(modifier) {
+    Text(
+      text = "Performance:",
+      style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
     )
+    Spacer(Modifier.height(2.dp))
+    PerformanceWithPoints(performanceUnitsAware = performanceUnitsAware, points = performancePoints, onPerformanceChange = { onPerformanceChange(index, it) })
+    Spacer(Modifier.height(4.dp))
+    if (event.hasWind()) {
+      Text(
+        text = "Wind:",
+        style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
+      )
+      WindWithPoints(wind = wind, points = windPoints, onWindChange = { onWindChange(index, it) })
+      Spacer(Modifier.height(4.dp))
+    }
+    Text(
+      text = "Placement:",
+      style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
+    )
+    PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = { onPlacementChange(index, it) })
+  }
 }
 
 @Composable
 private fun TitleAndEventAndPoints(
+  modifier: Modifier = Modifier,
   expanded: Boolean,
   spinnerList: List<AthleticsEvent>,
   onEventChange: (Int, AthleticsEvent) -> Unit,
   event: AthleticsEvent,
   index: Int,
-  icon: ImageVector,
+  @DrawableRes
+  dropdownDrawable : Int = R.drawable.ic_arrow_down,
   performancePoints: String,
   windPoints: String,
   placementPoints: String,
   onSpinnerClick: (Boolean) -> Unit,
-  onSpinnerDismiss: () -> Unit
+  onSpinnerDismiss: () -> Unit,
 ) {
-  MyCustomTwoComposableRow {
+  MyCustomTwoComposableRow (modifier){
     TextAndSpinner(
       expanded = expanded,
       spinnerList = spinnerList,
       onEventChange = onEventChange,
       event = event,
       index = index,
-      icon = icon,
+      dropdownDrawable = dropdownDrawable,
       onSpinnerClick = onSpinnerClick,
       onSpinnerDismiss = onSpinnerDismiss
     )
     Text(
       modifier = Modifier.padding(horizontal = 8.dp),
       text = (performancePoints.toIntOrZero() + windPoints.toIntOrZero() + placementPoints.toIntOrZero()).toString(),
-      style = TextStyle(
-        color = Color.White,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold
-      ),
+      style = AthleticsRankingPointsTheme.typography.text2.white
     )
   }
 }
@@ -121,20 +158,27 @@ private fun TitleAndEventAndPoints(
 fun PerformanceWithPoints(performanceUnitsAware: PerformanceUnitsAware, points: String, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
   MyCustomTwoComposableRow {
     PerformanceInput(
-      modifier = Modifier
-        .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
-        .padding(4.dp),
+      customInputColors = CustomInputColors(),
       performanceUnitsAware = performanceUnitsAware,
       onPerformanceChange = onPerformanceChange
     )
-    MyCustomText(text = points.makeZeroIfEmpty())
+    MyCustomText(
+      text = points.makeZeroIfEmpty(),
+    )
   }
 }
 
 @Composable
 fun WindWithPoints(wind: String, points: String, onWindChange: (String) -> Unit) {
   MyCustomTwoComposableRow {
-    MyCustomTextField(performance = wind, hint = "Wind (0.0)", onPerformanceChange = onWindChange)
+    CustomInputField(
+      customInputColors = CustomInputColors(),
+      value = wind,
+      setMaxWidth = true,
+      hint = "0.0",
+      onValueChange = onWindChange
+    )
+//    MyCustomTextField(performance = wind, hint = "Wind (0.0)", onPerformanceChange = onWindChange)
     MyCustomText(text = points.makeZeroIfEmpty())
   }
 }
@@ -142,7 +186,14 @@ fun WindWithPoints(wind: String, points: String, onWindChange: (String) -> Unit)
 @Composable
 fun PlacementWithPoints(placementPoints: String, points: String, onPlacementsPointsChange: (String) -> Unit) {
   MyCustomTwoComposableRow {
-    MyCustomTextField(performance = placementPoints, hint = "Placement (0)", onPerformanceChange = onPlacementsPointsChange)
+    CustomInputField(
+      customInputColors = CustomInputColors(),
+      value = placementPoints,
+      setMaxWidth = true,
+      hint = "0",
+      onValueChange = onPlacementsPointsChange
+    )
+//    MyCustomTextField(performance = placementPoints, hint = "Placement (0)", onPerformanceChange = onPlacementsPointsChange)
     MyCustomText(text = points.makeZeroIfEmpty())
   }
 }
@@ -154,7 +205,8 @@ fun TextAndSpinner(
   spinnerList: List<AthleticsEvent>,
   event: AthleticsEvent,
   index: Int,
-  icon: ImageVector,
+  @DrawableRes
+  dropdownDrawable : Int,
   onEventChange: (Int, AthleticsEvent) -> Unit,
   onSpinnerClick: (Boolean) -> Unit,
   onSpinnerDismiss: () -> Unit
@@ -164,19 +216,19 @@ fun TextAndSpinner(
   ) {
     Text(
       text = "Performance #${index+1}",
-      color = Color.Black,
-      style = MaterialTheme.typography.body2
+      style = AthleticsRankingPointsTheme.typography.text4.white
     )
-    Spacer(modifier = Modifier.width(4.dp))
+    Spacer(modifier = Modifier.width(8.dp))
     AthleticEventsDropDownList(
       modifier = Modifier
         .padding(horizontal = 8.dp, vertical = 4.dp)
-        .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
-        .padding(4.dp),
+        .background(Color.Transparent)
+        .border(1.dp, color = AthleticsRankingPointsTheme.colors.backgroundComponent)
+        .padding(horizontal = 4.dp),
       expanded = expanded,
       events = spinnerList,
       selectedEvent = event,
-      icon = icon,
+      dropdownDrawable = dropdownDrawable,
       onDisplayClicked = onSpinnerClick,
       onSelectionChange = {
         onEventChange(index, it)
@@ -193,7 +245,7 @@ fun TextAndSpinner(
 fun MyCustomTwoComposableRow(modifier: Modifier = Modifier, composableContent: @Composable () -> Unit) {
   Row(
     modifier = modifier
-      .padding(horizontal = 8.dp, vertical = 4.dp)
+      .height(IntrinsicSize.Max)
       .fillMaxWidth(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
@@ -234,8 +286,7 @@ fun MyCustomText(text:String) {
   Text(
     modifier = Modifier.padding(horizontal = 8.dp),
     text = text,
-    style = MaterialTheme.typography.subtitle1,
-    color = Color.White
+    style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
   )
 }
 
@@ -245,34 +296,38 @@ fun AthleticEventsDropDownList(
   expanded: Boolean,
   events: List<AthleticsEvent>,
   selectedEvent: AthleticsEvent,
-  icon : ImageVector = Icons.Filled.ArrowDropDown,
+  @DrawableRes
+  dropdownDrawable : Int = R.drawable.ic_arrow_down,
   onDisplayClicked: (Boolean) -> Unit,
   onSelectionChange: (AthleticsEvent) -> Unit,
   onDismissRequest: () -> Unit
 ) {
   Column(modifier = modifier) {
     Row (
-      modifier = Modifier.clickable {
-        onDisplayClicked(expanded)
-      },
-      verticalAlignment = Alignment.CenterVertically
+      modifier = Modifier
+        .padding(vertical = 4.dp)
+        .widthIn(min = 96.dp)
+        .clickable {
+          onDisplayClicked(expanded)
+        },
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.SpaceBetween
     ){ 
       Text(
-        text = selectedEvent.sName,
-        color = Color.Black,
+        text = selectedEvent.getDoorInclusiveName(),
+        color = AthleticsRankingPointsTheme.colors.textWhite,
         style = TextStyle(fontSize = 13.sp)
       ) 
-      Spacer(modifier = Modifier.width(4.dp))
       Icon(
-        imageVector = icon,
-        tint = Color.Black,
+        modifier = Modifier.size(16.dp),
+        painter = painterResource(id = dropdownDrawable),
+        tint = AthleticsRankingPointsTheme.colors.backgroundComponent,
         contentDescription = ""
       )
     }
     DropdownMenu(
       expanded = expanded,
       onDismissRequest = { onDismissRequest() }
-
     ) {
       events.forEach { event ->
         DropdownMenuItem(onClick = {
@@ -282,6 +337,7 @@ fun AthleticEventsDropDownList(
           Column {
             Text(
               text = event.getDoorInclusiveName(),
+              style = AthleticsRankingPointsTheme.typography.text4,
               color = Color.Black
             )
             Divider(

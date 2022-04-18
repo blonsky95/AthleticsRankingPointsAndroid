@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -52,7 +51,7 @@ fun EventGroupListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<Event
           .background(backgroundColor2)
           .padding(start = 4.dp, bottom = 4.dp, top = 4.dp),
           text = it.sName,
-          style = AthleticsRankingPointsTheme.typography.text1,
+          style = AthleticsRankingPointsTheme.typography.text3,
           color = textColor
         )
       }

@@ -15,6 +15,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.athleticsrankingpoints.R
@@ -113,7 +114,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
       PerformancesSimulatorList(
         modifier = Modifier
           .weight(1f)
-          .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen, shape = RoundedCornerShape(4.dp)),
+          .background(color = Color.Transparent, shape = RoundedCornerShape(4.dp)),
         performanceUnitAwareList = performanceList,
         perfPointsList = performancePointsList,
         windsList = windsList,

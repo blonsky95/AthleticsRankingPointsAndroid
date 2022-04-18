@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
@@ -37,7 +36,7 @@ fun CustomButton(modifier:Modifier = Modifier, text: String, onButtonTap: () -> 
   ) {
     Text(
       text = text.uppercase(),
-      style = AthleticsRankingPointsTheme.typography.text1
+      style = AthleticsRankingPointsTheme.typography.text3
     )
   }
 }

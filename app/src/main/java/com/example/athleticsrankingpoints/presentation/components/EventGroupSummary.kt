@@ -40,7 +40,7 @@ fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGrou
     ) {
       Text(
         text = eventGroup.sName,
-        style = AthleticsRankingPointsTheme.typography.text1.bold,
+        style = AthleticsRankingPointsTheme.typography.text3.bold,
         color = contentColor,
         modifier = Modifier
       )
@@ -63,13 +63,13 @@ fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGrou
         ) {
             Text(
               text = "Minimum number of performances: ",
-              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              style = AthleticsRankingPointsTheme.typography.text5,
               color = contentColor,
               modifier = Modifier
             )
             Text(
               text = "${eventGroup.sMinNumberPerformancesGroup}",
-              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              style = AthleticsRankingPointsTheme.typography.text5,
               color = contentColor,
               modifier = Modifier
             )
@@ -81,13 +81,13 @@ fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGrou
         ){
             Text(
               text = "Minimum number of performances for main event: ",
-              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              style = AthleticsRankingPointsTheme.typography.text5,
               color = contentColor,
               modifier = Modifier
             )
             Text(
               text = "${eventGroup.sMinNumberPerformancesMainEvent}",
-              style = AthleticsRankingPointsTheme.typography.smalltext1,
+              style = AthleticsRankingPointsTheme.typography.text5,
               color = contentColor,
               modifier = Modifier
             )
@@ -105,7 +105,7 @@ fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGrou
 
         Text(
           text = "Events in group: $listOfEventNamesInGroup",
-          style = AthleticsRankingPointsTheme.typography.smalltext1,
+          style = AthleticsRankingPointsTheme.typography.text5,
           color = contentColor,
           modifier = Modifier
             .align(Alignment.Start)

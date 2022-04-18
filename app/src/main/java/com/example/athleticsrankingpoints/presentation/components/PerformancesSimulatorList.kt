@@ -1,9 +1,12 @@
 package com.example.athleticsrankingpoints.presentation.components
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
@@ -39,7 +42,7 @@ fun PerformancesSimulatorList(
         onPlacementChange = onPlacementChange,
         onWindChange = onWindChange,
       )
-      CustomDivider(color = AthleticsRankingPointsTheme.colors.textBlack)
+      Spacer(modifier = Modifier.height(8.dp))
     }
   }
 }

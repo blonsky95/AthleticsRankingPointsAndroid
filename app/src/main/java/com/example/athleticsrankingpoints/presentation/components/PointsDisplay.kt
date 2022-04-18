@@ -3,7 +3,6 @@ package com.example.athleticsrankingpoints.presentation.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.presentation.theme.beige
 
@@ -11,12 +10,12 @@ import com.example.athleticsrankingpoints.presentation.theme.beige
 fun PointsDisplay(performancePoints: String) {
   Row {
       Text(
-        style = AthleticsRankingPointsTheme.typography.subtitle2.beige,
+        style = AthleticsRankingPointsTheme.typography.text2.beige,
         text = "POINTS: "
       )
 
       Text(
-        style = AthleticsRankingPointsTheme.typography.subtitle2.beige,
+        style = AthleticsRankingPointsTheme.typography.text2.beige,
         text = "$performancePoints pts"
       )
   }

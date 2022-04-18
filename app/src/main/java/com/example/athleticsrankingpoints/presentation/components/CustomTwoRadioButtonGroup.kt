@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -57,7 +56,7 @@ fun CustomTwoRadioButtonGroup(
           .background(color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.backgroundComponent else Transparent)
           .padding(vertical = verticalPadding)
           .fillMaxWidth(),
-          style = AthleticsRankingPointsTheme.typography.text1.bold,
+          style = AthleticsRankingPointsTheme.typography.text3.bold,
           color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.textBlack else AthleticsRankingPointsTheme.colors.textWhite,
           textAlign = TextAlign.Center,
           text = it.getReadableText().uppercase())

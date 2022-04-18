@@ -48,26 +48,26 @@ data class AppTypography(
     fontFamily = CousineFontFamily,
     letterSpacing = 0.4.sp,
   ),
-  val subtitle2:TextStyle = TextStyle(
+  val text1:TextStyle = TextStyle(
+    fontWeight = FontWeight.W700,
+    fontSize = 34.sp
+  ),
+  val text2:TextStyle = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 18.sp,
     fontFamily = InconsolataFontFamily
   ),
-  val text1:TextStyle = TextStyle(
+  val text3:TextStyle = TextStyle(
     fontFamily = InconsolataFontFamily,
     fontWeight = FontWeight.Medium,
     fontSize = 16.sp,
     letterSpacing = 0.2.sp,
     ),
-  val text2:TextStyle = TextStyle(
-    fontWeight = FontWeight.W700,
-    fontSize = 34.sp
-  ),
-  val text3:TextStyle = TextStyle(
+  val text4:TextStyle = TextStyle(
     fontSize = 14.sp,
     fontFamily = CousineFontFamily,
     ),
-  val smalltext1:TextStyle = TextStyle(
+  val text5:TextStyle = TextStyle(
     fontFamily = InconsolataFontFamily,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
