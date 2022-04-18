@@ -173,7 +173,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 }
 
 @Composable
-fun MyPerformanceTitle(title:String = "TitleHere", isEditMode: Boolean, isNameValid: Boolean, onValueChange : (String) -> Unit) {
+fun MyPerformanceTitle(title:String = "", isEditMode: Boolean, isNameValid: Boolean, onValueChange : (String) -> Unit) {
 
   if (isEditMode) {
     CustomInputField(
@@ -181,6 +181,7 @@ fun MyPerformanceTitle(title:String = "TitleHere", isEditMode: Boolean, isNameVa
       isUnitValueValid = isNameValid,
       value = title,
       setMaxWidth = true,
+      hint = "Name",
       onValueChange = onValueChange
     )
   } else {

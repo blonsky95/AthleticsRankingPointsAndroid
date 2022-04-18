@@ -227,6 +227,9 @@ class EventGroupSimulatorViewModel(
   //USER ACTIONS
 
   fun editTitlePressed(){
+    if (isTitleInEditMode.value == true) {
+        titleValid.postValue(scoreTitle.value?.length?:0 > 2)
+    }
     isTitleInEditMode.postValue(!(isTitleInEditMode.value ?:true))
   }
 

@@ -81,7 +81,8 @@ fun ReworkedPerformanceInputUnit(
       value = unitValue,
       setMaxWidth = false,
       keyboardType = KeyboardType.Text,
-      onValueChange
+      hint = "0",
+      onValueChange = onValueChange
     )
     PerformanceUnit(customInputColors, showShortUnitText, unit)
   }
