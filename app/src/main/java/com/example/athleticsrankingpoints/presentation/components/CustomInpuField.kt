@@ -17,29 +17,31 @@ import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPoi
 
 @Composable
 fun CustomInputField(modifier: Modifier = Modifier, customInputColors: CustomInputColors, isUnitValueValid: Boolean = true, value: String, canFillMaxWidth:Boolean = false, minWidthInDp: Dp = 64.dp, keyboardType: KeyboardType = KeyboardType.Text, hint: String = "hint", onValueChange: (String) -> Unit) {
-  BasicTextField(
-    modifier = modifier
-      .widthIn(min = minWidthInDp, max = if (canFillMaxWidth) Dp.Unspecified else 96.dp)
-      .width(IntrinsicSize.Min)
-      .fillMaxHeight()
-      .background(customInputColors.valueTextBackground)
-      .border(width = 1.dp, color = if (isUnitValueValid) customInputColors.borderColor else Color.Red)
-      .padding(start = 4.dp, end = 8.dp)
-      .padding(vertical = 4.dp),
-    value = value,
-    onValueChange = onValueChange,
-    textStyle = AthleticsRankingPointsTheme.typography.text3.copy(color = customInputColors.valueText),
-    keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-    cursorBrush = SolidColor(customInputColors.brushColor),
-    decorationBox = { innerTextField ->
-      if (value.isEmpty()) {
-        Text(
-          text = hint,
-          style = AthleticsRankingPointsTheme.typography.text3,
-          color = customInputColors.valueText.copy(alpha = 0.4f)
-        )
-      }
-      innerTextField()
-    },
-  )
+  Box(modifier = modifier.height(IntrinsicSize.Max)) {
+    BasicTextField(
+      modifier = Modifier
+        .widthIn(min = minWidthInDp, max = if (canFillMaxWidth) Dp.Unspecified else 96.dp)
+        .width(IntrinsicSize.Min)
+        .fillMaxHeight()
+        .background(customInputColors.valueTextBackground)
+        .border(width = 1.dp, color = if (isUnitValueValid) customInputColors.borderColor else Color.Red)
+        .padding(start = 4.dp, end = 8.dp)
+        .padding(vertical = 4.dp),
+      value = value,
+      onValueChange = onValueChange,
+      textStyle = AthleticsRankingPointsTheme.typography.text3.copy(color = customInputColors.valueText),
+      keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+      cursorBrush = SolidColor(customInputColors.brushColor),
+      decorationBox = { innerTextField ->
+        if (value.isEmpty()) {
+          Text(
+            text = hint,
+            style = AthleticsRankingPointsTheme.typography.text3,
+            color = customInputColors.valueText.copy(alpha = 0.4f)
+          )
+        }
+        innerTextField()
+      },
+    )
+  }
 }

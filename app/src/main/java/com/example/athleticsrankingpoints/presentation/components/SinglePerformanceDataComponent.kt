@@ -241,7 +241,6 @@ fun TextAndSpinner(
 fun MyCustomTwoComposableRow(modifier: Modifier = Modifier, composableContent: @Composable () -> Unit) {
   Row(
     modifier = modifier
-      .height(IntrinsicSize.Max)
       .fillMaxWidth(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
@@ -250,32 +249,32 @@ fun MyCustomTwoComposableRow(modifier: Modifier = Modifier, composableContent: @
   }
 }
 
-@Composable
-fun MyCustomTextField(performance: String = "", hint: String, onPerformanceChange: (String) -> Unit){
-  BasicTextField(
-    value = performance,
-    onValueChange = {
-      onPerformanceChange(it)
-    },
-    modifier = Modifier
-      .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
-      .padding(8.dp)
-      .widthIn(1.dp, Dp.Infinity)
-      .heightIn(1.dp, Dp.Infinity),
-    textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
-    cursorBrush = SolidColor(Color.Black),
-    decorationBox = { innerTextField ->
-        if (performance.isEmpty()) {
-          Text(
-            text = hint,
-            style = MaterialTheme.typography.subtitle1
-          )
-      }
-      innerTextField()
-    },
-    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-  )
-}
+//@Composable
+//fun MyCustomTextField(performance: String = "", hint: String, onPerformanceChange: (String) -> Unit){
+//  BasicTextField(
+//    value = performance,
+//    onValueChange = {
+//      onPerformanceChange(it)
+//    },
+//    modifier = Modifier
+//      .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
+//      .padding(8.dp)
+//      .widthIn(1.dp, Dp.Infinity)
+//      .heightIn(1.dp, Dp.Infinity),
+//    textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
+//    cursorBrush = SolidColor(Color.Black),
+//    decorationBox = { innerTextField ->
+//        if (performance.isEmpty()) {
+//          Text(
+//            text = hint,
+//            style = MaterialTheme.typography.subtitle1
+//          )
+//      }
+//      innerTextField()
+//    },
+//    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+//  )
+//}
 
 @Composable
 fun MyCustomText(text:String) {

@@ -149,7 +149,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
 
 @Composable
 private fun PerformanceTitle(modifier: Modifier, title: String, isTitleInEditMode: Boolean, isTitleValid: Boolean, updateTitle: (String) -> Unit, editTitlePressed: () -> Unit) {
-  Row(modifier = modifier.height(IntrinsicSize.Max), verticalAlignment = Alignment.CenterVertically) {
+  Row(modifier, verticalAlignment = Alignment.CenterVertically) {
     MyPerformanceTitle(title = title, isEditMode = isTitleInEditMode, isNameValid = isTitleValid, onValueChange = { updateTitle(it) })
     Spacer(modifier = Modifier.width(24.dp))
     Image(painter = painterResource(id = if (!isTitleInEditMode) R.drawable.ic_edit else R.drawable.ic_confirm), contentDescription = "", modifier = Modifier.clickable {

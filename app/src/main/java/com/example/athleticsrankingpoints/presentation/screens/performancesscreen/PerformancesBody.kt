@@ -8,8 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.EventGroup
-import com.example.athleticsrankingpoints.presentation.theme.*
+import com.example.athleticsrankingpoints.presentation.components.CustomInputColors
+import com.example.athleticsrankingpoints.presentation.components.CustomInputField
+import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.example.athleticsrankingpoints.presentation.theme.bold
+import com.example.athleticsrankingpoints.presentation.theme.navyBlue
+import com.example.athleticsrankingpoints.presentation.theme.textBlue
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -74,14 +79,23 @@ fun PerformancesBody(
 
 @Composable
 private fun PerformancesSearchBar(searchText: String, onSearchChange: (String) -> Unit) {
-  TextField(
-    modifier = Modifier
-      .fillMaxWidth(),
+
+  CustomInputField(
+    customInputColors = CustomInputColors(),
     value = searchText,
-    onValueChange = {
-      onSearchChange(it)
-    }
+    canFillMaxWidth = true,
+    minWidthInDp = 192.dp,
+    hint = "Search here...",
+    onValueChange = onSearchChange
   )
+//  TextField(
+//    modifier = Modifier
+//      .fillMaxWidth(),
+//    value = searchText,
+//    onValueChange = {
+//      onSearchChange(it)
+//    }
+//  )
 }
 
 @Composable
