@@ -1,7 +1,6 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -47,6 +46,9 @@ class EventGroupSimulatorViewModel(
   fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
 
   private var isNewEntry = simulatorDataModel.loadPerformanceName==RankingScorePerformanceData.NEW_ENTRY
+
+  private var totalSumOfPoints = 0
+//  get() =
 
   init {
     viewModelScope.launch {
@@ -298,7 +300,7 @@ class EventGroupSimulatorViewModel(
       windsPoints = listOfWindsPoints.value!!,
       placementPoints = listOfPlacementPoints.value!!,
       selectedEvents = listOfSelectedEvents.value!!,
-      rankingScore = getRankingScore(listOfPerformancePoints.value!!,listOfPlacementPoints.value!!,listOfWindsPoints.value!! )
+      rankingScore = computeRankingScore()
     )
   }
 
@@ -330,30 +332,27 @@ class EventGroupSimulatorViewModel(
     updatePerformancePointsList(index = index, performance = listOfPerformances.value!![index].getPerformanceAbsoluteValue(), event = event)
   }
 
-  private fun updatePerformancePointsList(index: Int, performance: String, event: AthleticsEvent? = null) {
-    val pointsPerfArrayValue = listOfPerformancePoints.value!!.toMutableList()
-    pointsPerfArrayValue[index] = getPointsForGivenIndex(numberPerformance = index, performance = performance, event = event) //do the actual points
-    listOfPerformancePoints.postValue(pointsPerfArrayValue.toList())
+  private fun updatePerformancePointsList(index: Int, performance: String, event: AthleticsEvent? = null) =
+    updateIndexInPointsList(listOfPerformancePoints, index, getPointsForGivenIndex(index,performance, event))
+
+  private fun updateWindPointsList(index: Int, points: String) = updateIndexInPointsList(listOfWindsPoints, index, points)
+
+  fun updatePlacementPointsList(index: Int, points: String) = updateIndexInPointsList(listOfPlacementPoints, index, points)
+
+  fun updateIndexInPointsList(liveData: MutableLiveData<List<String>>, index: Int, points: String){
+    val newPointsListValue = liveData.value?.toMutableList()?.apply {
+      this[index] = points
+    } ?: emptyList()
+    liveData.postValue(newPointsListValue)
   }
 
-  private fun updateWindPointsList(index: Int, points: String) {
-    val pointsWindArrayValue = listOfWindsPoints.value!!.toMutableList()
-    pointsWindArrayValue[index] = points
-    listOfWindsPoints.postValue(pointsWindArrayValue.toList())
-  }
+  fun updateRankingScore() = rankingScore.postValue(computeRankingScore())
 
-  fun updatePlacementPointsList(index: Int, points: String) {
-    val placementPointsValue = listOfPlacementPoints.value!!.toMutableList()
-    placementPointsValue[index] = points
-    listOfPlacementPoints.postValue(placementPointsValue.toList())
-  }
-
-  fun getRankingScore(perfPoints:List<String>, placementPoints:List<String>, windPoints:List<String>):String  =
-//    getAverage(total = perfPoints.toIntsArray().sum() + placementPoints.toIntsArray().sum() + windPoints.toIntsArray().sum(), size = size)
+  private fun computeRankingScore(): String =
     getAverage(total = (
-        (listOfPerformancePoints.value?.toIntsArray()?.sum()?:0)
-            + (listOfPlacementPoints.value?.toIntsArray()?.sum()?:0)
-            + (listOfWindsPoints.value?.toIntsArray()?.sum()?:0)
+        (listOfPerformancePoints.value?.toIntsArray()?.sum() ?: 0)
+            + (listOfPlacementPoints.value?.toIntsArray()?.sum() ?: 0)
+            + (listOfWindsPoints.value?.toIntsArray()?.sum() ?: 0)
         ),
       size = listOfSelectedEvents.value?.size?:0)
 
@@ -366,8 +365,8 @@ class EventGroupSimulatorViewModel(
    * If this is called by event change, event wont be null.
   This function uses the current livedata values so it wouldnt be safe with out doing it in this way.
    */
-  private fun getPointsForGivenIndex(numberPerformance: Int, performance: String, event: AthleticsEvent? = null): String {
-    return event?.getPointsString(performance = performance) ?: listOfSelectedEvents.value!![numberPerformance].getPointsString(performance = performance)
+  private fun getPointsForGivenIndex(indexPerformance: Int, performance: String, event: AthleticsEvent? = null): String {
+    return event?.getPointsString(performance = performance) ?: listOfSelectedEvents.value!![indexPerformance].getPointsString(performance = performance)
   }
 
 }

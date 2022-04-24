@@ -1,5 +1,6 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,6 +47,8 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
   val eventGroup by viewModel.getSelectedEventGroup().observeAsState()
 
+  val rankingScore by viewModel.getRankingScore().observeAsState("0")
+
   val performanceList by viewModel.getListOfPerformances().observeAsState(listOf())
   val performancePointsList by viewModel.getListOfPerformancePoints().observeAsState(listOf())
   val windsList by viewModel.getListOfWinds().observeAsState(listOf())
@@ -61,6 +64,11 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
   val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(null)
 
   val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
+
+
+  LaunchedEffect(placementPointsList,windsPointsList, performancePointsList){
+    viewModel.updateRankingScore()
+  }
 
   Scaffold(
     modifier = Modifier
@@ -137,39 +145,50 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
 
       )
 
-      Row (Modifier.padding(top = 16.dp)){
-        Box(modifier = Modifier
-          .fillMaxWidth()
-          .padding(bottom = 8.dp)) {
-          Text(modifier = Modifier
-            .align(Alignment.CenterStart),
-            style = MaterialTheme.typography.body1,
-            text = "Ranking Score:")
-
-          Text(modifier = Modifier
-            .align(Alignment.CenterEnd),
-            style = MaterialTheme.typography.body1,
-            text = viewModel.getRankingScore(performancePointsList,placementPointsList, windsPointsList))
-        }
-      }
-      Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween.takeIf { isLoaded } ?: Arrangement.End
-      ) {
-
-        if (isLoaded) {
-          CustomButton(
-            text = "DELETE") {
-            viewModel.deleteButtonPressed()
-          }
-        }
-        CustomButton(text = "SAVE") {
-          viewModel.saveButtonPressed()
-        }
-
-      }
+      PerformanceSummarySection(rankingScore, viewModel::deleteButtonPressed, viewModel::saveButtonPressed, isLoaded)
 
     }
+  }
+}
+
+@Composable
+private fun PerformanceSummarySection(
+  rankingScore: String,
+  deleteButtonPressed: () -> Unit,
+  saveButtonPressed: () -> Unit,
+  isANewEntry: Boolean,
+) {
+  Row(Modifier.padding(top = 16.dp)) {
+    Box(modifier = Modifier
+      .fillMaxWidth()
+      .padding(bottom = 8.dp)) {
+      Text(modifier = Modifier
+        .align(Alignment.CenterStart),
+        style = MaterialTheme.typography.body1,
+        text = "Ranking Score:")
+
+      Text(modifier = Modifier
+        .align(Alignment.CenterEnd),
+        style = MaterialTheme.typography.body1,
+        text = rankingScore
+      )
+    }
+  }
+  Row(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalArrangement = Arrangement.SpaceBetween.takeIf { isANewEntry } ?: Arrangement.End
+  ) {
+
+    if (!isANewEntry) {
+      CustomButton(
+        text = "DELETE") {
+        deleteButtonPressed()
+      }
+    }
+    CustomButton(text = "SAVE") {
+      saveButtonPressed()
+    }
+
   }
 }
 
