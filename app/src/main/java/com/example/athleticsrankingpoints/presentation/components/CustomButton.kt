@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
-fun CustomButton(modifier:Modifier = Modifier, text: String, onButtonTap: () -> Unit) {
+fun CustomButton(modifier:Modifier = Modifier, text: String, borderColor:Color? = null, onButtonTap: () -> Unit) {
   OutlinedButton(
     //Ripple not working or not visible
     modifier = Modifier.clickable(
@@ -24,7 +24,7 @@ fun CustomButton(modifier:Modifier = Modifier, text: String, onButtonTap: () -> 
       indication = rememberRipple(radius = 30.dp)
     ),
     border = BorderStroke(
-      width = 2.dp, AthleticsRankingPointsTheme.colors.buttonBorder
+      width = 2.dp, borderColor ?: AthleticsRankingPointsTheme.colors.buttonBorder
     ),
     onClick = onButtonTap,
     colors = ButtonDefaults.outlinedButtonColors(

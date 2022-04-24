@@ -8,7 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.athleticsrankingpoints.WorldRankingScreen
+import com.example.athleticsrankingpoints.WorldRankingTabScreens
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData.Companion.NEW_ENTRY
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSimulatorView
@@ -33,26 +33,26 @@ fun WorldRankingNavHost(
 
   NavHost(
     navController = navHostController,
-    startDestination = WorldRankingScreen.PointLookUp.name,
+    startDestination = WorldRankingTabScreens.PointLookUp.name,
     modifier = modifier
   ) {
 
-    composable(route = WorldRankingScreen.PointLookUp.name) {
+    composable(route = WorldRankingTabScreens.PointLookUp.name) {
       PointLookUpBody()
     }
 
-    composable(route = WorldRankingScreen.Simulator.name) {
+    composable(route = WorldRankingTabScreens.Simulator.name) {
       EventGroupSelectorView(
         onNextClick = { eventGroup ->
           navigateToEventGroupSimulator(navHostController, eventGroup)
         })
     }
 
-    composable(route = WorldRankingScreen.Information.name) {
+    composable(route = WorldRankingTabScreens.Information.name) {
       InformationBody()
     }
 
-    composable(route = WorldRankingScreen.Performances.name) {
+    composable(route = WorldRankingTabScreens.Performances.name) {
       PerformancesBody(
         onPerformanceClick = { eventGroup, performanceName ->
           navigateToEventGroupSimulator(navHostController, eventGroup, performanceName)
@@ -77,6 +77,7 @@ fun WorldRankingNavHost(
 
       EventGroupSimulatorView(
         navigateToSavedPerformances = { navigateToPerformances(navHostController) },
+        navigateUp = { navHostController.navigateUp() },
         eventGroupName = eventGroupName,
         loadPerformanceName = performanceName
       )
@@ -85,7 +86,7 @@ fun WorldRankingNavHost(
 }
 
 private fun navigateToPerformances(navHostController: NavHostController) {
-  navHostController.navigate(WorldRankingScreen.Performances.name)
+  navHostController.navigate(WorldRankingTabScreens.Performances.name)
 }
 
 private fun navigateToEventGroupSimulator(

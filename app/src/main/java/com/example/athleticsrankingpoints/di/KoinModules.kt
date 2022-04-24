@@ -68,7 +68,7 @@ val viewModelsModule = module {
   viewModel { EventGroupSelectorViewModel(get()) }
 
   viewModel { params ->
-    EventGroupSimulatorViewModel(get(), simulatorDataModel = params.get(), get()) }
+    EventGroupSimulatorViewModel(get(), simulatorDTO = params.get(), get()) }
 
   viewModel { PerformancesViewModel(get()) }
 

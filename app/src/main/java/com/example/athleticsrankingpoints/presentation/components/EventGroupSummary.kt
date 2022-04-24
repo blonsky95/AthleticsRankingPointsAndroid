@@ -24,7 +24,7 @@ import com.example.athleticsrankingpoints.presentation.theme.white
 
 @ExperimentalAnimationApi
 @Composable
-fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGroup: EventGroup) {
+fun SelectedEventGroupInfo(modifier: Modifier, contentColor: Color = white, eventGroup: EventGroup) {
 
   var expanded by rememberSaveable {
     mutableStateOf(true)
@@ -121,6 +121,6 @@ fun EventGroupSummary(modifier: Modifier, contentColor: Color = white, eventGrou
 @Preview
 fun PreviewEventGroupSummary() {
   AthleticsRankingPointsTheme() {
-    EventGroupSummary(modifier = Modifier, eventGroup = EventGroup.getSampleEventGroup())
+    SelectedEventGroupInfo(modifier = Modifier, eventGroup = EventGroup.getSampleEventGroup())
   }
 }

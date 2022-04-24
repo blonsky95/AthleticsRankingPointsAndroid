@@ -9,15 +9,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -174,7 +170,7 @@ fun WindWithPoints(wind: String, points: String, onWindChange: (String) -> Unit)
     CustomInputField(
       customInputColors = CustomInputColors(),
       value = wind,
-      setMaxWidth = true,
+      canFillMaxWidth = true,
       hint = "0.0",
       onValueChange = onWindChange
     )
@@ -189,7 +185,7 @@ fun PlacementWithPoints(placementPoints: String, points: String, onPlacementsPoi
     CustomInputField(
       customInputColors = CustomInputColors(),
       value = placementPoints,
-      setMaxWidth = true,
+      canFillMaxWidth = true,
       hint = "0",
       onValueChange = onPlacementsPointsChange
     )

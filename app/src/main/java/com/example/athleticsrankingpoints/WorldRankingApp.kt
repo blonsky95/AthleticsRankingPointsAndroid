@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.athleticsrankingpoints.navigation.WorldRankingNavHost
-import com.example.athleticsrankingpoints.presentation.components.NavTabRow
+import com.example.athleticsrankingpoints.presentation.components.AppBottomBar
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 
@@ -18,23 +18,24 @@ fun WorldRankingApp(
 ) {
 //    AthleticsRankingPointsTheme {
 
-      val allScreens = WorldRankingScreen.values().toList()
+      val allScreens = WorldRankingTabScreens.values().toList()
       val navController = rememberNavController()
       val backstackEntry = navController.currentBackStackEntryAsState()
-      val currentScreen = WorldRankingScreen.fromRoute(
+      val currentScreen = WorldRankingTabScreens.fromRoute(
         backstackEntry.value?.destination?.route
       )
 
       Scaffold(
         backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen,
         bottomBar = {
-          NavTabRow(
-            allScreens = allScreens,
+          AppBottomBar(
+            navController = navController,
+            allTabScreens = allScreens,
             onTabSelected = { screen ->
               navController.navigate(screen.name){
-                popUpTo(WorldRankingScreen.PointLookUp.name) {inclusive = false}
+                popUpTo(WorldRankingTabScreens.PointLookUp.name) {inclusive = false}
               } },
-            currentScreen = currentScreen
+            currentTabScreen = currentScreen
           )
         },
       ) { innerPadding ->

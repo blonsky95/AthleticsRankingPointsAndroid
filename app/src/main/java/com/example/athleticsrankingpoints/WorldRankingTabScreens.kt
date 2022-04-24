@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.LooksOne
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 
-enum class WorldRankingScreen (
+enum class WorldRankingTabScreens (
   val icon: ImageVector
   ) {
 
@@ -25,7 +25,7 @@ enum class WorldRankingScreen (
   );
 
   companion object {
-    fun fromRoute(route: String?): WorldRankingScreen =
+    fun fromRoute(route: String?): WorldRankingTabScreens =
       when(route?.substringBefore("/")) {
         PointLookUp.name -> PointLookUp
         Simulator.name -> Simulator

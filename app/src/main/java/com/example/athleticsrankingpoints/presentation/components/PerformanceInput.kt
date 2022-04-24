@@ -75,7 +75,7 @@ fun ReworkedPerformanceInputUnit(
       customInputColors = customInputColors,
       isUnitValueValid = isUnitValueValid,
       value = unitValue,
-      setMaxWidth = false,
+      canFillMaxWidth = false,
       keyboardType = KeyboardType.Text,
       hint = "0",
       onValueChange = onValueChange

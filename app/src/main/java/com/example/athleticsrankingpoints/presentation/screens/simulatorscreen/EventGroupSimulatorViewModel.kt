@@ -1,5 +1,6 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +19,7 @@ import com.example.athleticsrankingpoints.toIntsArray
 import kotlinx.coroutines.launch
 import kotlin.math.floor
 
-data class SimulatorDataModel(
+data class SimulatorDTO(
   val eventGroupName: String,
   val loadPerformanceName: String
 )
@@ -29,7 +30,7 @@ data class SnackBarModel(
 )
 
 class EventGroupSimulatorViewModel(
-  eventGroupsRepository: EventGroupsRepository, private val simulatorDataModel: SimulatorDataModel,
+  eventGroupsRepository: EventGroupsRepository, private val simulatorDTO: SimulatorDTO,
   private val rankingScorePerformanceRepository: RankingScorePerformanceRepository
 ):ViewModel() {
 
@@ -45,20 +46,19 @@ class EventGroupSimulatorViewModel(
   )
   fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
 
-  private var isNewEntry = simulatorDataModel.loadPerformanceName==RankingScorePerformanceData.NEW_ENTRY
+  val isNewEntry: Boolean
+    get() = simulatorDTO.loadPerformanceName==RankingScorePerformanceData.NEW_ENTRY
 
-  private var totalSumOfPoints = 0
-//  get() =
 
   init {
     viewModelScope.launch {
-      eventGroupsRepository.getEventGroupByName(simulatorDataModel.eventGroupName)?.let {
+      eventGroupsRepository.getEventGroupByName(simulatorDTO.eventGroupName)?.let {
         selectedEventGroup.value=it
         listOfSelectedEvents.value = initListOfEvents(it.sMainEvent, it.sMinNumberPerformancesGroup)
         listOfPerformances.value=initListOfPerformances(it.getAllEventsInGroup().first())
       }
       if (!isNewEntry) {
-        rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDataModel.loadPerformanceName)?.let {
+        rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDTO.loadPerformanceName)?.let {
           loadedRankingScorePerformanceData=it
           loadAllLoadedValues(it)
         }

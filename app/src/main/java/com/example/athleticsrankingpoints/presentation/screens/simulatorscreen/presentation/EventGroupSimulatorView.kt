@@ -1,12 +1,10 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -25,21 +23,21 @@ import com.example.athleticsrankingpoints.Strings.CancelText
 import com.example.athleticsrankingpoints.Strings.DeletePerformanceDialogText
 import com.example.athleticsrankingpoints.Strings.NameOverwritePerformanceDialogText
 import com.example.athleticsrankingpoints.Strings.YesText
-import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
 import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.SimulatorDataModel
+import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.SimulatorDTO
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.presentation.theme.navyBlue
+import com.example.athleticsrankingpoints.presentation.theme.white
 import org.koin.core.parameter.parametersOf
 
 
 @ExperimentalAnimationApi
 @Composable
-fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupName: String, loadPerformanceName: String) {
+fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp: () -> Unit, eventGroupName: String, loadPerformanceName: String) {
 
-  val viewModel: EventGroupSimulatorViewModel = getViewModel(parameters = {parametersOf(SimulatorDataModel(eventGroupName, loadPerformanceName))})//INJECTED
+  val viewModel: EventGroupSimulatorViewModel = getViewModel(parameters = {parametersOf(SimulatorDTO(eventGroupName, loadPerformanceName))})//INJECTED
 
   val title by viewModel.getTitle().observeAsState("")
   val isTitleValid by viewModel.getIsTitleValid().observeAsState(true)
@@ -63,7 +61,8 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
   val showNameOverwriteDialog by viewModel.getShowNameOverwriteDialog().observeAsState(false)
   val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(null)
 
-  val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
+  val isNewEntry = viewModel.isNewEntry
+//  val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
 
 
   LaunchedEffect(placementPointsList,windsPointsList, performancePointsList){
@@ -100,29 +99,26 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
     Column(
       modifier = Modifier
         .background(color = AthleticsRankingPointsTheme.colors.backgroundComponent)
-        .padding(16.dp)
         .semantics { contentDescription = "Simulator Screen" }
 
     ) {
-      Spacer(modifier = Modifier.height(4.dp))
-      Row(modifier = Modifier.height(IntrinsicSize.Max), verticalAlignment = Alignment.CenterVertically) {
-        MyPerformanceTitle(title = title, isEditMode = isTitleInEditMode, isNameValid = isTitleValid, onValueChange = {viewModel.updateTitle(it)})
-        Spacer(modifier = Modifier.width(24.dp))
-        Image(painter = painterResource(id = R.drawable.ic_edit), contentDescription = "", modifier = Modifier.clickable {
-          viewModel.editTitlePressed()
-        })
+      BackButton {
+        navigateUp()
       }
+      Spacer(modifier = Modifier.height(4.dp))
+      PerformanceTitle(modifier= Modifier.padding(horizontal = 16.dp), title, isTitleInEditMode, isTitleValid, viewModel::updateTitle, viewModel::editTitlePressed)
 
       Spacer(modifier = Modifier.height(4.dp))
-      EventGroupSummary(
-        modifier = Modifier.padding(bottom = 16.dp),
+      SelectedEventGroupInfo(
+        modifier = Modifier.padding(horizontal = 16.dp),
         contentColor = navyBlue,
         eventGroup = eventGroup?: EventGroup.getSampleEventGroup()
       )
+      Spacer(modifier = Modifier.height(12.dp))
       PerformancesSimulatorList(
         modifier = Modifier
           .weight(1f)
-          .background(color = Color.Transparent, shape = RoundedCornerShape(4.dp)),
+          .padding(horizontal = 16.dp),
         performanceUnitAwareList = performanceList,
         perfPointsList = performancePointsList,
         windsList = windsList,
@@ -144,10 +140,21 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, eventGroupN
         }
 
       )
-
-      PerformanceSummarySection(rankingScore, viewModel::deleteButtonPressed, viewModel::saveButtonPressed, isLoaded)
+      PerformanceSummarySection(rankingScore, viewModel::deleteButtonPressed, viewModel::saveButtonPressed, isNewEntry)
+      Spacer(modifier = Modifier.height(16.dp))
 
     }
+  }
+}
+
+@Composable
+private fun PerformanceTitle(modifier: Modifier, title: String, isTitleInEditMode: Boolean, isTitleValid: Boolean, updateTitle: (String) -> Unit, editTitlePressed: () -> Unit) {
+  Row(modifier = modifier.height(IntrinsicSize.Max), verticalAlignment = Alignment.CenterVertically) {
+    MyPerformanceTitle(title = title, isEditMode = isTitleInEditMode, isNameValid = isTitleValid, onValueChange = { updateTitle(it) })
+    Spacer(modifier = Modifier.width(24.dp))
+    Image(painter = painterResource(id = if (!isTitleInEditMode) R.drawable.ic_edit else R.drawable.ic_confirm), contentDescription = "", modifier = Modifier.clickable {
+      editTitlePressed()
+    })
   }
 }
 
@@ -156,39 +163,42 @@ private fun PerformanceSummarySection(
   rankingScore: String,
   deleteButtonPressed: () -> Unit,
   saveButtonPressed: () -> Unit,
-  isANewEntry: Boolean,
+  isNewEntry: Boolean,
 ) {
-  Row(Modifier.padding(top = 16.dp)) {
-    Box(modifier = Modifier
+  Row(
+    modifier = Modifier
       .fillMaxWidth()
-      .padding(bottom = 8.dp)) {
-      Text(modifier = Modifier
-        .align(Alignment.CenterStart),
-        style = MaterialTheme.typography.body1,
-        text = "Ranking Score:")
+      .background(AthleticsRankingPointsTheme.colors.backgroundScreen)
+      .padding(vertical = 12.dp, horizontal = 16.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
+  ) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+      Text(
+        modifier = Modifier,
+        style = AthleticsRankingPointsTheme.typography.text3.white,
+        text = "Total Score: ".uppercase())
 
-      Text(modifier = Modifier
-        .align(Alignment.CenterEnd),
-        style = MaterialTheme.typography.body1,
+      Text(modifier = Modifier,
+        style = AthleticsRankingPointsTheme.typography.text2.white,
         text = rankingScore
       )
     }
-  }
-  Row(
-    modifier = Modifier.fillMaxWidth(),
-    horizontalArrangement = Arrangement.SpaceBetween.takeIf { isANewEntry } ?: Arrangement.End
-  ) {
-
-    if (!isANewEntry) {
-      CustomButton(
-        text = "DELETE") {
-        deleteButtonPressed()
+    Row {
+      if (!isNewEntry) {
+        CustomButton(
+          text = "DELETE",
+//          borderColor = AthleticsRankingPointsTheme.colors.errorRed
+          borderColor = Color.Red
+        ) {
+          deleteButtonPressed()
+        }
+      }
+      Spacer(modifier = Modifier.width(12.dp))
+      CustomButton(text = "SAVE") {
+        saveButtonPressed()
       }
     }
-    CustomButton(text = "SAVE") {
-      saveButtonPressed()
-    }
-
   }
 }
 
@@ -200,7 +210,8 @@ fun MyPerformanceTitle(title:String = "", isEditMode: Boolean, isNameValid: Bool
       customInputColors = CustomInputColors(),
       isUnitValueValid = isNameValid,
       value = title,
-      setMaxWidth = true,
+      canFillMaxWidth = true,
+      minWidthInDp = 192.dp,
       hint = "Name",
       onValueChange = onValueChange
     )
@@ -275,7 +286,7 @@ fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
 @Composable
 fun PreviewEventGroupSimulatorView() {
   AthleticsRankingPointsTheme() {
-    EventGroupSimulatorView(navigateToSavedPerformances = {}, eventGroupName = EventGroup.getSampleEventGroup().sName, loadPerformanceName = "")
+    EventGroupSimulatorView(navigateToSavedPerformances = {}, navigateUp = {}, eventGroupName = EventGroup.getSampleEventGroup().sName, loadPerformanceName = "")
   }
 }
 

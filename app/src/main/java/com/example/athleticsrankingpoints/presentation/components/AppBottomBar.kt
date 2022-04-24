@@ -23,36 +23,45 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.athleticsrankingpoints.WorldRankingScreen
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.athleticsrankingpoints.WorldRankingTabScreens
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import java.util.*
 
 @Composable
-fun NavTabRow(
-  allScreens: List<WorldRankingScreen>,
-  onTabSelected: (WorldRankingScreen) -> Unit,
-  currentScreen: WorldRankingScreen
+fun AppBottomBar(
+  navController: NavController,
+  allTabScreens: List<WorldRankingTabScreens>,
+  onTabSelected: (WorldRankingTabScreens) -> Unit,
+  currentTabScreen: WorldRankingTabScreens,
 ) {
 
-  Surface(
-    Modifier
-      .height(TabHeight)
-      .fillMaxWidth(),
-    color = AthleticsRankingPointsTheme.colors.selectedComponent
-  ) {
-    Row(Modifier.selectableGroup()) {
-      allScreens.forEach { screen ->
-        CustomTab(
-          text = screen.name,
-          icon = screen.icon,
-          onSelected = {onTabSelected(screen)},
-          selected = currentScreen==screen
-        )
+  val navBackStackEntry by navController.currentBackStackEntryAsState()
+  val currentRoute = navBackStackEntry?.destination?.route
+
+  val sections = remember { WorldRankingTabScreens.values() }
+  val routes = remember { sections.map{it.name} }
+
+  if (currentRoute in routes) {
+    Surface(
+      Modifier
+        .height(TabHeight)
+        .fillMaxWidth(),
+      color = AthleticsRankingPointsTheme.colors.selectedComponent
+    ) {
+      Row(Modifier.selectableGroup()) {
+        allTabScreens.forEach { screen ->
+          CustomTab(
+            text = screen.name,
+            icon = screen.icon,
+            onSelected = { onTabSelected(screen) },
+            selected = currentTabScreen == screen
+          )
+        }
       }
     }
-
   }
-
 }
 
 
@@ -61,7 +70,7 @@ fun CustomTab(
   text: String,
   icon: ImageVector,
   onSelected: () -> Unit,
-  selected: Boolean
+  selected: Boolean,
 ) {
   val color = AthleticsRankingPointsTheme.colors.textBlack
   val durationMillis = if (selected) TabFadeInAnimationDuration else TabFadeOutAnimationDuration
@@ -77,7 +86,7 @@ fun CustomTab(
     animationSpec = animSpec
   )
 
-  Row (
+  Row(
     modifier = Modifier
       .padding(16.dp)
       .animateContentSize()

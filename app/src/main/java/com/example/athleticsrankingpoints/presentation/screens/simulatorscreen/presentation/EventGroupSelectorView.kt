@@ -1,6 +1,5 @@
 package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,7 +9,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
 import com.example.athleticsrankingpoints.domain.interfaces.findById
@@ -46,7 +44,7 @@ fun EventGroupSelectorView(
 
     Spacer(modifier = Modifier.height(8.dp))
 
-    EventGroupSummary(modifier = Modifier.padding(bottom = 16.dp), eventGroup = selectedEventGroup)
+    SelectedEventGroupInfo(modifier = Modifier.padding(bottom = 16.dp), eventGroup = selectedEventGroup)
 
     SexRadioButtonSet(selectedSex = selectedSex, onSexSelectionChange = {
       viewModel.updateUIWithNewSexCategory(findById(it.id))

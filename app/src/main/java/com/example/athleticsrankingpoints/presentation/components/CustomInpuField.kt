@@ -16,10 +16,10 @@ import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
-fun CustomInputField(customInputColors: CustomInputColors, isUnitValueValid: Boolean = true, value: String, setMaxWidth:Boolean = false, keyboardType: KeyboardType = KeyboardType.Text, hint: String = "hint", onValueChange: (String) -> Unit) {
+fun CustomInputField(modifier: Modifier = Modifier, customInputColors: CustomInputColors, isUnitValueValid: Boolean = true, value: String, canFillMaxWidth:Boolean = false, minWidthInDp: Dp = 64.dp, keyboardType: KeyboardType = KeyboardType.Text, hint: String = "hint", onValueChange: (String) -> Unit) {
   BasicTextField(
-    modifier = Modifier
-      .widthIn(min = 64.dp, max = if (setMaxWidth) Dp.Unspecified else 96.dp)
+    modifier = modifier
+      .widthIn(min = minWidthInDp, max = if (canFillMaxWidth) Dp.Unspecified else 96.dp)
       .width(IntrinsicSize.Min)
       .fillMaxHeight()
       .background(customInputColors.valueTextBackground)
