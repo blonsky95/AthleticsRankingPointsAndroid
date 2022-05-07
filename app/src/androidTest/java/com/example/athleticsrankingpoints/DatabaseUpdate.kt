@@ -39,14 +39,14 @@ class DatabaseUpdate : KoinTest {
 
     val newRankingScore = "3000"
     val rankingScore = RankingScorePerformanceData.getSampleData()
-    rankingScoreDatabaseDao.insert(rankingScore)
+    rankingScoreDatabaseDao.insertPerformance(rankingScore)
     val entryName = rankingScore.name
-    val toBeUpdatedEntry = rankingScoreDatabaseDao.getByName(entryName)
+    val toBeUpdatedEntry = rankingScoreDatabaseDao.getPerformanceByName(entryName)
 
     toBeUpdatedEntry!!.rankingScore=newRankingScore
 
-    rankingScoreDatabaseDao.update(toBeUpdatedEntry)
-    val updatedEntry = rankingScoreDatabaseDao.getByName(entryName)
+    rankingScoreDatabaseDao.updatePerformance(toBeUpdatedEntry)
+    val updatedEntry = rankingScoreDatabaseDao.getPerformanceByName(entryName)
     assertEquals(newRankingScore, updatedEntry?.rankingScore)
   }
 }

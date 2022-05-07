@@ -38,9 +38,9 @@ class DatabaseInsert : KoinTest {
   @Throws(Exception::class)
   fun insertAndGetRankingScore() = runBlocking {
     val rankingScore = RankingScorePerformanceData.getSampleData()
-    rankingScoreDatabaseDao.insert(rankingScore)
+    rankingScoreDatabaseDao.insertPerformance(rankingScore)
 
-    val oneItem = rankingScoreDatabaseDao.getByName(rankingScore.name)
+    val oneItem = rankingScoreDatabaseDao.getPerformanceByName(rankingScore.name)
     assertEquals(oneItem?.name, rankingScore.name)
   }
 

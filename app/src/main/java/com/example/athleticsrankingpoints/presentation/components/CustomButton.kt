@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
-fun CustomButton(modifier:Modifier = Modifier, text: String, borderColor:Color? = null, onButtonTap: () -> Unit) {
+fun CustomButton(modifier:Modifier = Modifier, text: String, borderColor:Color? = null, backgroundColor:Color? = null, onButtonTap: () -> Unit) {
   OutlinedButton(
     //Ripple not working or not visible
     modifier = Modifier.clickable(
@@ -28,7 +28,7 @@ fun CustomButton(modifier:Modifier = Modifier, text: String, borderColor:Color? 
     ),
     onClick = onButtonTap,
     colors = ButtonDefaults.outlinedButtonColors(
-      backgroundColor = Color.Transparent,
+      backgroundColor = backgroundColor ?: Color.Transparent,
       contentColor = AthleticsRankingPointsTheme.colors.textWhite,
       disabledContentColor = Color(0xFF666699)
     ),

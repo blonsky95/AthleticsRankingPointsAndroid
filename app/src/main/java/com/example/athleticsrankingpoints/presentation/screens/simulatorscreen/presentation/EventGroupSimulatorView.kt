@@ -188,7 +188,6 @@ private fun PerformanceSummarySection(
       if (!isNewEntry) {
         CustomButton(
           text = "DELETE",
-//          borderColor = AthleticsRankingPointsTheme.colors.errorRed
           borderColor = Color.Red
         ) {
           deleteButtonPressed()
@@ -223,63 +222,7 @@ fun MyPerformanceTitle(title:String = "", isEditMode: Boolean, isNameValid: Bool
   }
 }
 
-@Composable
-fun DialogWindow(hideDialog: () -> Unit, dialogText: String = "Missing text", onConfirmDialog: () -> Unit) {
-    AlertDialog(
-      onDismissRequest = {
-        hideDialog()
-      },
-      title = {
-        Text(AttentionText)
-      },
-      text = {
-        Text(dialogText)
-      },
-      confirmButton = {
-        Button(
-          onClick = {
-            onConfirmDialog()
-            hideDialog()
-          },
-        ) {
-          Text(YesText)
-        }
-      },
-      dismissButton = {
-        Button(
-          onClick = {
-            hideDialog()
-          },
-        ) {
-          Text(CancelText)
-        }
-      },
-    )
-  }
 
-@Composable
-fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
-  AlertDialog(
-    onDismissRequest = {
-      hideDialog()
-    },
-    title = {
-      Text(AttentionText)
-    },
-    text = {
-      Text(dialogText)
-    },
-    confirmButton = {
-      Button(
-        onClick = {
-          hideDialog()
-        },
-      ) {
-        Text(CancelText)
-      }
-    }
-  )
-}
 
 @ExperimentalAnimationApi
 @Preview
