@@ -45,6 +45,7 @@ fun DialogWindow(hideDialog: () -> Unit, dialogText: String = "Missing text", on
 @Composable
 fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
   AlertDialog(
+    backgroundColor = AthleticsRankingPointsTheme.colors.backgroundComponent,
     onDismissRequest = {
       hideDialog()
     },

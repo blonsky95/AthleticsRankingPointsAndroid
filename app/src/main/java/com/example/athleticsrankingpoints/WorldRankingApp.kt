@@ -33,7 +33,7 @@ fun WorldRankingApp(
             allTabScreens = allScreens,
             onTabSelected = { screen ->
               navController.navigate(screen.name){
-                popUpTo(WorldRankingTabScreens.PointLookUp.name) {inclusive = false}
+                popUpTo(WorldRankingTabScreens.Home.name) {inclusive = false}
               } },
             currentTabScreen = currentScreen
           )

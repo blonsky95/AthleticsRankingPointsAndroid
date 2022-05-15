@@ -27,26 +27,6 @@ val darkColor4 = Color(0xFFBB86FC)
 val darkColor5 = Color(0xFF6200EE)
 val darkColor6 = Color(0xFF3700B3)
 
-fun lightColors(
-  backgroundScreen: Color = white,
-  backgroundComponent: Color = lightGrey,
-  selectedComponent: Color = darkGrey,
-  textBlack: Color = black,
-  textWhite: Color = white,
-  textTheme: Color = white,
-  errorRed: Color = Color.Red,
-  buttonBorder: Color = lilac
-) : AppColors = AppColors(
-  backgroundScreen,
-  backgroundComponent,
-  selectedComponent,
-  textBlack,
-  textWhite,
-  textTheme,
-  errorRed,
-  buttonBorder,
-  isLightTheme = true
-)
 
 fun darkColors(
   backgroundScreen: Color = navyBlue,
@@ -67,6 +47,27 @@ fun darkColors(
   errorRed,
   buttonBorder,
   isLightTheme = false
+)
+
+fun lightColors(
+  backgroundScreen: Color = white,
+  backgroundComponent: Color = lightGrey,
+  selectedComponent: Color = darkGrey,
+  textBlack: Color = black,
+  textWhite: Color = white,
+  textTheme: Color = white,
+  errorRed: Color = Color.Red,
+  buttonBorder: Color = lilac
+) : AppColors = AppColors(
+  backgroundScreen,
+  backgroundComponent,
+  selectedComponent,
+  textBlack,
+  textWhite,
+  textTheme,
+  errorRed,
+  buttonBorder,
+  isLightTheme = true
 )
 
 internal val LocalColors = staticCompositionLocalOf { darkColors() }

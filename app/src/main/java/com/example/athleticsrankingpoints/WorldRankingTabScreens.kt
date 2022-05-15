@@ -2,37 +2,39 @@ package com.example.athleticsrankingpoints
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Icecream
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LooksOne
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Calculate
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class WorldRankingTabScreens (
   val icon: ImageVector
   ) {
 
-  PointLookUp(
-    icon = Icons.Filled.Search
+  Home(
+    icon = Icons.Outlined.Home
   ),
-  Simulator(
-    icon = Icons.Filled.LooksOne,
+  Calculator(
+    icon = Icons.Outlined.Calculate,
   ),
-  Information(
-    icon = Icons.Filled.Info,
-  ),
-  Performances(
-    icon = Icons.Filled.Icecream
+//  Information(
+//    icon = Icons.Filled.Info,
+//  ),
+  Saved(
+    icon = Icons.Outlined.BookmarkBorder
   );
 
   companion object {
     fun fromRoute(route: String?): WorldRankingTabScreens =
       when(route?.substringBefore("/")) {
-        PointLookUp.name -> PointLookUp
-        Simulator.name -> Simulator
-        Information.name -> Information
-        Performances.name -> Performances
-        "EventGroupSimulator" -> Simulator
-        null -> PointLookUp
+        Home.name -> Home
+        Calculator.name -> Calculator
+//        Information.name -> Information
+        Saved.name -> Saved
+        "EventGroupSimulator" -> Calculator
+        null -> Home
         else -> throw IllegalArgumentException("Route $route is not recognized")
       }
 
