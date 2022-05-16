@@ -57,10 +57,17 @@
         <entry key="../../../../../../layout/compose-model-1650627690461.xml" value="0.7148148148148148" />
         <entry key="../../../../../../layout/compose-model-1650792436343.xml" value="0.4074074074074074" />
         <entry key="../../../../../../layout/compose-model-1651961585169.xml" value="0.3141891891891892" />
+        <entry key="../../../../../../layout/compose-model-1652705668413.xml" value="0.6064814814814815" />
+        <entry key="../../../../../../layout/compose-model-1652707086104.xml" value="0.6064814814814815" />
+        <entry key="../../../../../../layout/compose-model-1652739132880.xml" value="0.7231481481481481" />
+        <entry key="../../../../.gradle/caches/transforms-3/185b38221705dadb950fd739d6b52376/transformed/jetified-core-splashscreen-1.0.0-beta02/res/drawable-v23/compat_splash_screen.xml" value="0.279" />
+        <entry key="../../../../.gradle/caches/transforms-3/185b38221705dadb950fd739d6b52376/transformed/jetified-core-splashscreen-1.0.0-beta02/res/drawable-v23/compat_splash_screen_no_icon_background.xml" value="0.279" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.363" />
         <entry key="app/src/main/res/drawable/animated_icon_splash.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/app_icon.xml" value="0.363" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.28425925925925927" />
+        <entry key="app/src/main/res/drawable/ic_app_foreground.xml" value="0.2125" />
+        <entry key="app/src/main/res/drawable/ic_app_foreground_navy_blue.xml" value="0.2125" />
         <entry key="app/src/main/res/drawable/ic_arrow_down.xml" value="0.1885" />
         <entry key="app/src/main/res/drawable/ic_baseline_baby_changing_station_24.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_confirm.xml" value="0.2135" />

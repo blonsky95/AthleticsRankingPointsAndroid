@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.screens.lookupscreen
+package com.example.athleticsrankingpoints.presentation.screens.homescreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import com.example.athleticsrankingpoints.domain.models.*
 import kotlinx.coroutines.launch
 import kotlin.math.pow
 
-class LookUpViewModel(private val athleticsEventsRepository: AthleticsEventsRepository):ViewModel() {
+class HomeViewModel(private val athleticsEventsRepository: AthleticsEventsRepository):ViewModel() {
 
   val sampleFirstEvent = AthleticsEvent.getSampleEvent()
 

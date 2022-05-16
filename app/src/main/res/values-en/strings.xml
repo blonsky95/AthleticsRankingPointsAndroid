@@ -45,10 +45,7 @@
 
   <string name="performance_name_hint">Name</string>
 
-
   <!--  Dialogs -->
-
-
   <string name="dialog_error_name_length">Name of ranking score must be longer than 2 characters</string>
   <string name="dialog_error_min_event_performances">Not enough main event performances</string>
   <string name="dialog_confirm_delete">Confirm delete?</string>
@@ -66,6 +63,4 @@
   <string name="attention_text">Attention</string>
   <string name="yes_text">"Yes</string>
   <string name="cancel_text">"Cancel</string>
-
 </resources>
-

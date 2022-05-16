@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -69,7 +70,7 @@ fun AppBottomBar(
           allTabScreens.forEach { screen ->
             CustomTab(
               modifier = Modifier.weight(1f),
-              text = screen.name,
+              text = screen.getScreenName(LocalContext.current),
               icon = screen.icon,
               onSelected = { onTabSelected(screen) },
               selected = currentTabScreen == screen

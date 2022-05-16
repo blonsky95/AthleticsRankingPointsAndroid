@@ -1,12 +1,12 @@
-package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen
+package com.example.athleticsrankingpoints.presentation.screens.calculatorscreen
 
-import androidx.compose.runtime.MutableState
+import androidx.annotation.StringRes
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.athleticsrankingpoints.Strings
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
@@ -26,7 +26,7 @@ data class SimulatorDTO(
 
 data class SnackBarModel(
   var isShowing:Boolean,
-  var text:String
+  var stringResId: Int?
 )
 
 class EventGroupSimulatorViewModel(
@@ -34,7 +34,7 @@ class EventGroupSimulatorViewModel(
   private val rankingScorePerformanceRepository: RankingScorePerformanceRepository
 ):ViewModel() {
 
-  var snackBarModel =  mutableStateOf(SnackBarModel(false,""))
+  var snackBarModel =  mutableStateOf(SnackBarModel(false,null))
     private set
 
   private var size:Int = 0
@@ -88,10 +88,10 @@ class EventGroupSimulatorViewModel(
   )
   fun getShowNameOverwriteDialog() : LiveData<Boolean> = showNameOverwriteDialog
 
-  private var showErrorValidatingDialog:MutableLiveData<String?> = MutableLiveData(
-    null
+  private var showErrorValidatingDialog:MutableLiveData<Int> = MutableLiveData(
+    -1
   )
-  fun getShowErrorValidatingDialog() : LiveData<String?> = showErrorValidatingDialog
+  fun getShowErrorValidatingDialog() : LiveData<Int> = showErrorValidatingDialog
 
 
   private var scoreTitle = MutableLiveData("")
@@ -192,7 +192,7 @@ class EventGroupSimulatorViewModel(
   private suspend fun saveNewPerformanceToRepository() {
     val rankingScore = collectClassData()
     rankingScorePerformanceRepository.saveRankingScorePerformance(rankingScore)
-    showSnackBar(Strings.PerformanceSavedSuccesfullyText)
+    showSnackBar(R.string.toast_saved)
   }
 
   //UPDATING PERFORMANCE
@@ -207,7 +207,7 @@ class EventGroupSimulatorViewModel(
     loadedRankingScorePerformanceData?.let {
       rankingScorePerformanceRepository.updateRankingScorePerformance(collectClassData().copy(scoreId = it.scoreId))
     }
-    showSnackBar(Strings.PerformanceUpdatedSuccesfullyText)
+    showSnackBar(R.string.toast_updated)
   }
 
   //DELETE PERFORMANCE
@@ -223,7 +223,7 @@ class EventGroupSimulatorViewModel(
     loadedRankingScorePerformanceData?.let {
       rankingScorePerformanceRepository.deleteRankingScorePerformance(it)
     }
-    showSnackBar(Strings.PerformanceDeletedSuccesfullyText)
+    showSnackBar(R.string.toast_deleted)
   }
 
   //USER ACTIONS
@@ -236,14 +236,14 @@ class EventGroupSimulatorViewModel(
   }
 
   fun saveButtonPressed() =
-    getFieldValidation().takeIf { !it.isNullOrEmpty() }?.let { showDialogWithError(it) } ?: savePerformance()
+    getFieldValidation().takeIf { it>0 }?.let { showDialogWithError(it) } ?: savePerformance() //todo refactor this int id check
 
   fun deleteButtonPressed() {
     showDeleteDialog.value=true
   }
 
-  private fun showSnackBar(text: String) {
-    snackBarModel.value = SnackBarModel(true, text)
+  private fun showSnackBar(@StringRes stringRes: Int) {
+    snackBarModel.value = SnackBarModel(true, stringRes)
   }
 
   fun hideDeleteDialog() {
@@ -258,17 +258,17 @@ class EventGroupSimulatorViewModel(
     showErrorValidatingDialog.value=null
   }
 
-  private fun showDialogWithError(s: String) {
-    showErrorValidatingDialog.postValue(s)
+  private fun showDialogWithError(dialogErrorStringResInt: Int) {
+    showErrorValidatingDialog.postValue(dialogErrorStringResInt)
   }
 
-  private fun getFieldValidation(): String {
-    var errorMessage = ""
+  private fun getFieldValidation(): Int {
+    var errorMessage = -1
     if (scoreTitle.value?.length?:0 <= 2)  {
-      errorMessage = "Name of ranking score must be longer than 2 characters"
+      errorMessage = R.string.dialog_error_name_length
     }
     if (!isNumberPerformancesOfMainEventValid()) {
-      errorMessage = "Not enough main event performances"
+      errorMessage = R.string.dialog_error_min_event_performances
     }
     return errorMessage
   }

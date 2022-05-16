@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.screens.lookupscreen
+package com.example.athleticsrankingpoints.presentation.screens.homescreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -27,7 +27,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun PointLookUpBody() {
 
-  val viewModel: LookUpViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
+  val viewModel: HomeViewModel = getViewModel() //INJECTED //make sure you get the viewModel function from the koin lib
 
   val listOfEvents by viewModel.getListOfEvents().observeAsState(listOf())
 

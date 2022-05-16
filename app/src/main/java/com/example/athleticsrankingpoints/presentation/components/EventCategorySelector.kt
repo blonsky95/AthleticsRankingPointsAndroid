@@ -2,6 +2,7 @@ package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable

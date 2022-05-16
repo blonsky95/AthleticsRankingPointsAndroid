@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -54,12 +55,12 @@ fun CustomTwoRadioButtonGroup(
         Text(modifier = Modifier
           .border(width = 1.dp, color = buttonBorderColor)
           .background(color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.backgroundComponent else Transparent)
-          .padding(vertical = verticalPadding)
+          .padding(vertical = verticalPadding, horizontal = 2.dp)
           .fillMaxWidth(),
           style = AthleticsRankingPointsTheme.typography.text3.bold,
           color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.textBlack else AthleticsRankingPointsTheme.colors.textWhite,
           textAlign = TextAlign.Center,
-          text = it.getReadableText().uppercase())
+          text = it.getReadableText(LocalContext.current).uppercase())
       }
     }
   }

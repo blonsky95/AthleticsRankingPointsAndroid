@@ -1,8 +1,11 @@
 package com.example.athleticsrankingpoints.domain.models
 
+import android.content.Context
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.data.database.ATHLETICS_EVENTS_TABLE_NAME
+import com.example.athleticsrankingpoints.getResString
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.pow
@@ -51,10 +54,10 @@ data class AthleticsEvent (
     }?:-1
 
   //Use this function if you want the event name to display "(i)" for indoor.
-  fun getDoorInclusiveName():String {
+  fun getDoorInclusiveName(context: Context? = null):String {
     var string = sName
     if (sCategory.isIndoor()) {
-      string+=" (i)"
+      string+=" " + context?.getResString(R.string.door_indoor_short).orEmpty()
     }
     return string
   }

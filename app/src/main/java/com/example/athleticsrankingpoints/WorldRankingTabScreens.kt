@@ -1,5 +1,7 @@
 package com.example.athleticsrankingpoints
 
+import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Icecream
 import androidx.compose.material.icons.filled.LooksOne
@@ -10,21 +12,25 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class WorldRankingTabScreens (
-  val icon: ImageVector
+  val icon: ImageVector,
+  val nameResInt: Int
   ) {
 
   Home(
-    icon = Icons.Outlined.Home
+    icon = Icons.Outlined.Home,
+    nameResInt = R.string.screen_home
   ),
   Calculator(
     icon = Icons.Outlined.Calculate,
+    nameResInt = R.string.screen_calculator
   ),
 //  Information(
 //    icon = Icons.Filled.Info,
 //  ),
   Saved(
-    icon = Icons.Outlined.BookmarkBorder
-  );
+    icon = Icons.Outlined.BookmarkBorder,
+  nameResInt = R.string.screen_saved
+);
 
   companion object {
     fun fromRoute(route: String?): WorldRankingTabScreens =
@@ -39,5 +45,7 @@ enum class WorldRankingTabScreens (
       }
 
   }
+
+  fun getScreenName(context: Context) = context.getResString(this.nameResInt)
 
 }

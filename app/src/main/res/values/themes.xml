@@ -21,7 +21,7 @@
 
   <style name="Theme.App.Starting" parent="Theme.SplashScreen.IconBackground">
     <item name="windowSplashScreenBackground">#FFDCBE</item>
-    <item name="windowSplashScreenAnimatedIcon">@drawable/app_icon</item>
+    <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_foreground_navy_blue</item>
     <item name="postSplashScreenTheme">@style/Theme.AthleticsRankingPoints</item>  # Required.
   </style>
 

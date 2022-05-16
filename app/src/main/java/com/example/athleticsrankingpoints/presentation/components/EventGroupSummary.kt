@@ -11,7 +11,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.athleticsrankingpoints.R
@@ -29,6 +31,8 @@ fun SelectedEventGroupInfo(modifier: Modifier, contentColor: Color = white, even
   var expanded by rememberSaveable {
     mutableStateOf(true)
   }
+
+  val context = LocalContext.current
 
   Column (modifier = modifier){
     Row(
@@ -62,7 +66,7 @@ fun SelectedEventGroupInfo(modifier: Modifier, contentColor: Color = white, even
           .fillMaxWidth()
         ) {
             Text(
-              text = "Minimum number of performances: ",
+              text = stringResource(id = R.string.min_number_performances),
               style = AthleticsRankingPointsTheme.typography.text5,
               color = contentColor,
               modifier = Modifier
@@ -80,7 +84,7 @@ fun SelectedEventGroupInfo(modifier: Modifier, contentColor: Color = white, even
           .fillMaxWidth()
         ){
             Text(
-              text = "Minimum number of performances for main event: ",
+              text = stringResource(id = R.string.min_number_performances_main_event),
               style = AthleticsRankingPointsTheme.typography.text5,
               color = contentColor,
               modifier = Modifier
@@ -91,20 +95,10 @@ fun SelectedEventGroupInfo(modifier: Modifier, contentColor: Color = white, even
               color = contentColor,
               modifier = Modifier
             )
-          }
-
-
-        var listOfEventNamesInGroup = ""
-        val numberEvents = eventGroup.getAllEventsInGroup().size
-        eventGroup.getAllEventsInGroup().forEachIndexed{index, event ->
-          listOfEventNamesInGroup+=event.getDoorInclusiveName()
-          if (index<numberEvents-1) {
-            listOfEventNamesInGroup+=", "
-          }
         }
 
         Text(
-          text = "Events in group: $listOfEventNamesInGroup",
+          text = stringResource(id = R.string.events_in_group) + eventGroup.getAllEventsInGroup().joinToString { it.getDoorInclusiveName(context) },
           style = AthleticsRankingPointsTheme.typography.text5,
           color = contentColor,
           modifier = Modifier

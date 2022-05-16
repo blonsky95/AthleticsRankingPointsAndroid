@@ -1,0 +1,67 @@
+<resources>
+  <string name="app_name">Athletics Ranking Points</string>
+
+  <!--  Home-->
+  <string name="home_points">Puntos: </string>
+
+  <!--  Units-->
+  <string name="unit_seconds">Segundos</string>
+  <string name="unit_seconds_short">s</string>
+  <string name="unit_minutes">Minutos</string>
+  <string name="unit_minutes_short">m</string>
+  <string name="unit_hours">Horas</string>
+  <string name="unit_hours_short">h</string>
+  <string name="unit_metres">Metros</string>
+  <string name="unit_metres_short">m</string>
+  <string name="unit_points">Puntos</string>
+  <string name="unit_points_short">pts</string>
+
+  <!--  Sex-->
+  <string name="sex_female">Femenino</string>
+  <string name="sex_male">Masculino</string>
+
+  <!--  Door-->
+  <string name="door_indoor">Pista Cubierta</string>
+  <string name="door_indoor_short">(pc)</string>
+  <string name="door_outdoor">Aire Libre</string>
+
+
+  <!--  Screens-->
+  <string name="screen_home">Home</string>
+  <string name="screen_calculator">Calculator</string>
+  <string name="screen_saved">Saved</string>
+
+  <!--  Calculator-->
+  <string name="calculator_subtitle">Selecciona el grupo de pruebas</string>
+  <string name="min_number_performances">Numero de marcas mínimas: </string>
+  <string name="min_number_performances_main_event">Numero de marcas mínimas en prueba principal: </string>
+  <string name="events_in_group">Pruebas en grupo: </string>
+
+  <string name="total_score">Puntuacion Total: </string>
+
+  <string name="calculator_performance">Marca</string>
+  <string name="calculator_wind">Viento:</string>
+  <string name="calculator_placement">Puntos por puesto:</string>
+
+  <string name="performance_name_hint">Nombre</string>
+
+
+  <!--  Dialogs -->
+  <string name="dialog_error_name_length">El nombre debe ser mas largo que 2 caracteres.</string>
+  <string name="dialog_error_min_event_performances">No hay suficientes marcas de la prueba principal</string>
+  <string name="dialog_confirm_delete">Seguro que quieres eliminar esta marca?</string>
+  <string name="dialog_confirm_overwrite">Ya hay una marca con este nombre, quieres sobreescribirla?</string>
+
+  <!--  Toasts -->
+  <string name="toast_saved">Marca guardada</string>
+  <string name="toast_updated">Marca actualizada</string>
+  <string name="toast_deleted">Marca eliminada</string>
+
+  <!--  Buttons -->
+  <string name="continue_button">Continuar</string>
+  <string name="delete_button">"Eliminar</string>
+  <string name="save_button">"Guardar</string>
+  <string name="attention_text">Atención</string>
+  <string name="yes_text">"Si</string>
+  <string name="cancel_text">"Cancelar</string>
+</resources>

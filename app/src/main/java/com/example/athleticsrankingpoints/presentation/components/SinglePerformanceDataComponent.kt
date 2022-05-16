@@ -14,7 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,7 +61,9 @@ fun SinglePerformanceDataComponent(
     .border(1.dp, color = AthleticsRankingPointsTheme.colors.backgroundScreen)
   ) {
     TitleAndEventAndPoints(
-      modifier = Modifier.background(color = AthleticsRankingPointsTheme.colors.backgroundScreen).padding(8.dp),
+      modifier = Modifier
+        .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen)
+        .padding(8.dp),
       expanded, spinnerList, onEventChange, event, index, dropdownDrawable, performancePoints, windPoints, placementPoints,
       onSpinnerClick = {
         expanded=!expanded
@@ -93,7 +97,7 @@ private fun PerformanceDetails(
 ) {
   Column(modifier) {
     Text(
-      text = "Performance:",
+      text = "${stringResource(id = R.string.calculator_performance)}:",
       style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
     )
     Spacer(Modifier.height(2.dp))
@@ -101,14 +105,14 @@ private fun PerformanceDetails(
     Spacer(Modifier.height(4.dp))
     if (event.hasWind()) {
       Text(
-        text = "Wind:",
+        text = stringResource(id = R.string.calculator_wind),
         style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
       )
       WindWithPoints(wind = wind, points = windPoints, onWindChange = { onWindChange(index, it) })
       Spacer(Modifier.height(4.dp))
     }
     Text(
-      text = "Placement:",
+      text = stringResource(id = R.string.calculator_placement),
       style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
     )
     PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = { onPlacementChange(index, it) })
@@ -211,7 +215,7 @@ fun TextAndSpinner(
     verticalAlignment = Alignment.CenterVertically
   ) {
     Text(
-      text = "Performance #${index+1}",
+      text = "${stringResource(id = R.string.calculator_performance)} #${index+1}",
       style = AthleticsRankingPointsTheme.typography.text4.white
     )
     Spacer(modifier = Modifier.width(8.dp))
@@ -309,7 +313,7 @@ fun AthleticEventsDropDownList(
       horizontalArrangement = Arrangement.SpaceBetween
     ){ 
       Text(
-        text = selectedEvent.getDoorInclusiveName(),
+        text = selectedEvent.getDoorInclusiveName(LocalContext.current),
         color = AthleticsRankingPointsTheme.colors.textWhite,
         style = TextStyle(fontSize = 13.sp)
       ) 
@@ -331,7 +335,7 @@ fun AthleticEventsDropDownList(
         }) {
           Column {
             Text(
-              text = event.getDoorInclusiveName(),
+              text = event.getDoorInclusiveName(LocalContext.current),
               style = AthleticsRankingPointsTheme.typography.text4,
               color = Color.Black
             )

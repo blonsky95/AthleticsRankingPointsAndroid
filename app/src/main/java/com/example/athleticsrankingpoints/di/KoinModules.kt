@@ -9,10 +9,10 @@ import com.example.athleticsrankingpoints.data.repositories.RankingScorePerforma
 import com.example.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.example.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
-import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.LookUpViewModel
-import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesViewModel
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.homescreen.HomeViewModel
+import com.example.athleticsrankingpoints.presentation.screens.savedscreen.PerformancesViewModel
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.EventGroupSelectorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.EventGroupSimulatorViewModel
 import com.example.athleticsrankingpoints.presentation.screens.splashscreen.SplashViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -63,7 +63,7 @@ val reposModule = module {
 }
 
 val viewModelsModule = module {
-  viewModel { LookUpViewModel(get()) }
+  viewModel { HomeViewModel(get()) }
 
   viewModel { EventGroupSelectorViewModel(get()) }
 

@@ -11,10 +11,10 @@ import androidx.navigation.navArgument
 import com.example.athleticsrankingpoints.WorldRankingTabScreens
 import com.example.athleticsrankingpoints.data.entities.RankingScorePerformanceData.Companion.NEW_ENTRY
 import com.example.athleticsrankingpoints.domain.models.EventGroup
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSimulatorView
-import com.example.athleticsrankingpoints.presentation.screens.performancesscreen.PerformancesBody
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation.EventGroupSelectorView
-import com.example.athleticsrankingpoints.presentation.screens.lookupscreen.PointLookUpBody
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.presentation.EventGroupSimulatorView
+import com.example.athleticsrankingpoints.presentation.screens.savedscreen.PerformancesBody
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.presentation.EventGroupSelectorView
+import com.example.athleticsrankingpoints.presentation.screens.homescreen.PointLookUpBody
 
 //So what we are going to do here is, the NavHost wont be injected, or passed around through screens.
 //All the navigations will be here

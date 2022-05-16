@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
+package com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -9,14 +9,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.domain.interfaces.SelectableIdentifiable
 import com.example.athleticsrankingpoints.domain.interfaces.findById
 import com.example.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.example.athleticsrankingpoints.domain.models.AthleticsSex
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSelectorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.EventGroupSelectorViewModel
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.presentation.theme.beige
 import org.koin.androidx.compose.getViewModel
@@ -36,7 +38,7 @@ fun EventGroupSelectorView(
     .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen)
     .padding(16.dp)) {
     Text(
-      text = "Select your Event Group".uppercase(),
+      text = stringResource(id = R.string.calculator_subtitle).uppercase(),
       style = AthleticsRankingPointsTheme.typography.title3.beige,
       modifier = Modifier
         .align(Alignment.Start)
@@ -62,11 +64,10 @@ fun EventGroupSelectorView(
     Spacer(modifier = Modifier.height(16.dp))
 
     Box(modifier = Modifier.align(Alignment.End) ){
-      CustomButton(text = "Continue", onButtonTap = {
+      CustomButton(text = stringResource(id = R.string.continue_button), onButtonTap = {
         onNextClick(selectedEventGroup)
       })
     }
-
   }
 }
 

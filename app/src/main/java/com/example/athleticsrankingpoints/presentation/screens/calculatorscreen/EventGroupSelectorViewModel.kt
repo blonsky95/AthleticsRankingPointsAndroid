@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen
+package com.example.athleticsrankingpoints.presentation.screens.calculatorscreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,12 +1,12 @@
 package com.example.athleticsrankingpoints.presentation.components
 
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.athleticsrankingpoints.Strings
+import com.example.athleticsrankingpoints.R
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
@@ -18,7 +18,7 @@ fun DialogWindow(hideDialog: () -> Unit, dialogText: String = "Missing text", on
     },
     title = {
       Text(
-        text = Strings.AttentionText,
+        text = stringResource(id = R.string.attention_text),
         style = AthleticsRankingPointsTheme.typography.text3
       )
     },
@@ -29,13 +29,13 @@ fun DialogWindow(hideDialog: () -> Unit, dialogText: String = "Missing text", on
       )
     },
     confirmButton = {
-      CustomButton(text = Strings.YesText, backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen) {
+      CustomButton(text = stringResource(id = R.string.yes_text), backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen) {
         onConfirmDialog()
         hideDialog()
       }
     },
     dismissButton = {
-      CustomButton(text = Strings.CancelText, backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen, borderColor = Color.Red) {
+      CustomButton(text = stringResource(id = R.string.cancel_text), backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen, borderColor = Color.Red) {
         hideDialog()
       }
     },
@@ -51,7 +51,7 @@ fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
     },
     title = {
       Text(
-        text = Strings.AttentionText,
+        text = stringResource(id = R.string.attention_text),
         style = AthleticsRankingPointsTheme.typography.text3
       )
     },
@@ -62,7 +62,7 @@ fun AlertWindow(hideDialog: () -> Unit, dialogText: String = "Missing text") {
       )
     },
     confirmButton = {
-      CustomButton(text = Strings.YesText, backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen) {
+      CustomButton(text = stringResource(id = R.string.yes_text), backgroundColor = AthleticsRankingPointsTheme.colors.backgroundScreen) {
         hideDialog()
       }
     }

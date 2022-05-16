@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.screens.performancesscreen
+package com.example.athleticsrankingpoints.presentation.screens.savedscreen
 
 import android.util.Log
 import androidx.compose.foundation.background

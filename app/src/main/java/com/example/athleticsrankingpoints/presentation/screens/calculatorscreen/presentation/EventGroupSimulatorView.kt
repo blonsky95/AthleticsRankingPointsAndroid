@@ -1,4 +1,4 @@
-package com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.presentation
+package com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
@@ -16,17 +16,13 @@ import org.koin.androidx.compose.getViewModel
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.athleticsrankingpoints.R
-import com.example.athleticsrankingpoints.Strings.AttentionText
-import com.example.athleticsrankingpoints.Strings.CancelText
-import com.example.athleticsrankingpoints.Strings.DeletePerformanceDialogText
-import com.example.athleticsrankingpoints.Strings.NameOverwritePerformanceDialogText
-import com.example.athleticsrankingpoints.Strings.YesText
 import com.example.athleticsrankingpoints.domain.models.EventGroup
 import com.example.athleticsrankingpoints.presentation.components.*
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.EventGroupSimulatorViewModel
-import com.example.athleticsrankingpoints.presentation.screens.simulatorscreen.SimulatorDTO
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.EventGroupSimulatorViewModel
+import com.example.athleticsrankingpoints.presentation.screens.calculatorscreen.SimulatorDTO
 import com.example.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.example.athleticsrankingpoints.presentation.theme.navyBlue
 import com.example.athleticsrankingpoints.presentation.theme.white
@@ -59,11 +55,9 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
 
   val showDeleteDialog by viewModel.getShowDeleteDialog().observeAsState(false)
   val showNameOverwriteDialog by viewModel.getShowNameOverwriteDialog().observeAsState(false)
-  val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(null)
+  val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(-1)
 
   val isNewEntry = viewModel.isNewEntry
-//  val isLoaded = loadPerformanceName!=RankingScorePerformanceData.NEW_ENTRY
-
 
   LaunchedEffect(placementPointsList,windsPointsList, performancePointsList){
     viewModel.updateRankingScore()
@@ -76,23 +70,27 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
   ) {
     //todo refactor this into composables
     if (showDeleteDialog) {
-      DialogWindow(hideDialog = {viewModel.hideDeleteDialog()}, dialogText = DeletePerformanceDialogText) {
+      DialogWindow(hideDialog = {viewModel.hideDeleteDialog()}, dialogText = stringResource(id = R.string.dialog_confirm_delete)) {
         viewModel.confirmDeletePerformance()
         navigateToSavedPerformances()
       }
     }
     if (showNameOverwriteDialog) {
-      DialogWindow(hideDialog = {viewModel.hideNameOverwriteDialog()}, dialogText = NameOverwritePerformanceDialogText) {
+      DialogWindow(hideDialog = {viewModel.hideNameOverwriteDialog()}, dialogText = stringResource(id = R.string.dialog_confirm_overwrite)) {
         viewModel.confirmUpdatePerformance()
       }
     }
-    if (showErrorValidatingDialog!=null) {
-      AlertWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = showErrorValidatingDialog?:"Wops")
+    if (showErrorValidatingDialog>0) {
+      AlertWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = stringResource(id = showErrorValidatingDialog))
     }
 
     if (snackBarModel.isShowing) {
-      LaunchedEffect(snackBarModel) {
-        scaffoldState.snackbarHostState.showSnackbar(snackBarModel.text)
+      snackBarModel.stringResId?.let {
+        stringResource(it).let { snackbarText ->
+          LaunchedEffect(snackBarModel) {
+            scaffoldState.snackbarHostState.showSnackbar(snackbarText)
+          }
+        }
       }
     }
 
@@ -177,7 +175,7 @@ private fun PerformanceSummarySection(
       Text(
         modifier = Modifier,
         style = AthleticsRankingPointsTheme.typography.text3.white,
-        text = "Total Score: ".uppercase())
+        text = stringResource(id = R.string.total_score).uppercase())
 
       Text(modifier = Modifier,
         style = AthleticsRankingPointsTheme.typography.text2.white,
@@ -187,14 +185,14 @@ private fun PerformanceSummarySection(
     Row {
       if (!isNewEntry) {
         CustomButton(
-          text = "DELETE",
+          text = stringResource(id = R.string.delete_button).uppercase(),
           borderColor = Color.Red
         ) {
           deleteButtonPressed()
         }
       }
       Spacer(modifier = Modifier.width(12.dp))
-      CustomButton(text = "SAVE") {
+      CustomButton(text = stringResource(id = R.string.save_button).uppercase()) {
         saveButtonPressed()
       }
     }

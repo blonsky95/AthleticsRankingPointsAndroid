@@ -1,5 +1,8 @@
 package com.example.athleticsrankingpoints
 
+import android.content.Context
+import androidx.annotation.StringRes
+
 fun String.toIntOrZero():Int {
   return toIntOrNull() ?: 0
 }
@@ -24,3 +27,5 @@ fun List<String>.toIntsArray() : List<Int> {
   }
   return intArrayList
 }
+
+fun Context.getResString(@StringRes stringRes: Int) = this.resources.getString(stringRes)
