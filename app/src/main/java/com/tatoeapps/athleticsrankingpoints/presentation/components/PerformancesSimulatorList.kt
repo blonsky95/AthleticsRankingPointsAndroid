@@ -17,12 +17,12 @@ fun PerformancesSimulatorList(
   perfPointsList : List<String>,
   windsList: List<String>,
   windPointsList : List<String>,
-  placementPointsList: List<String>,
+  placementPointsList: List<PerformancePlacementDetails>,
   selectedEventsList: List<AthleticsEvent>,
   spinnerList: List<AthleticsEvent>,
   onEventChange: (Int, AthleticsEvent) -> Unit,
   onPerformanceChange: (Int, PerformanceUnitsAware) -> Unit,
-  onPlacementChange: (Int, String) -> Unit,
+  onPlacementChange: (Int, PerformancePlacementDetails) -> Unit,
   onWindChange: (Int, String) -> Unit,
 ) {
   LazyColumn(modifier = modifier) {
@@ -34,7 +34,7 @@ fun PerformancesSimulatorList(
         performancePoints = perfPointsList[index],
         wind = windsList[index],
         windPoints = windPointsList[index],
-        placementPoints = placementPointsList[index],
+        performancePlacementDetails = placementPointsList[index],
         spinnerList = spinnerList,
         onEventChange = onEventChange,
         onPerformanceChange = onPerformanceChange,

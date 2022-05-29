@@ -6,11 +6,13 @@ import androidx.room.TypeConverters
 import com.tatoeapps.athleticsrankingpoints.data.DataConverter
 import com.tatoeapps.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryGroup
 import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
 
 const val PERFORMANCES_TABLE_NAME = "Ranking_score_performances"
 const val ATHLETICS_EVENTS_TABLE_NAME = "Athletics_events"
 const val EVENT_GROUPS_TABLE_NAME = "Events_groups"
+const val COMPETITION_CATEGORY_TABLE_NAME = "Competition_categories"
 
 @Database(
   version = 1,
@@ -18,6 +20,7 @@ const val EVENT_GROUPS_TABLE_NAME = "Events_groups"
     RankingScorePerformanceData::class,
     AthleticsEvent::class,
     EventGroup::class,
+    CompetitionCategoryGroup::class,
   ],
 //  autoMigrations = [
 //    AutoMigration(from = 2, to = 3)

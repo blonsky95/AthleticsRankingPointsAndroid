@@ -49,6 +49,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
   val windsPointsList by viewModel.getListOfWindsPoints().observeAsState(listOf())
   val selectedEventsList by viewModel.getListOfSelectedEvents().observeAsState(listOf())
   val placementPointsList by viewModel.getListOfPlacementPoints().observeAsState(listOf())
+  val placementPerformanceDetailsList by viewModel.getListOfPlacementPerformanceDetails().observeAsState(listOf())
 
   val snackBarModel by viewModel.snackBarModel
   val scaffoldState = rememberScaffoldState()
@@ -122,7 +123,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
         windsList = windsList,
         windPointsList = windsPointsList,
         selectedEventsList = selectedEventsList,
-        placementPointsList = placementPointsList,
+        placementPointsList = placementPerformanceDetailsList,
         spinnerList = eventGroup!!.getAllEventsInGroup(),
         onEventChange = {index, event ->
           viewModel.updateSelectedEvent(index = index, event = event)
@@ -131,7 +132,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
           viewModel.updatePerformancesList(index = index, performance = perf)
         },
         onPlacementChange = {index, placement ->
-          viewModel.updatePlacementPointsList(index = index, points = placement)
+          viewModel.updatePlacementPointsList(index = index, points = placement.totalPoints ?: "0")
         },
         onWindChange = {index, wind ->
           viewModel.updateWindList(index = index, wind = wind)

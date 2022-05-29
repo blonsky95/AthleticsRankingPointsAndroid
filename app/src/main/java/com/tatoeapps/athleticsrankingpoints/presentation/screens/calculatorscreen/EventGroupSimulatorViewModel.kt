@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tatoeapps.athleticsrankingpoints.R
 import com.tatoeapps.athleticsrankingpoints.data.entities.RankingScorePerformanceData
+import com.tatoeapps.athleticsrankingpoints.domain.interfaces.CompetitionCategoryGroupRepository
 import com.tatoeapps.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.tatoeapps.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
-import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.tatoeapps.athleticsrankingpoints.domain.models.*
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getSampleEvent
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getWindPoints
-import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
-import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
+import com.tatoeapps.athleticsrankingpoints.presentation.components.PerformancePlacementDetails
 import com.tatoeapps.athleticsrankingpoints.toIntsArray
 import kotlinx.coroutines.launch
 import kotlin.math.floor
@@ -31,7 +31,8 @@ data class SnackBarModel(
 
 class EventGroupSimulatorViewModel(
   eventGroupsRepository: EventGroupsRepository, private val simulatorDTO: SimulatorDTO,
-  private val rankingScorePerformanceRepository: RankingScorePerformanceRepository
+  private val rankingScorePerformanceRepository: RankingScorePerformanceRepository,
+  private val competitionCategoryGroupsRepository: CompetitionCategoryGroupRepository
 ):ViewModel() {
 
   var snackBarModel =  mutableStateOf(SnackBarModel(false,null))
@@ -55,7 +56,12 @@ class EventGroupSimulatorViewModel(
       eventGroupsRepository.getEventGroupByName(simulatorDTO.eventGroupName)?.let {
         selectedEventGroup.value=it
         listOfSelectedEvents.value = initListOfEvents(it.sMainEvent, it.sMinNumberPerformancesGroup)
-        listOfPerformances.value=initListOfPerformances(it.getAllEventsInGroup().first())
+        listOfPerformances.value = initListOfPerformances(it.getAllEventsInGroup().first())
+        competitionCategoryGroupsRepository.getCompetitionCategoryGroupByName(
+          CompetitionCategoryEventGroup.getEnumFromEventGroupId(it.sWorldRankingCompetitionCategory)
+        )?.let { ccg ->
+          listOfPlacementPerformanceDetails.value = initListOfPlacements(ccg)
+        }
       }
       if (!isNewEntry) {
         rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDTO.loadPerformanceName)?.let {
@@ -125,6 +131,10 @@ class EventGroupSimulatorViewModel(
     initListOfInts())
   fun getListOfPlacementPoints() : LiveData<List<String>> = listOfPlacementPoints
 
+  private var listOfPlacementPerformanceDetails = MutableLiveData(
+    initListOfPlacements())
+  fun getListOfPlacementPerformanceDetails() : LiveData<List<PerformancePlacementDetails>> = listOfPlacementPerformanceDetails
+
   private var listOfSelectedEvents = MutableLiveData(
     initListOfEvents(athleticsEvent = selectedEventGroup.value?.sMainEvent?: getSampleEvent(), size = selectedEventGroup.value?.sMinNumberPerformancesGroup?:1))
   fun getListOfSelectedEvents() : LiveData<List<AthleticsEvent>> = listOfSelectedEvents
@@ -158,6 +168,20 @@ class EventGroupSimulatorViewModel(
     }
     return array1
   }
+
+  private fun initListOfPlacements(competitionCategoryGroup: CompetitionCategoryGroup? = null): List<PerformancePlacementDetails> {
+    size = selectedEventGroup.value!!.sMinNumberPerformancesGroup
+    val array1 = arrayListOf<PerformancePlacementDetails>()
+    for (index in 1..size) {
+      array1.add(
+        PerformancePlacementDetails(
+          competitionCategoryGroup?:CompetitionCategoryGroup.getDefault()
+        )
+      )
+    }
+    return array1
+  }
+
 
   private fun initListOfPerformances(event: AthleticsEvent = getSampleEvent()): List<PerformanceUnitsAware> {
     size = selectedEventGroup.value!!.sMinNumberPerformancesGroup
@@ -299,6 +323,7 @@ class EventGroupSimulatorViewModel(
       winds = listOfWinds.value!!,
       windsPoints = listOfWindsPoints.value!!,
       placementPoints = listOfPlacementPoints.value!!,
+      placementDetails = listOfPlacementPerformanceDetails.value!!,
       selectedEvents = listOfSelectedEvents.value!!,
       rankingScore = computeRankingScore()
     )

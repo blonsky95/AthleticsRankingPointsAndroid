@@ -34,11 +34,11 @@ fun SinglePerformanceDataComponent(
   performancePoints: String,
   wind: String,
   windPoints: String,
-  placementPoints: String,
+  performancePlacementDetails: PerformancePlacementDetails,
   spinnerList: List<AthleticsEvent>,
   onEventChange: (Int, AthleticsEvent) -> Unit,
   onPerformanceChange: (Int, PerformanceUnitsAware) -> Unit,
-  onPlacementChange: (Int, String) -> Unit,
+  onPlacementChange: (Int, PerformancePlacementDetails) -> Unit,
   onWindChange: (Int, String) -> Unit,
   ) {
 
@@ -58,7 +58,7 @@ fun SinglePerformanceDataComponent(
       modifier = Modifier
         .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen)
         .padding(8.dp),
-      expanded, spinnerList, onEventChange, event, index, dropdownDrawable, performancePoints, windPoints, placementPoints,
+      expanded, spinnerList, onEventChange, event, index, dropdownDrawable, performancePoints, windPoints, performancePlacementDetails.totalPoints?.toString()?:"0",
       onSpinnerClick = {
         expanded=!expanded
       },
@@ -69,7 +69,7 @@ fun SinglePerformanceDataComponent(
     Spacer(Modifier.height(2.dp))
     PerformanceDetails(
       Modifier.padding(8.dp),
-      performanceUnitsAware, performancePoints, onPerformanceChange, index, event, wind, windPoints, onWindChange, placementPoints, onPlacementChange
+      performanceUnitsAware, performancePoints, onPerformanceChange, index, event, wind, windPoints, onWindChange, performancePlacementDetails, onPlacementChange
     )
   }
 
@@ -86,8 +86,8 @@ private fun PerformanceDetails(
   wind: String,
   windPoints: String,
   onWindChange: (Int, String) -> Unit,
-  placementPoints: String,
-  onPlacementChange: (Int, String) -> Unit,
+  performancePlacementDetails: PerformancePlacementDetails,
+  onPlacementChange: (Int, PerformancePlacementDetails) -> Unit,
 ) {
   Column(modifier) {
     Text(
@@ -109,8 +109,13 @@ private fun PerformanceDetails(
       text = stringResource(id = R.string.calculator_placement),
       style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
     )
-    PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = { onPlacementChange(index, it) })
+    PlacementWithPoints2(
+      performancePlacementDetails = performancePlacementDetails,
+      onPlacementsPointsChange = {onPlacementChange(index,it)})
+//    PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = { onPlacementChange(index, it) })
   }
+//      PlacementWithPoints(placementPoints = placementPoints, points = placementPoints, onPlacementsPointsChange = { onPlacementChange(index, it) })
+
 }
 
 @Composable
@@ -343,27 +348,27 @@ fun AthleticEventsDropDownList(
   }
 }
 
-@Composable
-@Preview
-fun PreviewSinglePerformanceDataComponent() {
-  MaterialTheme {
-    SinglePerformanceDataComponent(
-
-      spinnerList = AthleticsEvent.getThreeSampleEvents(),
-      onEventChange =
-    {index, event ->
-      //do nothing
-    },
-      index = 0,
-      event = AthleticsEvent.getSampleEvent(),
-      performanceUnitsAware = PerformanceUnitsAware.getDefault(perfValue = "10.55"),
-      performancePoints = "502",
-      wind = "1.2",
-      windPoints = "0",
-      placementPoints = "45",
-      onWindChange = {index, string -> },
-      onPlacementChange = {index, string -> },
-      onPerformanceChange = {index, pua -> }
-      )
-  }
-}
+//@Composable
+//@Preview
+//fun PreviewSinglePerformanceDataComponent() {
+//  MaterialTheme {
+//    SinglePerformanceDataComponent(
+//
+//      spinnerList = AthleticsEvent.getThreeSampleEvents(),
+//      onEventChange =
+//    {index, event ->
+//      //do nothing
+//    },
+//      index = 0,
+//      event = AthleticsEvent.getSampleEvent(),
+//      performanceUnitsAware = PerformanceUnitsAware.getDefault(perfValue = "10.55"),
+//      performancePoints = "502",
+//      wind = "1.2",
+//      windPoints = "0",
+//      placementPoints = "45",
+//      onWindChange = {index, string -> },
+//      onPlacementChange = {index, string -> },
+//      onPerformanceChange = {index, pua -> }
+//      )
+//  }
+//}

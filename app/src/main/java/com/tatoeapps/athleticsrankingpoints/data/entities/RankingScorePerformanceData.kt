@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 import com.tatoeapps.athleticsrankingpoints.data.cache.Cacheable
 import com.tatoeapps.athleticsrankingpoints.data.database.PERFORMANCES_TABLE_NAME
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryGroup
 import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
 import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
+import com.tatoeapps.athleticsrankingpoints.presentation.components.PerformancePlacementDetails
 import java.util.*
 import kotlin.math.floor
 
@@ -27,6 +29,7 @@ data class RankingScorePerformanceData(
   val winds: List<String>,
   val windsPoints: List<String>,
   val placementPoints: List<String>,
+  val placementDetails: List<PerformancePlacementDetails>,
   val selectedEvents: List<AthleticsEvent>,
   var rankingScore: String
 ) :Cacheable {
@@ -57,6 +60,7 @@ data class RankingScorePerformanceData(
         winds = listOf("0.0","0.0","0.0","0.0","0.0",),
         windsPoints = listOf("0","0","0","0","0",),
         placementPoints = listOf("0","0","0","0","0",),
+        placementDetails = listOf(PerformancePlacementDetails(CompetitionCategoryGroup.getDefault())),
         selectedEvents = listOf(AthleticsEvent.getSampleEvent(),AthleticsEvent.getSampleEvent(),AthleticsEvent.getSampleEvent(),AthleticsEvent.getSampleEvent(),AthleticsEvent.getSampleEvent(),),
         rankingScore = "1234"
       )

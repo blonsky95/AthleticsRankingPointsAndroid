@@ -2,10 +2,7 @@ package com.tatoeapps.athleticsrankingpoints.data.database
 
 import androidx.room.*
 import com.tatoeapps.athleticsrankingpoints.data.entities.RankingScorePerformanceData
-import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
-import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEventCategory
-import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsSex
-import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
+import com.tatoeapps.athleticsrankingpoints.domain.models.*
 
 @Dao
 interface RankingScoreDatabaseDao {
@@ -50,6 +47,24 @@ interface RankingScoreDatabaseDao {
 
   @Insert
   suspend fun insertAllEventGroups(eventGroup: List<EventGroup>)
+
+  /*
+  COMPETITION CATEGORIES
+ */
+  @Query("SELECT * from $COMPETITION_CATEGORY_TABLE_NAME")
+  fun getAllCompetitionCategoryGroups(): List<CompetitionCategoryGroup>
+
+  @Query("SELECT * from $COMPETITION_CATEGORY_TABLE_NAME LIMIT 1")
+  suspend fun getFirstCompetitionCategoryGroup(): CompetitionCategoryGroup?
+
+  @Query("SELECT * from $COMPETITION_CATEGORY_TABLE_NAME where sName = :name")
+  suspend fun getCompetitionCategoryGroupByName(name: String) : CompetitionCategoryGroup?
+
+  @Insert
+  suspend fun insertCompetitionCategoryGroup(competitionCategoryGroup: CompetitionCategoryGroup)
+
+  @Insert
+  suspend fun insertAllCompetitionCategoryGroups(competitionCategoryGroups: List<CompetitionCategoryGroup>)
 
   /*
   RANKING SCORE PERFORMANCE DATA

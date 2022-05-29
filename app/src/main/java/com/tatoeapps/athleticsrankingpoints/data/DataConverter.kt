@@ -6,6 +6,8 @@ import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
 import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryData
+import com.tatoeapps.athleticsrankingpoints.presentation.components.PerformancePlacementDetails
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -27,6 +29,20 @@ class DataConverter {
     @TypeConverter
     fun jsonStringToPerformanceUnitsAware(value: String) : List<PerformanceUnitsAware> =
         Gson().fromJson(value, object : TypeToken<List<PerformanceUnitsAware>>() {}.type)
+
+    @TypeConverter
+    fun performancePlacementDetailsToJsonString(value: List<PerformancePlacementDetails>): String = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonStringToPerformancePlacementDetails(value: String) : List<PerformancePlacementDetails> =
+        Gson().fromJson(value, object : TypeToken<List<PerformancePlacementDetails>>() {}.type)
+
+    @TypeConverter
+    fun competitionCategoryToJsonString(value: List<CompetitionCategoryData>): String = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonStringToCompetitionCategory(value: String) : List<CompetitionCategoryData> =
+        Gson().fromJson(value, object : TypeToken<List<CompetitionCategoryData>>() {}.type)
 
     @TypeConverter
     fun listToJsonString(value: List<String>?): String = Gson().toJson(value)

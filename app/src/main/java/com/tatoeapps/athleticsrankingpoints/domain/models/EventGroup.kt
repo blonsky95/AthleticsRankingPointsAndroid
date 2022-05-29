@@ -9,6 +9,7 @@ class EventGroup (
   @PrimaryKey
   val sName:String,
   val sMainEvent: AthleticsEvent,
+  val sWorldRankingCompetitionCategory: String,
   val sSimilarEvents: List<AthleticsEvent>,
   val sSex:AthleticsSex,
   val sMinNumberPerformancesGroup: Int,
@@ -22,6 +23,7 @@ class EventGroup (
       return EventGroup(
         sName="Sample group",
         sMainEvent = AthleticsEvent.getSampleEvent(),
+        sWorldRankingCompetitionCategory = CompetitionCategoryEventGroup.MAIN.eventGroupId,
         sSimilarEvents  = listOf(),
         sSex = AthleticsSex.Male,
         sMinNumberPerformancesMainEvent = 3,

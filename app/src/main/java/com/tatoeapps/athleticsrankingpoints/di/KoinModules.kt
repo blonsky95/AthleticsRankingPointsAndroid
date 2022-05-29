@@ -4,9 +4,11 @@ import androidx.room.Room
 import com.tatoeapps.athleticsrankingpoints.data.database.RankingScoreDatabase
 import com.tatoeapps.athleticsrankingpoints.data.entities.RankingScorePerformanceData
 import com.tatoeapps.athleticsrankingpoints.data.repositories.AthleticsEventsRepositoryImpl
+import com.tatoeapps.athleticsrankingpoints.data.repositories.CompetitionCategoryGroupsRepositoryImpl
 import com.tatoeapps.athleticsrankingpoints.data.repositories.EventGroupsRepositoryImpl
 import com.tatoeapps.athleticsrankingpoints.data.repositories.RankingScorePerformanceRepositoryImpl
 import com.tatoeapps.athleticsrankingpoints.domain.interfaces.AthleticsEventsRepository
+import com.tatoeapps.athleticsrankingpoints.domain.interfaces.CompetitionCategoryGroupRepository
 import com.tatoeapps.athleticsrankingpoints.domain.interfaces.EventGroupsRepository
 import com.tatoeapps.athleticsrankingpoints.domain.interfaces.RankingScorePerformanceRepository
 import com.tatoeapps.athleticsrankingpoints.presentation.screens.homescreen.HomeViewModel
@@ -21,6 +23,7 @@ import org.koin.dsl.module
 
 const val allAthleticsEventsJsonFileName = "all_events.json"
 const val allEventGroupsJsonFileName = "event_groups.json"
+const val allCompetitionCategoryGroupsJsonFileName = "placement_points.json"
 const val DATABASE_NAME = "ranking_score_database"
 
 
@@ -60,6 +63,13 @@ val reposModule = module {
       cache = getCache()
     )
   }
+
+  single <CompetitionCategoryGroupRepository>{
+    CompetitionCategoryGroupsRepositoryImpl(
+      applicationContext = androidContext(),
+      get()
+    )
+  }
 }
 
 val viewModelsModule = module {
@@ -68,7 +78,7 @@ val viewModelsModule = module {
   viewModel { EventGroupSelectorViewModel(get()) }
 
   viewModel { params ->
-    EventGroupSimulatorViewModel(get(), simulatorDTO = params.get(), get()) }
+    EventGroupSimulatorViewModel(get(), simulatorDTO = params.get(), get(), get()) }
 
   viewModel { PerformancesViewModel(get()) }
 
