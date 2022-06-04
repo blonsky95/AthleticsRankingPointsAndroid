@@ -9,7 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -18,6 +17,7 @@ import com.tatoeapps.athleticsrankingpoints.R
 import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategory
 import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryGroup
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
+import com.tatoeapps.athleticsrankingpoints.presentation.theme.beige
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.lilac
 
 data class PerformancePlacementDetails(
@@ -54,7 +54,6 @@ fun PlacementWithPoints2(
 
   MyCustomTwoComposableRow {
     Row() {
-
       PlacementCompetitionCategoryDropDownList(
         expanded = categoryExpanded,
         categories = performancePlacementDetails.competitionCategoryGroup.sCategories.map { CompetitionCategory.valueOf(it.sName) },
@@ -134,9 +133,9 @@ fun PlacementCompetitionCategoryDropDownList(
   onSelectionChange: (CompetitionCategory) -> Unit,
   onDismissRequest: () -> Unit,
 ) {
-  Column(modifier = modifier) {
+  Column(Modifier.height(IntrinsicSize.Max)) {
     Row(
-      modifier = Modifier
+      modifier = modifier
         .padding(vertical = 4.dp)
         .widthIn(min = 48.dp)
         .background(color = lilac.copy(alpha = 0.5f))
@@ -147,18 +146,22 @@ fun PlacementCompetitionCategoryDropDownList(
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
       Text(
+        modifier = Modifier.padding(4.dp),
         text = selectedCategory.name,
         color = AthleticsRankingPointsTheme.colors.textBlack,
         style = TextStyle(fontSize = 13.sp)
       )
       Icon(
-        modifier = Modifier.size(16.dp),
+        modifier = Modifier
+          .size(28.dp)
+          .padding(6.dp),
         painter = painterResource(id = dropdownDrawable),
         tint = AthleticsRankingPointsTheme.colors.textBlack,
         contentDescription = ""
       )
     }
     DropdownMenu(
+      modifier = Modifier.background(AthleticsRankingPointsTheme.colors.backgroundScreen),
       expanded = expanded,
       onDismissRequest = { onDismissRequest() }
     ) {
@@ -168,20 +171,15 @@ fun PlacementCompetitionCategoryDropDownList(
           onDisplayClicked(false)
         }) {
           Column {
-            Text(
-              text = category.name,
-              style = AthleticsRankingPointsTheme.typography.text4,
-              color = Color.Black
-            )
-            Divider(
-              color = Color.Black,
-            )
+            DropdownItem(category.categoryName)
           }
         }
       }
     }
   }
 }
+
+
 
 @Composable
 fun PlacementPositionDropDownList(
@@ -195,9 +193,9 @@ fun PlacementPositionDropDownList(
   onSelectionChange: (Int) -> Unit,
   onDismissRequest: () -> Unit,
 ) {
-  Column(modifier = modifier) {
+  Column(Modifier.height(IntrinsicSize.Max)) {
     Row(
-      modifier = Modifier
+      modifier = modifier
         .padding(vertical = 4.dp)
         .widthIn(min = 48.dp)
         .background(color = lilac.copy(alpha = 0.5f))
@@ -208,18 +206,22 @@ fun PlacementPositionDropDownList(
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
       Text(
+        modifier = Modifier.padding(4.dp),
         text = selectedPosition.toString(),
         color = AthleticsRankingPointsTheme.colors.textBlack,
         style = TextStyle(fontSize = 13.sp)
       )
       Icon(
-        modifier = Modifier.size(16.dp),
+        modifier = Modifier
+          .size(28.dp)
+          .padding(6.dp),
         painter = painterResource(id = dropdownDrawable),
         tint = AthleticsRankingPointsTheme.colors.textBlack,
         contentDescription = ""
       )
     }
     DropdownMenu(
+      modifier = Modifier.background(AthleticsRankingPointsTheme.colors.backgroundScreen),
       expanded = expanded,
       onDismissRequest = { onDismissRequest() }
     ) {
@@ -229,18 +231,13 @@ fun PlacementPositionDropDownList(
           onDisplayClicked(false)
         }) {
           Column {
-            Text(
-              text = position.toString(),
-              style = AthleticsRankingPointsTheme.typography.text4,
-              color = Color.Black
-            )
-            Divider(
-              color = Color.Black,
-            )
+            DropdownItem(text = position.toString())
           }
         }
       }
     }
   }
 }
+
+
 

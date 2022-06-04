@@ -324,6 +324,7 @@ fun AthleticEventsDropDownList(
       )
     }
     DropdownMenu(
+      modifier = Modifier.background(AthleticsRankingPointsTheme.colors.backgroundScreen),
       expanded = expanded,
       onDismissRequest = { onDismissRequest() }
     ) {
@@ -332,43 +333,9 @@ fun AthleticEventsDropDownList(
           onSelectionChange(event)
           onDisplayClicked(false)
         }) {
-          Column {
-            Text(
-              text = event.getDoorInclusiveName(LocalContext.current),
-              style = AthleticsRankingPointsTheme.typography.text4,
-              color = Color.Black
-            )
-            Divider(
-              color = Color.Black,
-            )
-          }
+          DropdownItem(text =event.getDoorInclusiveName(LocalContext.current))
         }
       }
     }
   }
 }
-
-//@Composable
-//@Preview
-//fun PreviewSinglePerformanceDataComponent() {
-//  MaterialTheme {
-//    SinglePerformanceDataComponent(
-//
-//      spinnerList = AthleticsEvent.getThreeSampleEvents(),
-//      onEventChange =
-//    {index, event ->
-//      //do nothing
-//    },
-//      index = 0,
-//      event = AthleticsEvent.getSampleEvent(),
-//      performanceUnitsAware = PerformanceUnitsAware.getDefault(perfValue = "10.55"),
-//      performancePoints = "502",
-//      wind = "1.2",
-//      windPoints = "0",
-//      placementPoints = "45",
-//      onWindChange = {index, string -> },
-//      onPlacementChange = {index, string -> },
-//      onPerformanceChange = {index, pua -> }
-//      )
-//  }
-//}
