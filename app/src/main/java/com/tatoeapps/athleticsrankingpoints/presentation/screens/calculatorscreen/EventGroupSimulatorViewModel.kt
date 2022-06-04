@@ -358,18 +358,24 @@ class EventGroupSimulatorViewModel(
   }
 
   private fun updatePerformancePointsList(index: Int, performance: String, event: AthleticsEvent? = null) =
-    updateIndexInPointsList(listOfPerformancePoints, index, getPointsForGivenIndex(index,performance, event))
+    listOfPerformancePoints.updateNewListValue(index, getPointsForGivenIndex(index,performance, event))
 
-  private fun updateWindPointsList(index: Int, points: String) = updateIndexInPointsList(listOfWindsPoints, index, points)
+  private fun updateWindPointsList(index: Int, points: String) = listOfWindsPoints.updateNewListValue(index, points)
 
-  fun updatePlacementPointsList(index: Int, points: String) = updateIndexInPointsList(listOfPlacementPoints, index, points)
+  fun updatePlacementPointsList(index: Int, points: String) = listOfPlacementPoints.updateNewListValue(index, points) //todo can be switched to updatePlacementDetailsList that already contains this info
 
-  fun updateIndexInPointsList(liveData: MutableLiveData<List<String>>, index: Int, points: String){
-    val newPointsListValue = liveData.value?.toMutableList()?.apply {
-      this[index] = points
-    } ?: emptyList()
-    liveData.postValue(newPointsListValue)
-  }
+  fun updatePlacementDetailsList(index: Int, placementDetails: PerformancePlacementDetails) = listOfPlacementPerformanceDetails.updateNewListValue(index, placementDetails)
+
+//  fun updateIndexInPointsList(liveData: MutableLiveData<List<String>>, index: Int, points: String){
+//    val newPointsListValue = liveData.value?.toMutableList()?.apply {
+//      this[index] = points
+//    } ?: emptyList()
+//    liveData.postValue(newPointsListValue)
+//  }
+
+//  fun updateIndexInPlacementDetailsList(liveData: MutableLiveData<List<PerformancePlacementDetails>>, index: Int, details: PerformancePlacementDetails) = listOfPlacementPerformanceDetails.updateNewListValue(index, details)
+
+
 
   fun updateRankingScore() = rankingScore.postValue(computeRankingScore())
 
@@ -394,4 +400,11 @@ class EventGroupSimulatorViewModel(
     return event?.getPointsString(performance = performance) ?: listOfSelectedEvents.value!![indexPerformance].getPointsString(performance = performance)
   }
 
+}
+
+fun <T> MutableLiveData<List<T>>.updateNewListValue(index: Int, newValueToInsert: T) {
+  val newValue = this.value?.toMutableList()?.apply {
+    this[index] = newValueToInsert
+  } ?: emptyList()
+  this.postValue(newValue)
 }

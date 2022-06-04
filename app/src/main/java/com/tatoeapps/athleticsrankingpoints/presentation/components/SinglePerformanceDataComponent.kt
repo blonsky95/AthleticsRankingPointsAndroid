@@ -58,7 +58,7 @@ fun SinglePerformanceDataComponent(
       modifier = Modifier
         .background(color = AthleticsRankingPointsTheme.colors.backgroundScreen)
         .padding(8.dp),
-      expanded, spinnerList, onEventChange, event, index, dropdownDrawable, performancePoints, windPoints, performancePlacementDetails.totalPoints?.toString()?:"0",
+      expanded, spinnerList, onEventChange, event, index, dropdownDrawable, performancePoints, windPoints, performancePlacementDetails.totalPoints ?:"0",
       onSpinnerClick = {
         expanded=!expanded
       },

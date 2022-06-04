@@ -2,6 +2,7 @@ package com.tatoeapps.athleticsrankingpoints.domain.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import arrow.core.prependTo
 import com.tatoeapps.athleticsrankingpoints.data.database.COMPETITION_CATEGORY_TABLE_NAME
 
 @Entity(tableName = COMPETITION_CATEGORY_TABLE_NAME)
@@ -12,25 +13,31 @@ data class CompetitionCategoryGroup(
 ) {
 
   companion object {
-    fun getDefault() = CompetitionCategoryGroup("DEFAULT", listOf(CompetitionCategoryData(CompetitionCategory.UNKNOWN.name, listOf(0))))
+    fun getDefault() = CompetitionCategoryGroup("OTHER", listOf(CompetitionCategoryData(CompetitionCategory.OTHER.name, listOf(0))))
   }
 
- fun getPositionsForCategory(competitionCategory: CompetitionCategory) =
-   sCategories.findCategory(competitionCategory)?.sPlacementPoints?.mapIndexed{ index, _ -> index +1 } ?: listOf(1,2,3)
+  fun getPositionsForCategory(competitionCategory: CompetitionCategory) =
+    (sCategories.findCategory(competitionCategory)?.sPlacementPoints?.mapIndexed { index, _ -> index + 1 } ?: listOf(1, 2, 3)).addZeroToStart()
 
- fun getPointsForPosition(position: Int, competitionCategory: CompetitionCategory) =
-   sCategories.findCategory(competitionCategory)?.let { it.sPlacementPoints[position-1] } ?: 0
+  fun List<Int>.addZeroToStart(): List<Int> {
+    val mutList = this.toMutableList()
+    mutList.add(0, 0)
+    return mutList.toList()
+  }
+
+  fun getPointsForPosition(position: Int, competitionCategory: CompetitionCategory) =
+    sCategories.findCategory(competitionCategory)?.takeIf { position > 0 }?.let { it.sPlacementPoints[position - 1] } ?: 0
 
 }
 
-fun List<CompetitionCategoryData>.findCategory(competitionCategory: CompetitionCategory) =   this.find { competitionCategory == CompetitionCategory.valueOf(it.sName) }
+fun List<CompetitionCategoryData>.findCategory(competitionCategory: CompetitionCategory) = this.find { competitionCategory == CompetitionCategory.valueOf(it.sName) }
 
 data class CompetitionCategoryData(
   val sName: String,
-  val sPlacementPoints: List<Int>
-  )
+  val sPlacementPoints: List<Int>,
+)
 
-enum class CompetitionCategoryEventGroup (val eventGroupId: String) {
+enum class CompetitionCategoryEventGroup(val eventGroupId: String) {
   MAIN("Main"),
   LONG_DISTANCE_1("5000m, 3000mSC"),
   LONG_DISTANCE_2("10000m"),
@@ -38,7 +45,7 @@ enum class CompetitionCategoryEventGroup (val eventGroupId: String) {
   MARATHON("Marathon"),
   ROAD_RUNNING("Road running");
 
-  companion object  {
+  companion object {
     fun getEnumFromEventGroupId(id: String) =
       when (id) {
         "Main" -> MAIN
@@ -63,5 +70,5 @@ enum class CompetitionCategory(val categoryName: String) {
   D("D"),
   E("E"),
   F("F"),
-  UNKNOWN("Unknown")
+  OTHER("Other")
 }

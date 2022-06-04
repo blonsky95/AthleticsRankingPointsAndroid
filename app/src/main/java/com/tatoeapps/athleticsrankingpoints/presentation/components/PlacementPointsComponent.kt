@@ -10,14 +10,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.tatoeapps.athleticsrankingpoints.R
 import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategory
 import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryGroup
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
-import com.tatoeapps.athleticsrankingpoints.presentation.theme.beige
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.lilac
 
 data class PerformancePlacementDetails(
@@ -37,15 +34,19 @@ fun PlacementWithPoints2(
   var positionsExpanded by remember { mutableStateOf(false) }
 
   var selectedCategory by remember {
-    mutableStateOf(performancePlacementDetails.category ?: performancePlacementDetails.competitionCategoryGroup.sCategories.firstOrNull()?.let { CompetitionCategory.valueOf(it.sName) } ?: CompetitionCategory.UNKNOWN)
+    mutableStateOf(
+      performancePlacementDetails.category ?: performancePlacementDetails.competitionCategoryGroup.sCategories.firstOrNull()?.let {
+        CompetitionCategory.valueOf(it.sName)
+      } ?: CompetitionCategory.OTHER
+    )
   }
 
   var selectedPosition by remember {
-    mutableStateOf(performancePlacementDetails.position ?: 1)
+    mutableStateOf(performancePlacementDetails.position ?: 0)
   }
 
   var positionsArray by remember {
-    mutableStateOf(performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(performancePlacementDetails.category ?: CompetitionCategory.UNKNOWN))
+    mutableStateOf(performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(performancePlacementDetails.category ?: CompetitionCategory.OTHER))
   }
 
   var placementPoints by remember {
@@ -63,6 +64,7 @@ fun PlacementWithPoints2(
         onSelectionChange = {
           selectedCategory = it
           positionsArray = performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(it)
+          placementPoints = performancePlacementDetails.competitionCategoryGroup.getPointsForPosition(selectedPosition, selectedCategory)
           onPlacementsPointsChange(performancePlacementDetails.copy(
             totalPoints = placementPoints.toString(),
             category = selectedCategory,
@@ -148,8 +150,7 @@ fun PlacementCompetitionCategoryDropDownList(
       Text(
         modifier = Modifier.padding(4.dp),
         text = selectedCategory.name,
-        color = AthleticsRankingPointsTheme.colors.textBlack,
-        style = TextStyle(fontSize = 13.sp)
+        style =  AthleticsRankingPointsTheme.typography.text3
       )
       Icon(
         modifier = Modifier
@@ -208,8 +209,7 @@ fun PlacementPositionDropDownList(
       Text(
         modifier = Modifier.padding(4.dp),
         text = selectedPosition.toString(),
-        color = AthleticsRankingPointsTheme.colors.textBlack,
-        style = TextStyle(fontSize = 13.sp)
+        style =  AthleticsRankingPointsTheme.typography.text3
       )
       Icon(
         modifier = Modifier

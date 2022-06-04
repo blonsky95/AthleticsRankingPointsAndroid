@@ -133,6 +133,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
         },
         onPlacementChange = {index, placement ->
           viewModel.updatePlacementPointsList(index = index, points = placement.totalPoints ?: "0")
+          viewModel.updatePlacementDetailsList(index, placement)
         },
         onWindChange = {index, wind ->
           viewModel.updateWindList(index = index, wind = wind)
