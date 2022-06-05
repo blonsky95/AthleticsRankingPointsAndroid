@@ -36,7 +36,7 @@ data class PerformancePlacementDetails(
 }
 
 @Composable
-fun PlacementWithPoints2(
+fun PlacementWithPoints(
   performancePlacementDetails: PerformancePlacementDetails,
   onPlacementsPointsChange: (PerformancePlacementDetails) -> Unit,
 ) {
