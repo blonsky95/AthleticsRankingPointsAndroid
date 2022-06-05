@@ -24,10 +24,14 @@ data class PerformancePlacementDetails(
   val position: Int? = null,
 ) {
 
-  fun updateCategory(category: CompetitionCategory) = this.copy(
-    totalPoints = competitionCategoryGroup.getPointsForPosition(this.position ?: 0, category).toString(),
-    category = category
-  )
+  fun updateCategory(category: CompetitionCategory) : PerformancePlacementDetails {
+    val newPosition = this.position?.takeIf { it <= competitionCategoryGroup.getPositionsForCategory(category).size } ?: competitionCategoryGroup.getPositionsForCategory(category).last()
+    return this.copy(
+      totalPoints = competitionCategoryGroup.getPointsForPosition(newPosition, category).toString(),
+      position = newPosition,
+      category = category
+    )
+  }
 
   fun updatePosition(position: Int) = this.copy(
     totalPoints = competitionCategoryGroup.getPointsForPosition(position, this.category ?: this.competitionCategoryGroup.getFirstCategory()).toString(),
@@ -45,7 +49,7 @@ fun PlacementWithPoints(
   var positionsExpanded by remember { mutableStateOf(false) }
 
   MyCustomTwoComposableRow {
-    Log.d("TESTP","placement with points 2 - performancePlacementDetails: ${performancePlacementDetails.category?.name ?: "WOPS"}")
+    Log.d("TESTP", "placement with points 2 - performancePlacementDetails: ${performancePlacementDetails.category?.name ?: "WOPS"}")
 
     Row() {
       PlacementCompetitionCategoryDropDownList(
@@ -64,7 +68,7 @@ fun PlacementWithPoints(
 
       PlacementPositionDropDownList(
         expanded = positionsExpanded,
-        positions = performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(performancePlacementDetails.category ?: CompetitionCategory.OTHER),
+        positions = performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(performancePlacementDetails.category ?: performancePlacementDetails.competitionCategoryGroup.getFirstCategory()),
         selectedPosition = performancePlacementDetails.position ?: 0,
         dropdownDrawable = if (positionsExpanded) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down,
         onDisplayClicked = { positionsExpanded = !positionsExpanded },
@@ -82,21 +86,21 @@ fun PlacementWithPoints(
         value = (performancePlacementDetails.totalPoints ?: 0).toString(),
         canFillMaxWidth = true,
         hint = "0",
-        onValueChange ={
-          var points = 0
+        onValueChange = {
+          var points = ""
           try {
-            points = it.toInt()
+            points = it
           } catch (e: Error) {
             Log.d("Error", "parsed user text to int threw error - user placement points: $e")
           }
           onPlacementsPointsChange(performancePlacementDetails.copy(
-            totalPoints = points.toString(),
+            totalPoints = points,
           ))
         }
       )
     }
 
-    MyCustomText(text = performancePlacementDetails.totalPoints.toString())
+    MyCustomText(text = (performancePlacementDetails.totalPoints ?: 0).toString())
   }
 }
 
@@ -114,7 +118,7 @@ fun PlacementCompetitionCategoryDropDownList(
   onDismissRequest: () -> Unit,
 ) {
   Column(Modifier.height(IntrinsicSize.Max)) {
-    Log.d("TESTP","category: ${selectedCategory.name}")
+//    Log.d("TESTP","category: ${selectedCategory.name}")
     Row(
       modifier = modifier
         .padding(vertical = 4.dp)
@@ -129,7 +133,7 @@ fun PlacementCompetitionCategoryDropDownList(
       Text(
         modifier = Modifier.padding(4.dp),
         text = selectedCategory.name,
-        style =  AthleticsRankingPointsTheme.typography.text3
+        style = AthleticsRankingPointsTheme.typography.text3
       )
       Icon(
         modifier = Modifier
@@ -160,7 +164,6 @@ fun PlacementCompetitionCategoryDropDownList(
 }
 
 
-
 @Composable
 fun PlacementPositionDropDownList(
   modifier: Modifier = Modifier,
@@ -188,7 +191,7 @@ fun PlacementPositionDropDownList(
       Text(
         modifier = Modifier.padding(4.dp),
         text = selectedPosition.toString(),
-        style =  AthleticsRankingPointsTheme.typography.text3
+        style = AthleticsRankingPointsTheme.typography.text3
       )
       Icon(
         modifier = Modifier

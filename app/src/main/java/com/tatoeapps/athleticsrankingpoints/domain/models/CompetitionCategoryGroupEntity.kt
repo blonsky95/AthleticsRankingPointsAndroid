@@ -30,7 +30,7 @@ data class CompetitionCategoryGroup(
   }
 
   fun getPointsForPosition(position: Int, competitionCategory: CompetitionCategory) =
-    sCategories.findCategory(competitionCategory)?.takeIf { position > 0 }?.let { it.sPlacementPoints[position - 1] } ?: 0
+    sCategories.findCategory(competitionCategory)?.takeIf { position > 0 && position <= it.sPlacementPoints.size }?.let { it.sPlacementPoints[position - 1] } ?: 0
 
 }
 
