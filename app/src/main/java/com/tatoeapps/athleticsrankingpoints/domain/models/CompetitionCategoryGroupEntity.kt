@@ -16,6 +16,10 @@ data class CompetitionCategoryGroup(
     fun getDefault() = CompetitionCategoryGroup("OTHER", listOf(CompetitionCategoryData(CompetitionCategory.OTHER.name, listOf(0))))
   }
 
+  fun getFirstCategory() = this.sCategories.firstOrNull()?.let {
+    CompetitionCategory.valueOf(it.sName)
+  } ?: CompetitionCategory.OTHER
+
   fun getPositionsForCategory(competitionCategory: CompetitionCategory) =
     (sCategories.findCategory(competitionCategory)?.sPlacementPoints?.mapIndexed { index, _ -> index + 1 } ?: listOf(1, 2, 3)).addZeroToStart()
 

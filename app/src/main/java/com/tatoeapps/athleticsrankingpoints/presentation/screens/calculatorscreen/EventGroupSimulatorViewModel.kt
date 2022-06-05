@@ -81,6 +81,7 @@ class EventGroupSimulatorViewModel(
     listOfWinds.postValue(performanceData.winds)
     listOfWindsPoints.postValue(performanceData.windsPoints)
     listOfPlacementPoints.postValue(performanceData.placementPoints)
+    listOfPlacementPerformanceDetails.postValue(performanceData.placementDetails)
     listOfSelectedEvents.postValue(performanceData.selectedEvents)
   }
 
@@ -365,17 +366,6 @@ class EventGroupSimulatorViewModel(
   fun updatePlacementPointsList(index: Int, points: String) = listOfPlacementPoints.updateNewListValue(index, points) //todo can be switched to updatePlacementDetailsList that already contains this info
 
   fun updatePlacementDetailsList(index: Int, placementDetails: PerformancePlacementDetails) = listOfPlacementPerformanceDetails.updateNewListValue(index, placementDetails)
-
-//  fun updateIndexInPointsList(liveData: MutableLiveData<List<String>>, index: Int, points: String){
-//    val newPointsListValue = liveData.value?.toMutableList()?.apply {
-//      this[index] = points
-//    } ?: emptyList()
-//    liveData.postValue(newPointsListValue)
-//  }
-
-//  fun updateIndexInPlacementDetailsList(liveData: MutableLiveData<List<PerformancePlacementDetails>>, index: Int, details: PerformancePlacementDetails) = listOfPlacementPerformanceDetails.updateNewListValue(index, details)
-
-
 
   fun updateRankingScore() = rankingScore.postValue(computeRankingScore())
 

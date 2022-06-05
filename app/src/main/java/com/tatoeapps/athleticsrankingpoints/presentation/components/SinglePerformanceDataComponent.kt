@@ -1,5 +1,6 @@
 package com.tatoeapps.athleticsrankingpoints.presentation.components
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -94,6 +95,7 @@ private fun PerformanceDetails(
       text = "${stringResource(id = R.string.calculator_performance)}:",
       style = AthleticsRankingPointsTheme.typography.text5.navyBlue,
     )
+//    Log.d("TESTP","performance details - performancePlacementDetails: ${performancePlacementDetails.category?.name ?: "WOPS"}")
     Spacer(Modifier.height(2.dp))
     PerformanceWithPoints(performanceUnitsAware = performanceUnitsAware, points = performancePoints, onPerformanceChange = { onPerformanceChange(index, it) })
     Spacer(Modifier.height(4.dp))
@@ -177,26 +179,9 @@ fun WindWithPoints(wind: String, points: String, onWindChange: (String) -> Unit)
       hint = "0.0",
       onValueChange = onWindChange
     )
-//    MyCustomTextField(performance = wind, hint = "Wind (0.0)", onPerformanceChange = onWindChange)
     MyCustomText(text = points.makeZeroIfEmpty())
   }
 }
-
-@Composable
-fun PlacementWithPoints(placementPoints: String, points: String, onPlacementsPointsChange: (String) -> Unit) {
-  MyCustomTwoComposableRow {
-    CustomInputField(
-      customInputColors = CustomInputColors(),
-      value = placementPoints,
-      canFillMaxWidth = true,
-      hint = "0",
-      onValueChange = onPlacementsPointsChange
-    )
-//    MyCustomTextField(performance = placementPoints, hint = "Placement (0)", onPerformanceChange = onPlacementsPointsChange)
-    MyCustomText(text = points.makeZeroIfEmpty())
-  }
-}
-
 
 @Composable
 fun TextAndSpinner(
@@ -251,33 +236,6 @@ fun MyCustomTwoComposableRow(modifier: Modifier = Modifier, composableContent: @
     composableContent()
   }
 }
-
-//@Composable
-//fun MyCustomTextField(performance: String = "", hint: String, onPerformanceChange: (String) -> Unit){
-//  BasicTextField(
-//    value = performance,
-//    onValueChange = {
-//      onPerformanceChange(it)
-//    },
-//    modifier = Modifier
-//      .background(AthleticsRankingPointsTheme.colors.textWhite, shape = RoundedCornerShape(4.dp))
-//      .padding(8.dp)
-//      .widthIn(1.dp, Dp.Infinity)
-//      .heightIn(1.dp, Dp.Infinity),
-//    textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
-//    cursorBrush = SolidColor(Color.Black),
-//    decorationBox = { innerTextField ->
-//        if (performance.isEmpty()) {
-//          Text(
-//            text = hint,
-//            style = MaterialTheme.typography.subtitle1
-//          )
-//      }
-//      innerTextField()
-//    },
-//    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-//  )
-//}
 
 @Composable
 fun MyCustomText(text:String) {

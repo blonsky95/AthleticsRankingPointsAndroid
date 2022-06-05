@@ -22,7 +22,18 @@ data class PerformancePlacementDetails(
   var totalPoints: String? = null,
   val category: CompetitionCategory? = null,
   val position: Int? = null,
-)
+) {
+
+  fun updateCategory(category: CompetitionCategory) = this.copy(
+    totalPoints = competitionCategoryGroup.getPointsForPosition(this.position ?: 0, category).toString(),
+    category = category
+  )
+
+  fun updatePosition(position: Int) = this.copy(
+    totalPoints = competitionCategoryGroup.getPointsForPosition(position, this.category ?: this.competitionCategoryGroup.getFirstCategory()).toString(),
+    position = position
+  )
+}
 
 @Composable
 fun PlacementWithPoints2(
@@ -33,43 +44,18 @@ fun PlacementWithPoints2(
   var categoryExpanded by remember { mutableStateOf(false) }
   var positionsExpanded by remember { mutableStateOf(false) }
 
-  var selectedCategory by remember {
-    mutableStateOf(
-      performancePlacementDetails.category ?: performancePlacementDetails.competitionCategoryGroup.sCategories.firstOrNull()?.let {
-        CompetitionCategory.valueOf(it.sName)
-      } ?: CompetitionCategory.OTHER
-    )
-  }
-
-  var selectedPosition by remember {
-    mutableStateOf(performancePlacementDetails.position ?: 0)
-  }
-
-  var positionsArray by remember {
-    mutableStateOf(performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(performancePlacementDetails.category ?: CompetitionCategory.OTHER))
-  }
-
-  var placementPoints by remember {
-    mutableStateOf(performancePlacementDetails.totalPoints ?: 0)
-  }
-
   MyCustomTwoComposableRow {
+    Log.d("TESTP","placement with points 2 - performancePlacementDetails: ${performancePlacementDetails.category?.name ?: "WOPS"}")
+
     Row() {
       PlacementCompetitionCategoryDropDownList(
         expanded = categoryExpanded,
         categories = performancePlacementDetails.competitionCategoryGroup.sCategories.map { CompetitionCategory.valueOf(it.sName) },
-        selectedCategory = selectedCategory,
+        selectedCategory = performancePlacementDetails.category ?: performancePlacementDetails.competitionCategoryGroup.getFirstCategory(),
         dropdownDrawable = if (categoryExpanded) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down,
         onDisplayClicked = { categoryExpanded = !categoryExpanded },
         onSelectionChange = {
-          selectedCategory = it
-          positionsArray = performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(it)
-          placementPoints = performancePlacementDetails.competitionCategoryGroup.getPointsForPosition(selectedPosition, selectedCategory)
-          onPlacementsPointsChange(performancePlacementDetails.copy(
-            totalPoints = placementPoints.toString(),
-            category = selectedCategory,
-            position = selectedPosition
-          ))
+          onPlacementsPointsChange(performancePlacementDetails.updateCategory(it))
         },
         onDismissRequest = { categoryExpanded = false }
       )
@@ -78,18 +64,12 @@ fun PlacementWithPoints2(
 
       PlacementPositionDropDownList(
         expanded = positionsExpanded,
-        positions = positionsArray,
-        selectedPosition = selectedPosition,
+        positions = performancePlacementDetails.competitionCategoryGroup.getPositionsForCategory(performancePlacementDetails.category ?: CompetitionCategory.OTHER),
+        selectedPosition = performancePlacementDetails.position ?: 0,
         dropdownDrawable = if (positionsExpanded) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down,
         onDisplayClicked = { positionsExpanded = !positionsExpanded },
         onSelectionChange = {
-          selectedPosition = it
-          placementPoints = performancePlacementDetails.competitionCategoryGroup.getPointsForPosition(it, selectedCategory)
-          onPlacementsPointsChange(performancePlacementDetails.copy(
-            totalPoints = placementPoints.toString(),
-            category = selectedCategory,
-            position = selectedPosition
-          ))
+          onPlacementsPointsChange(performancePlacementDetails.updatePosition(it))
         },
         onDismissRequest = { positionsExpanded = false }
       )
@@ -99,26 +79,24 @@ fun PlacementWithPoints2(
 
       CustomInputField(
         customInputColors = CustomInputColors(),
-        value = placementPoints.toString(),
+        value = (performancePlacementDetails.totalPoints ?: 0).toString(),
         canFillMaxWidth = true,
         hint = "0",
         onValueChange ={
+          var points = 0
           try {
-            placementPoints = it.toInt()
+            points = it.toInt()
           } catch (e: Error) {
             Log.d("Error", "parsed user text to int threw error - user placement points: $e")
           }
           onPlacementsPointsChange(performancePlacementDetails.copy(
-            totalPoints = placementPoints.toString(),
-            category = selectedCategory,
-            position = selectedPosition
+            totalPoints = points.toString(),
           ))
         }
       )
     }
 
-//    MyCustomTextField(performance = placementPoints, hint = "Placement (0)", onPerformanceChange = onPlacementsPointsChange)
-    MyCustomText(text = placementPoints.toString())
+    MyCustomText(text = performancePlacementDetails.totalPoints.toString())
   }
 }
 
@@ -136,6 +114,7 @@ fun PlacementCompetitionCategoryDropDownList(
   onDismissRequest: () -> Unit,
 ) {
   Column(Modifier.height(IntrinsicSize.Max)) {
+    Log.d("TESTP","category: ${selectedCategory.name}")
     Row(
       modifier = modifier
         .padding(vertical = 4.dp)
