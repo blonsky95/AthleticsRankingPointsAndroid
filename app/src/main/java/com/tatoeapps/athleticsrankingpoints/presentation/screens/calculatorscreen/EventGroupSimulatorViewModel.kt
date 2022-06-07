@@ -14,47 +14,47 @@ import com.tatoeapps.athleticsrankingpoints.domain.interfaces.RankingScorePerfor
 import com.tatoeapps.athleticsrankingpoints.domain.models.*
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getSampleEvent
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent.Companion.getWindPoints
-import com.tatoeapps.athleticsrankingpoints.presentation.components.PerformancePlacementDetails
 import com.tatoeapps.athleticsrankingpoints.toIntsArray
 import kotlinx.coroutines.launch
 import kotlin.math.floor
 
 data class SimulatorDTO(
   val eventGroupName: String,
-  val loadPerformanceName: String
+  val loadPerformanceName: String,
 )
 
 data class SnackBarModel(
-  var isShowing:Boolean,
-  var stringResId: Int?
+  var isShowing: Boolean,
+  var stringResId: Int?,
 )
 
 class EventGroupSimulatorViewModel(
   eventGroupsRepository: EventGroupsRepository, private val simulatorDTO: SimulatorDTO,
   private val rankingScorePerformanceRepository: RankingScorePerformanceRepository,
-  private val competitionCategoryGroupsRepository: CompetitionCategoryGroupRepository
-):ViewModel() {
+  private val competitionCategoryGroupsRepository: CompetitionCategoryGroupRepository,
+) : ViewModel() {
 
-  var snackBarModel =  mutableStateOf(SnackBarModel(false,null))
+  var snackBarModel = mutableStateOf(SnackBarModel(false, null))
     private set
 
-  private var size:Int = 0
+  private var size: Int = 0
 
-  var loadedRankingScorePerformanceData :RankingScorePerformanceData? = null
+  var loadedRankingScorePerformanceData: RankingScorePerformanceData? = null
 
   private var selectedEventGroup = MutableLiveData(
     EventGroup.getSampleEventGroup()
   )
-  fun getSelectedEventGroup() : LiveData<EventGroup> = selectedEventGroup
+
+  fun getSelectedEventGroup(): LiveData<EventGroup> = selectedEventGroup
 
   val isNewEntry: Boolean
-    get() = simulatorDTO.loadPerformanceName==RankingScorePerformanceData.NEW_ENTRY
+    get() = simulatorDTO.loadPerformanceName == RankingScorePerformanceData.NEW_ENTRY
 
 
   init {
     viewModelScope.launch {
       eventGroupsRepository.getEventGroupByName(simulatorDTO.eventGroupName)?.let {
-        selectedEventGroup.value=it
+        selectedEventGroup.value = it
         listOfSelectedEvents.value = initListOfEvents(it.sMainEvent, it.sMinNumberPerformancesGroup)
         listOfPerformances.value = initListOfPerformances(it.getAllEventsInGroup().first())
         competitionCategoryGroupsRepository.getCompetitionCategoryGroupByName(
@@ -65,7 +65,7 @@ class EventGroupSimulatorViewModel(
       }
       if (!isNewEntry) {
         rankingScorePerformanceRepository.getRankingScorePerformanceByName(simulatorDTO.loadPerformanceName)?.let {
-          loadedRankingScorePerformanceData=it
+          loadedRankingScorePerformanceData = it
           loadAllLoadedValues(it)
         }
       }
@@ -88,17 +88,22 @@ class EventGroupSimulatorViewModel(
   private var showDeleteDialog = MutableLiveData(
     false
   )
-  fun getShowDeleteDialog() : LiveData<Boolean> = showDeleteDialog
+
+  fun getShowDeleteDialog(): LiveData<Boolean> = showDeleteDialog
 
   private var showNameOverwriteDialog = MutableLiveData(
     false
   )
-  fun getShowNameOverwriteDialog() : LiveData<Boolean> = showNameOverwriteDialog
 
-  private var showErrorValidatingDialog:MutableLiveData<Int> = MutableLiveData(
-    -1
+  fun getShowNameOverwriteDialog(): LiveData<Boolean> = showNameOverwriteDialog
+
+  private var showErrorValidatingDialog: MutableLiveData<ErrorDialogDTO> = MutableLiveData(
+    ErrorDialogDTO()
   )
-  fun getShowErrorValidatingDialog() : LiveData<Int> = showErrorValidatingDialog
+
+  fun getShowErrorValidatingDialog(): LiveData<ErrorDialogDTO> = showErrorValidatingDialog
+
+  data class ErrorDialogDTO(val show: Boolean = false, val stringResId: Int? = null)
 
 
   private var scoreTitle = MutableLiveData("")
@@ -111,37 +116,43 @@ class EventGroupSimulatorViewModel(
   fun getIsTitleInEditMode(): LiveData<Boolean> = isTitleInEditMode
 
   private var listOfPerformances = MutableLiveData(
-        initListOfPerformances()
+    initListOfPerformances()
   )
 
-  fun getListOfPerformances() : LiveData<List<PerformanceUnitsAware>> = listOfPerformances
+  fun getListOfPerformances(): LiveData<List<PerformanceUnitsAware>> = listOfPerformances
 
   private var listOfPerformancePoints = MutableLiveData(
     initListOfInts())
-  fun getListOfPerformancePoints() : LiveData<List<String>> = listOfPerformancePoints
+
+  fun getListOfPerformancePoints(): LiveData<List<String>> = listOfPerformancePoints
 
   private var listOfWinds = MutableLiveData(
     initListOfDoubles())
-  fun getListOfWinds() : LiveData<List<String>> = listOfWinds
+
+  fun getListOfWinds(): LiveData<List<String>> = listOfWinds
 
   private var listOfWindsPoints = MutableLiveData(
     initListOfInts())
-  fun getListOfWindsPoints() : LiveData<List<String>> = listOfWindsPoints
+
+  fun getListOfWindsPoints(): LiveData<List<String>> = listOfWindsPoints
 
   private var listOfPlacementPoints = MutableLiveData(
     initListOfInts())
-  fun getListOfPlacementPoints() : LiveData<List<String>> = listOfPlacementPoints
+
+  fun getListOfPlacementPoints(): LiveData<List<String>> = listOfPlacementPoints
 
   private var listOfPlacementPerformanceDetails = MutableLiveData(
     initListOfPlacements())
-  fun getListOfPlacementPerformanceDetails() : LiveData<List<PerformancePlacementDetails>> = listOfPlacementPerformanceDetails
+
+  fun getListOfPlacementPerformanceDetails(): LiveData<List<PerformancePlacementDetails>> = listOfPlacementPerformanceDetails
 
   private var listOfSelectedEvents = MutableLiveData(
-    initListOfEvents(athleticsEvent = selectedEventGroup.value?.sMainEvent?: getSampleEvent(), size = selectedEventGroup.value?.sMinNumberPerformancesGroup?:1))
-  fun getListOfSelectedEvents() : LiveData<List<AthleticsEvent>> = listOfSelectedEvents
+    initListOfEvents(athleticsEvent = selectedEventGroup.value?.sMainEvent ?: getSampleEvent(), size = selectedEventGroup.value?.sMinNumberPerformancesGroup ?: 1))
+
+  fun getListOfSelectedEvents(): LiveData<List<AthleticsEvent>> = listOfSelectedEvents
 
   private var rankingScore = MutableLiveData("0")
-  fun getRankingScore() : LiveData<String> = rankingScore
+  fun getRankingScore(): LiveData<String> = rankingScore
 
   private fun initListOfDoubles(): List<String> {
     size = selectedEventGroup.value!!.sMinNumberPerformancesGroup
@@ -176,7 +187,7 @@ class EventGroupSimulatorViewModel(
     for (index in 1..size) {
       array1.add(
         PerformancePlacementDetails(
-          competitionCategoryGroup?:CompetitionCategoryGroup.getDefault()
+          competitionCategoryGroup ?: CompetitionCategoryGroup.getDefault()
         )
       )
     }
@@ -199,10 +210,10 @@ class EventGroupSimulatorViewModel(
     val rankingScore = collectClassData()
     viewModelScope.launch {
       rankingScorePerformanceRepository.isEntryNameFree(rankingScore.name).apply {
-        if (this){
+        if (this) {
           confirmSavePerformance()
         } else {
-          showNameOverwriteDialog.value=true
+          showNameOverwriteDialog.value = true
         }
       }
     }
@@ -253,18 +264,18 @@ class EventGroupSimulatorViewModel(
 
   //USER ACTIONS
 
-  fun editTitlePressed(){
+  fun editTitlePressed() {
     if (isTitleInEditMode.value == true) {
-        titleValid.postValue(scoreTitle.value?.length?:0 > 2)
+      titleValid.postValue(scoreTitle.value?.length ?: 0 > 2)
     }
-    isTitleInEditMode.postValue(!(isTitleInEditMode.value ?:true))
+    isTitleInEditMode.postValue(!(isTitleInEditMode.value ?: true))
   }
 
   fun saveButtonPressed() =
-    getFieldValidation().takeIf { it>0 }?.let { showDialogWithError(it) } ?: savePerformance() //todo refactor this int id check
+    getFieldValidation().takeIf { it > 0 }?.let { showDialogWithError(it) } ?: savePerformance() //todo refactor this int id check
 
   fun deleteButtonPressed() {
-    showDeleteDialog.value=true
+    showDeleteDialog.value = true
   }
 
   private fun showSnackBar(@StringRes stringRes: Int) {
@@ -272,24 +283,24 @@ class EventGroupSimulatorViewModel(
   }
 
   fun hideDeleteDialog() {
-    showDeleteDialog.value=false
+    showDeleteDialog.value = false
   }
 
   fun hideNameOverwriteDialog() {
-    showNameOverwriteDialog.value=false
+    showNameOverwriteDialog.value = false
   }
 
   fun hideErrorValidateDialog() {
-    showErrorValidatingDialog.value=null
+    showErrorValidatingDialog.value = showErrorValidatingDialog.value?.copy(show = false) ?: ErrorDialogDTO()
   }
 
   private fun showDialogWithError(dialogErrorStringResInt: Int) {
-    showErrorValidatingDialog.postValue(dialogErrorStringResInt)
+    showErrorValidatingDialog.postValue(ErrorDialogDTO(show = true, stringResId = dialogErrorStringResInt))
   }
 
   private fun getFieldValidation(): Int {
     var errorMessage = -1
-    if (scoreTitle.value?.length?:0 <= 2)  {
+    if (scoreTitle.value?.length ?: 0 <= 2) {
       errorMessage = R.string.dialog_error_name_length
     }
     if (!isNumberPerformancesOfMainEventValid()) {
@@ -298,17 +309,17 @@ class EventGroupSimulatorViewModel(
     return errorMessage
   }
 
-  private fun isNumberPerformancesOfMainEventValid():Boolean{
+  private fun isNumberPerformancesOfMainEventValid(): Boolean {
     selectedEventGroup.value?.let { eventGroup ->
       var mainEventCounter = 0
       listOfSelectedEvents.value?.let {
         for (event in it) {
-          if (event==eventGroup.sMainEvent) {
+          if (event == eventGroup.sMainEvent) {
             mainEventCounter++
           }
         }
       }
-      return mainEventCounter>=eventGroup.sMinNumberPerformancesMainEvent
+      return mainEventCounter >= eventGroup.sMinNumberPerformancesMainEvent
     }
     return false
   }
@@ -359,7 +370,7 @@ class EventGroupSimulatorViewModel(
   }
 
   private fun updatePerformancePointsList(index: Int, performance: String, event: AthleticsEvent? = null) =
-    listOfPerformancePoints.updateNewListValue(index, getPointsForGivenIndex(index,performance, event))
+    listOfPerformancePoints.updateNewListValue(index, getPointsForGivenIndex(index, performance, event))
 
   private fun updateWindPointsList(index: Int, points: String) = listOfWindsPoints.updateNewListValue(index, points)
 
@@ -375,11 +386,11 @@ class EventGroupSimulatorViewModel(
             + (listOfPlacementPoints.value?.toIntsArray()?.sum() ?: 0)
             + (listOfWindsPoints.value?.toIntsArray()?.sum() ?: 0)
         ),
-      size = listOfSelectedEvents.value?.size?:0)
+      size = listOfSelectedEvents.value?.size ?: 0)
 
 
-  private fun getAverage(total:Int, size:Int):String {
-    return floor(total.toDouble()/size).toInt().toString()
+  private fun getAverage(total: Int, size: Int): String {
+    return floor(total.toDouble() / size).toInt().toString()
   }
 
   /**

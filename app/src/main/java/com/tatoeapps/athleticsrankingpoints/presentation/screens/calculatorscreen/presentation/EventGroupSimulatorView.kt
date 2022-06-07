@@ -56,7 +56,7 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
 
   val showDeleteDialog by viewModel.getShowDeleteDialog().observeAsState(false)
   val showNameOverwriteDialog by viewModel.getShowNameOverwriteDialog().observeAsState(false)
-  val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(-1)
+  val showErrorValidatingDialog by viewModel.getShowErrorValidatingDialog().observeAsState(EventGroupSimulatorViewModel.ErrorDialogDTO())
 
   val isNewEntry = viewModel.isNewEntry
 
@@ -81,8 +81,8 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
         viewModel.confirmUpdatePerformance()
       }
     }
-    if (showErrorValidatingDialog>0) {
-      AlertWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = stringResource(id = showErrorValidatingDialog))
+    if (showErrorValidatingDialog.show) {
+      AlertWindow(hideDialog = {viewModel.hideErrorValidateDialog()}, dialogText = showErrorValidatingDialog.stringResId?.let { stringResource(id = it) } ?: "Error")
     }
 
     if (snackBarModel.isShowing) {

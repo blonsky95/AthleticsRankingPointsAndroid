@@ -1,13 +1,9 @@
 package com.tatoeapps.athleticsrankingpoints.data
 
 import androidx.room.TypeConverter
-import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
-import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
-import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryData
-import com.tatoeapps.athleticsrankingpoints.presentation.components.PerformancePlacementDetails
+import com.tatoeapps.athleticsrankingpoints.domain.models.*
 import java.util.*
 import kotlin.collections.HashMap
 

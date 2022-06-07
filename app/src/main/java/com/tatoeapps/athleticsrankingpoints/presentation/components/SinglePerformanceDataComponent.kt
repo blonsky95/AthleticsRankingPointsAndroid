@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tatoeapps.athleticsrankingpoints.R
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.tatoeapps.athleticsrankingpoints.domain.models.PerformancePlacementDetails
 import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 import com.tatoeapps.athleticsrankingpoints.makeZeroIfEmpty
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme

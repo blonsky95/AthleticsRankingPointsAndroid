@@ -5,11 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tatoeapps.athleticsrankingpoints.data.cache.Cacheable
 import com.tatoeapps.athleticsrankingpoints.data.database.PERFORMANCES_TABLE_NAME
-import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
-import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryGroup
-import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
-import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
-import com.tatoeapps.athleticsrankingpoints.presentation.components.PerformancePlacementDetails
+import com.tatoeapps.athleticsrankingpoints.domain.models.*
 import java.util.*
 import kotlin.math.floor
 

@@ -5,7 +5,10 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,31 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.tatoeapps.athleticsrankingpoints.R
 import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategory
-import com.tatoeapps.athleticsrankingpoints.domain.models.CompetitionCategoryGroup
+import com.tatoeapps.athleticsrankingpoints.domain.models.PerformancePlacementDetails
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.lilac
-
-data class PerformancePlacementDetails(
-  val competitionCategoryGroup: CompetitionCategoryGroup,
-  var totalPoints: String? = null,
-  val category: CompetitionCategory? = null,
-  val position: Int? = null,
-) {
-
-  fun updateCategory(category: CompetitionCategory) : PerformancePlacementDetails {
-    val newPosition = this.position?.takeIf { it <= competitionCategoryGroup.getPositionsForCategory(category).size } ?: competitionCategoryGroup.getPositionsForCategory(category).last()
-    return this.copy(
-      totalPoints = competitionCategoryGroup.getPointsForPosition(newPosition, category).toString(),
-      position = newPosition,
-      category = category
-    )
-  }
-
-  fun updatePosition(position: Int) = this.copy(
-    totalPoints = competitionCategoryGroup.getPointsForPosition(position, this.category ?: this.competitionCategoryGroup.getFirstCategory()).toString(),
-    position = position
-  )
-}
 
 @Composable
 fun PlacementWithPoints(
@@ -49,9 +30,7 @@ fun PlacementWithPoints(
   var positionsExpanded by remember { mutableStateOf(false) }
 
   MyCustomTwoComposableRow {
-    Log.d("TESTP", "placement with points 2 - performancePlacementDetails: ${performancePlacementDetails.category?.name ?: "WOPS"}")
-
-    Row() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
       PlacementCompetitionCategoryDropDownList(
         expanded = categoryExpanded,
         categories = performancePlacementDetails.competitionCategoryGroup.sCategories.map { CompetitionCategory.valueOf(it.sName) },

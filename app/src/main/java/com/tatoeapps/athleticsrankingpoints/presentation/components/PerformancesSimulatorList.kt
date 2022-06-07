@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
+import com.tatoeapps.athleticsrankingpoints.domain.models.PerformancePlacementDetails
 import com.tatoeapps.athleticsrankingpoints.domain.models.PerformanceUnitsAware
 
 @Composable
