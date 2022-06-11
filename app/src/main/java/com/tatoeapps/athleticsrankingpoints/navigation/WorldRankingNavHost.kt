@@ -76,7 +76,7 @@ fun WorldRankingNavHost(
 
       EventGroupSimulatorView(
         navigateToSavedPerformances = { navigateToPerformances(navHostController) },
-        navigateUp = { navHostController.navigateUp() },
+        navigateUp = { navigateToPerformances(navHostController) },
         eventGroupName = eventGroupName,
         loadPerformanceName = performanceName
       )

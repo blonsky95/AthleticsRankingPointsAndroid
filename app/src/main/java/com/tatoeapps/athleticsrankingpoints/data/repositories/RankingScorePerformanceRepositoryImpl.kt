@@ -12,7 +12,7 @@ class RankingScorePerformanceRepositoryImpl (
 
 
   //TODO move these variables to Cache class so no variables in this Impl
-  var needsCaching = false
+  var needsCaching = true
 
   private fun needsCaching() {
     needsCaching=true
@@ -21,8 +21,10 @@ class RankingScorePerformanceRepositoryImpl (
     needsCaching=false
   }
 
+  //todo fix cache here - not working well
   override suspend fun getAllRankingScorePerformances(): List<RankingScorePerformanceData> {
-   return cache.getAll().takeIf { cache.isLoaded && !needsCaching } ?: (rankingScoreDatabaseDao.getAllPerformances().also {
+//   return cache.getAll().takeIf { cache.isLoaded && !needsCaching } ?: (rankingScoreDatabaseDao.getAllPerformances().also {
+   return (rankingScoreDatabaseDao.getAllPerformances().also {
      cache.saveAll(it)
      finishedCaching()
    })

@@ -1,5 +1,6 @@
 package com.tatoeapps.athleticsrankingpoints.presentation.screens.savedscreen
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,18 +13,16 @@ class PerformancesViewModel(private val performanceRepository: RankingScorePerfo
 
   private var listOfPerformances = MutableLiveData<List<RankingScorePerformanceData>>(listOf())
   fun getListOfPerformances() :LiveData<List<RankingScorePerformanceData>> = listOfPerformances
-//  private var listOfEvents = MutableLiveData(listOf<EventGroup>())
-//  fun getListOfEventGroups() : LiveData<List<EventGroup>> = listOfEvents
-  //Here I do not have a mutable live data because i am grabbing it directly from repo,
-  // any updates and changes should be unidirectional and should always come from the repo
 
   private var searchText = MutableLiveData("")
   fun getSearchText() : LiveData<String> = searchText
 
   init {
-    viewModelScope.launch {
-      listOfPerformances.postValue(performanceRepository.getAllRankingScorePerformances())
-    }
+    getDataOnStart()
+  }
+
+  fun getDataOnStart() = viewModelScope.launch {
+    listOfPerformances.postValue(performanceRepository.getAllRankingScorePerformances())
   }
 
   var shouldResetSearchResults = false

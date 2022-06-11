@@ -40,7 +40,7 @@ fun PerformanceInput(modifier: Modifier = Modifier, customInputColors:CustomInpu
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.Start) {
       for ((index,value) in listOfValues.withIndex()) {
-        ReworkedPerformanceInputUnit(
+        PerformanceInputUnit(
           unitValue = value,
           unit = performanceUnitsAware.listOfPerformanceUnits[index],
           isUnitValueValid = performanceUnitsAware.getListOfValidUnits()[index],
@@ -59,7 +59,7 @@ fun PerformanceInput(modifier: Modifier = Modifier, customInputColors:CustomInpu
 }
 
 @Composable
-fun ReworkedPerformanceInputUnit(
+fun PerformanceInputUnit(
   modifier: Modifier = Modifier,
   unitValue: String,
   unit: PerformanceUnits,
@@ -78,7 +78,8 @@ fun ReworkedPerformanceInputUnit(
       value = unitValue,
       canFillMaxWidth = false,
       keyboardType = KeyboardType.Number,
-      hint = "0",
+//      hint = "0",
+      hint = unit.unitDefaultValue,
       onValueChange = onValueChange
     )
     PerformanceUnit(customInputColors, showShortUnitText, unit)

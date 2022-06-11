@@ -300,7 +300,7 @@ class EventGroupSimulatorViewModel(
 
   private fun getFieldValidation(): Int {
     var errorMessage = -1
-    if (scoreTitle.value?.length ?: 0 <= 2) {
+    if ((scoreTitle.value?.length ?: 0) <= 2) {
       errorMessage = R.string.dialog_error_name_length
     }
     if (!isNumberPerformancesOfMainEventValid()) {

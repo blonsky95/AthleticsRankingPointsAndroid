@@ -25,7 +25,7 @@ enum class PerformanceUnits(@StringRes val unitText: Int, @StringRes val unitTex
 
 fun PerformanceUnits.isValid(text: String):Boolean {
   var isValid = true
-  if (text.toDoubleOrNull() == null) {
+  if (text.toDoubleOrNull() == null && text.isNotEmpty()) {
     isValid=false
   } else {
     text.toDoubleOrNull()?.let {
@@ -39,12 +39,4 @@ fun PerformanceUnits.isValid(text: String):Boolean {
 
 private fun getString(@StringRes resInt: Int, context: Context) = context.getResString(resInt)
 
-
-
-//fun hasError(text:String, units: PerformanceUnits) : Boolean {
-//  if (text.toDoubleOrNull()==null) return true
-//  return text.toDoubleOrNull()?.let {
-//    (PerformanceUnits.unitCanNotContainDecimal(units) && ceil(it) != floor(it) )
-//  }?:true
-//}
 
