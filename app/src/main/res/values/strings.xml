@@ -37,7 +37,7 @@
   <string name="min_number_performances_main_event">Minimum number of main event performances: </string>
   <string name="events_in_group">Events in group: </string>
 
-  <string name="total_score">Total Score: </string>
+  <string name="total_score">Score: </string>
 
   <string name="calculator_performance">Performance</string>
   <string name="calculator_wind">Wind:</string>
