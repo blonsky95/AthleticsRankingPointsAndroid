@@ -60,6 +60,8 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
 
   val isNewEntry = viewModel.isNewEntry
 
+  val navigate by viewModel.navigateToSavedPerformances
+
   LaunchedEffect(placementPointsList,windsPointsList, performancePointsList){
     viewModel.updateRankingScore()
   }
@@ -69,16 +71,21 @@ fun EventGroupSimulatorView(navigateToSavedPerformances: () -> Unit, navigateUp:
       .fillMaxSize(),
     scaffoldState = scaffoldState
   ) {
+    //todo if do the following no snackbars
+    if (navigate) {
+      viewModel.navigateTo(navigateToSavedPerformances)
+    }
     //todo refactor this into composables
     if (showDeleteDialog) {
       DialogWindow(hideDialog = {viewModel.hideDeleteDialog()}, dialogText = stringResource(id = R.string.dialog_confirm_delete)) {
         viewModel.confirmDeletePerformance()
-        navigateToSavedPerformances()
+//        navigateToSavedPerformances()
       }
     }
     if (showNameOverwriteDialog) {
       DialogWindow(hideDialog = {viewModel.hideNameOverwriteDialog()}, dialogText = stringResource(id = R.string.dialog_confirm_overwrite)) {
         viewModel.confirmUpdatePerformance()
+//        navigateToSavedPerformances()
       }
     }
     if (showErrorValidatingDialog.show) {

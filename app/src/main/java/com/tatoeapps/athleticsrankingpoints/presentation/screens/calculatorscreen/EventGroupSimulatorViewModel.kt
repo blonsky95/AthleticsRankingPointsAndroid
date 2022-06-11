@@ -34,6 +34,8 @@ class EventGroupSimulatorViewModel(
   private val competitionCategoryGroupsRepository: CompetitionCategoryGroupRepository,
 ) : ViewModel() {
 
+  var navigateToSavedPerformances = mutableStateOf(false)
+
   var snackBarModel = mutableStateOf(SnackBarModel(false, null))
     private set
 
@@ -229,6 +231,7 @@ class EventGroupSimulatorViewModel(
     val rankingScore = collectClassData()
     rankingScorePerformanceRepository.saveRankingScorePerformance(rankingScore)
     showSnackBar(R.string.toast_saved)
+    navigateToSavedPerformances.value = true
   }
 
   //UPDATING PERFORMANCE
@@ -243,6 +246,7 @@ class EventGroupSimulatorViewModel(
     loadedRankingScorePerformanceData?.let {
       rankingScorePerformanceRepository.updateRankingScorePerformance(collectClassData().copy(scoreId = it.scoreId))
     }
+    navigateToSavedPerformances.value = true
     showSnackBar(R.string.toast_updated)
   }
 
@@ -260,6 +264,7 @@ class EventGroupSimulatorViewModel(
       rankingScorePerformanceRepository.deleteRankingScorePerformance(it)
     }
     showSnackBar(R.string.toast_deleted)
+    navigateToSavedPerformances.value = true
   }
 
   //USER ACTIONS
@@ -399,6 +404,13 @@ class EventGroupSimulatorViewModel(
    */
   private fun getPointsForGivenIndex(indexPerformance: Int, performance: String, event: AthleticsEvent? = null): String {
     return event?.getPointsString(performance = performance) ?: listOfSelectedEvents.value!![indexPerformance].getPointsString(performance = performance)
+  }
+
+  //NAVIGATION
+
+  fun navigateTo(navigation: () -> Unit) {
+    navigateToSavedPerformances.value = false
+    navigation()
   }
 
 }

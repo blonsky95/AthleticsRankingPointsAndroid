@@ -1,6 +1,5 @@
 package com.tatoeapps.athleticsrankingpoints.presentation.screens.savedscreen
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,10 +17,10 @@ class PerformancesViewModel(private val performanceRepository: RankingScorePerfo
   fun getSearchText() : LiveData<String> = searchText
 
   init {
-    getDataOnStart()
+    loadPerformances()
   }
 
-  fun getDataOnStart() = viewModelScope.launch {
+  private fun loadPerformances() = viewModelScope.launch {
     listOfPerformances.postValue(performanceRepository.getAllRankingScorePerformances())
   }
 

@@ -3,11 +3,9 @@ package com.tatoeapps.athleticsrankingpoints.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.tatoeapps.athleticsrankingpoints.WorldRankingTabScreens
 import com.tatoeapps.athleticsrankingpoints.data.entities.RankingScorePerformanceData.Companion.NEW_ENTRY
 import com.tatoeapps.athleticsrankingpoints.domain.models.EventGroup
@@ -27,7 +25,7 @@ import com.tatoeapps.athleticsrankingpoints.presentation.screens.homescreen.Poin
 @Composable
 fun WorldRankingNavHost(
   navHostController: NavHostController,
-  modifier: Modifier
+  modifier: Modifier,
 ) {
 
   NavHost(
@@ -69,14 +67,13 @@ fun WorldRankingNavHost(
         },
       )
     )
-    {
-        entry ->
+    { entry ->
       val eventGroupName = entry.arguments?.getString("eventGroupName").takeUnless { it.isNullOrEmpty() } ?: EventGroup.DEFAULT_GROUP
       val performanceName = entry.arguments?.getString("performanceName").takeUnless { it.isNullOrEmpty() } ?: NEW_ENTRY
 
       EventGroupSimulatorView(
         navigateToSavedPerformances = { navigateToPerformances(navHostController) },
-        navigateUp = { navigateToPerformances(navHostController) },
+        navigateUp = { navHostController.navigateUp() },
         eventGroupName = eventGroupName,
         loadPerformanceName = performanceName
       )
@@ -91,7 +88,7 @@ private fun navigateToPerformances(navHostController: NavHostController) {
 private fun navigateToEventGroupSimulator(
   navController: NavHostController,
   eventGroup: EventGroup,
-  performanceName: String = NEW_ENTRY
+  performanceName: String = NEW_ENTRY,
 ) {
   navController.navigate("EventGroupSimulator/${eventGroup.sName}/$performanceName")
 }
