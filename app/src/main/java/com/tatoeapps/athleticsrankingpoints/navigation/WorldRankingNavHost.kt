@@ -82,7 +82,10 @@ fun WorldRankingNavHost(
 }
 
 private fun navigateToPerformances(navHostController: NavHostController) {
-  navHostController.navigate(WorldRankingTabScreens.Saved.name)
+  navHostController.navigate(WorldRankingTabScreens.Saved.name) {
+    launchSingleTop = true
+    popUpTo(WorldRankingTabScreens.Home.name)
+  }
 }
 
 private fun navigateToEventGroupSimulator(
@@ -90,5 +93,6 @@ private fun navigateToEventGroupSimulator(
   eventGroup: EventGroup,
   performanceName: String = NEW_ENTRY,
 ) {
-  navController.navigate("EventGroupSimulator/${eventGroup.sName}/$performanceName")
+  navController.navigate("EventGroupSimulator/${eventGroup.sName}/$performanceName") {
+  }
 }
