@@ -21,9 +21,9 @@
   <string name="sex_male">Masculino</string>
 
   <!--  Door-->
-  <string name="door_indoor">Pista Cubierta</string>
+  <string name="door_indoor">PC</string>
   <string name="door_indoor_short">(pc)</string>
-  <string name="door_outdoor">Aire Libre</string>
+  <string name="door_outdoor">AL</string>
 
 
   <!--  Screens-->
@@ -37,7 +37,7 @@
   <string name="min_number_performances_main_event">Numero de marcas mínimas en prueba principal: </string>
   <string name="events_in_group">Pruebas en grupo: </string>
 
-  <string name="total_score">Puntuacion: </string>
+  <string name="total_score">Total: </string>
 
   <string name="calculator_performance">Marca</string>
   <string name="calculator_wind">Viento:</string>

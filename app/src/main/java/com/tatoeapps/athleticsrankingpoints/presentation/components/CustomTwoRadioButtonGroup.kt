@@ -12,6 +12,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
@@ -35,7 +36,7 @@ fun CustomTwoRadioButtonGroup(
   verticalPadding: Dp = 4.dp,
   onSelectionChange: (SelectableIdentifiable) -> Unit
 ) {
-  Row (modifier){
+  Row (modifier, verticalAlignment = Alignment.CenterVertically){
     buttonOptions.forEach {
       val buttonBorderColor:Color by animateColorAsState(
         targetValue = if (selectedOption==it) borderColorEnabled else borderColorDisabled,
@@ -52,16 +53,21 @@ fun CustomTwoRadioButtonGroup(
             onSelectionChange(it)
           }
         )) {
-        Text(modifier = Modifier
-          .border(width = 1.dp, color = buttonBorderColor)
-          .background(color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.backgroundComponent else Transparent)
-          .padding(vertical = verticalPadding, horizontal = 2.dp)
-          .fillMaxWidth(),
-          style = AthleticsRankingPointsTheme.typography.text3.bold,
-          color = if (selectedOption==it) AthleticsRankingPointsTheme.colors.textBlack else AthleticsRankingPointsTheme.colors.textWhite,
-          textAlign = TextAlign.Center,
-          text = it.getReadableText(LocalContext.current).uppercase())
+        CategoryButton(buttonBorderColor, selectedOption, it, verticalPadding)
       }
     }
   }
+}
+
+@Composable
+private fun CategoryButton(buttonBorderColor: Color, selectedOption: SelectableIdentifiable, it: SelectableIdentifiable, verticalPadding: Dp) {
+  Text(modifier = Modifier
+    .border(width = 1.dp, color = buttonBorderColor)
+    .background(color = if (selectedOption == it) AthleticsRankingPointsTheme.colors.backgroundComponent else Transparent)
+    .padding(vertical = verticalPadding, horizontal = 2.dp)
+    .fillMaxWidth(),
+    style = AthleticsRankingPointsTheme.typography.text3.bold,
+    color = if (selectedOption == it) AthleticsRankingPointsTheme.colors.textBlack else AthleticsRankingPointsTheme.colors.textWhite,
+    textAlign = TextAlign.Center,
+    text = it.getReadableText(LocalContext.current).uppercase())
 }
