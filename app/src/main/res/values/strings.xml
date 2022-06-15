@@ -31,6 +31,9 @@
   <string name="screen_calculator">Calculator</string>
   <string name="screen_saved">Saved</string>
 
+  <!--  saved-->
+  <string name="saved_performances">Performances</string>
+
   <!--  Calculator-->
   <string name="calculator_subtitle">Select your Event Group</string>
   <string name="min_number_performances">Minimum number of performances: </string>

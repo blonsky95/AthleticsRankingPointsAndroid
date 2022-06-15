@@ -28,8 +28,11 @@
 
   <!--  Screens-->
   <string name="screen_home">Home</string>
-  <string name="screen_calculator">Calculator</string>
-  <string name="screen_saved">Saved</string>
+  <string name="screen_calculator">Calculadora</string>
+  <string name="screen_saved">Guardados</string>
+
+  <!--  saved-->
+  <string name="saved_performances">Puntuaciones</string>
 
   <!--  Calculator-->
   <string name="calculator_subtitle">Selecciona el grupo de pruebas</string>
