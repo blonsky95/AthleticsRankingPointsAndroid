@@ -10,6 +10,11 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.pow
 
+sealed class PointsOutcome(val text: String, val error: String) {
+  class InvalidPoints(text: String) : PointsOutcome(text, "Invalid input")
+  class ValidPoints(text: String) : PointsOutcome(text, "Valid input")
+}
+
 @Entity(tableName = ATHLETICS_EVENTS_TABLE_NAME)
 data class AthleticsEvent (
   val sName:String,
@@ -29,7 +34,7 @@ data class AthleticsEvent (
 
   fun getPointsString(performance:String) : String {
     if (performance.toDoubleOrNull() == null || floor(performance.toDouble()) == 0.0) {
-      return "0"
+      return PointsOutcome.InvalidPoints("0").text
     } else {
       val performanceDouble =
         if (this.sType== AthleticsEventType.type_combined_events) {
@@ -39,12 +44,12 @@ data class AthleticsEvent (
         }
       val pointsInt = getPoints(performanceDouble)
       if (pointsInt>2000) {
-        return "Limit set to 2000p"
+        return PointsOutcome.InvalidPoints("Limit set to 2000p").text
       }
       if (pointsInt<0) {
-        return "0"
+        return PointsOutcome.InvalidPoints("0").text
       }
-      return getPoints(performanceDouble).toString()
+      return PointsOutcome.ValidPoints(getPoints(performanceDouble).toString()).text
     }
   }
 
