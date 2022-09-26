@@ -16,7 +16,36 @@ import androidx.compose.ui.unit.dp
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
-fun CustomInputField(modifier: Modifier = Modifier, customInputColors: CustomInputColors, isUnitValueValid: Boolean = true, value: String, canFillMaxWidth:Boolean = false, minWidthInDp: Dp = 64.dp, keyboardType: KeyboardType = KeyboardType.Text, hint: String = "hint", onValueChange: (String) -> Unit) {
+fun PerformanceInputField(
+  modifier: Modifier = Modifier,
+  unitValue: String,
+  isUnitValueValid: Boolean,
+  colorStyle: InputFieldColourStyle,
+  hint: String = "hint",
+  onValueChange: (String) -> Unit,
+) = CustomInputField(
+  modifier = modifier,
+  customInputColors = colorStyle.colors,
+  isUnitValueValid = isUnitValueValid,
+  value = unitValue,
+  canFillMaxWidth = false,
+  keyboardType = KeyboardType.Number,
+  hint = hint,
+  onValueChange = onValueChange
+)
+
+@Composable
+fun CustomInputField(
+  modifier: Modifier = Modifier,
+  customInputColors: CustomInputColors,
+  isUnitValueValid: Boolean = true,
+  value: String,
+  canFillMaxWidth: Boolean = false,
+  minWidthInDp: Dp = 64.dp,
+  keyboardType: KeyboardType = KeyboardType.Text,
+  hint: String = "hint",
+  onValueChange: (String) -> Unit,
+) {
   Box(modifier = modifier.height(IntrinsicSize.Max)) {
     BasicTextField(
       modifier = Modifier
@@ -29,6 +58,7 @@ fun CustomInputField(modifier: Modifier = Modifier, customInputColors: CustomInp
         .padding(vertical = 4.dp),
       value = value,
       onValueChange = onValueChange,
+      singleLine = true,
       textStyle = AthleticsRankingPointsTheme.typography.text3.copy(color = customInputColors.valueText),
       keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
       cursorBrush = SolidColor(customInputColors.brushColor),

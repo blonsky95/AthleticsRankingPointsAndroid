@@ -81,7 +81,6 @@ fun PerformancesBody(
 
 @Composable
 private fun PerformancesSearchBar(searchText: String, onSearchChange: (String) -> Unit) {
-
   CustomInputField(
     customInputColors = CustomInputColors(),
     value = searchText,
@@ -90,14 +89,6 @@ private fun PerformancesSearchBar(searchText: String, onSearchChange: (String) -
     hint = "Search here...",
     onValueChange = onSearchChange
   )
-//  TextField(
-//    modifier = Modifier
-//      .fillMaxWidth(),
-//    value = searchText,
-//    onValueChange = {
-//      onSearchChange(it)
-//    }
-//  )
 }
 
 @Composable
