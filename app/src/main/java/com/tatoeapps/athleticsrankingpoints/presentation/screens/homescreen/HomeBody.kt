@@ -54,16 +54,9 @@ fun PointLookUpBody() {
     PerformanceInput(
       modifier = Modifier
         .padding(vertical = 4.dp, horizontal = 4.dp),
-      customInputColors =
-      CustomInputColors(
-        unitText = white,
-        valueText = white,
-        valueTextBackground = Color.Transparent,
-        unitTextBackground = lilac,
-        borderColor = lilac.copy(alpha = 0.5f),
-        brushColor = white.copy(alpha = 0.8f)
-      ),
-      performanceUnitsAware = performanceUnitsAware) {newPerformance ->
+      colorStyle = InputFieldColourStyle.HomeInputFieldColour,
+      performanceUnitsAware = performanceUnitsAware
+    ) { newPerformance ->
       viewModel.updatePerformanceUnitsAware(newPerformance)
     }
     Spacer(modifier = Modifier.height(8.dp))
@@ -78,7 +71,7 @@ fun PointLookUpBody() {
       }
     )
     Spacer(modifier = Modifier.height(6.dp))
-    EventListDisplayer(listOfEvents = listOfEvents, selectedEvent= selectedEvent) {
+    EventListDisplayer(listOfEvents = listOfEvents, selectedEvent = selectedEvent) {
       viewModel.newEventSelected(it)
     }
   }

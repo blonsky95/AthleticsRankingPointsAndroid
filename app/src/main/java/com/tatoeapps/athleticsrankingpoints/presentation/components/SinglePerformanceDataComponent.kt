@@ -158,8 +158,8 @@ private fun TitleAndEventAndPoints(
 fun PerformanceWithPoints(performanceUnitsAware: PerformanceUnitsAware, points: String, onPerformanceChange: (PerformanceUnitsAware) -> Unit) {
   MyCustomTwoComposableRow {
     PerformanceInput(
-      customInputColors = CustomInputColors(),
       performanceUnitsAware = performanceUnitsAware,
+      colorStyle = InputFieldColourStyle.CalculatorPerformanceInputFieldColour,
       onPerformanceChange = onPerformanceChange
     )
     MyCustomText(
