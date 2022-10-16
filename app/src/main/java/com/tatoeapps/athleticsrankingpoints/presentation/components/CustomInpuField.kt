@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -49,6 +50,7 @@ fun CustomInputField(
   Box(modifier = modifier.height(IntrinsicSize.Max)) {
     BasicTextField(
       modifier = Modifier
+        .testTag("performanceInput")
         .widthIn(min = minWidthInDp, max = if (canFillMaxWidth) Dp.Unspecified else 96.dp)
         .width(IntrinsicSize.Min)
         .fillMaxHeight()

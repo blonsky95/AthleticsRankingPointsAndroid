@@ -9,6 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -47,7 +48,7 @@ fun PointLookUpBody() {
       text = selectedEvent.sName,
       style = AthleticsRankingPointsTheme.typography.title2.beige,
       modifier = Modifier
-        .align(Start)
+        .align(Start).testTag("selectedEventTextDisplay")
     )
     PointsDisplay(performancePoints)
     Spacer(modifier = Modifier.height(8.dp))

@@ -13,13 +13,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.tatoeapps.athleticsrankingpoints.domain.models.AthleticsEvent
 import com.tatoeapps.athleticsrankingpoints.presentation.theme.AthleticsRankingPointsTheme
 
 @Composable
-fun EventListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<AthleticsEvent>, selectedEvent: AthleticsEvent, onEventChange: (AthleticsEvent) -> Unit) {
+fun EventListDisplayer(modifier: Modifier = Modifier, listOfEvents: List<AthleticsEvent>, selectedEvent: AthleticsEvent, onEventChange: (AthleticsEvent) -> Unit) {
   LazyColumn(modifier = modifier
+    .testTag("eventListDisplayer")
     .background(
       color = AthleticsRankingPointsTheme.colors.backgroundComponent,
       shape = RoundedCornerShape(2.dp))
@@ -33,8 +35,9 @@ fun EventListDisplayer(modifier:Modifier=Modifier, listOfEvents: List<AthleticsE
             onClick = { onEventChange(it) }
           )
           .padding(horizontal = 16.dp)) {
-        val rowItemColor = if (selectedEvent==it) AthleticsRankingPointsTheme.colors.selectedComponent else Color.Transparent
+        val rowItemColor = if (selectedEvent == it) AthleticsRankingPointsTheme.colors.selectedComponent else Color.Transparent
         Text(modifier = Modifier
+          .testTag("listEvent_" + it.sName)
           .fillMaxWidth()
           .background(rowItemColor)
           .padding(start = 4.dp, bottom = 4.dp, top = 4.dp),

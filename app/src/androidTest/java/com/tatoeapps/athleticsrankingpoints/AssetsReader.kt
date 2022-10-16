@@ -11,7 +11,9 @@ class AssetsReader {
 
   @Test
   fun testKlaxonReadingCompetitionCategoryJSONformat() {
-    Klaxon().parse<CompetitionCategoryGroup>(jsonCompetitionCategoryGroupFile)
+    val eventGroupName = "5000m, 3000mSC"
+    val result = Klaxon().parse<CompetitionCategoryGroup>(jsonCompetitionCategoryGroupFile)
+    assert(result?.sName == eventGroupName)
   }
 }
 
